@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  resources :reservations
+  resources :shifts
+  resources :plannings
   root "users#index"
   
   resources :users

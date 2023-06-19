@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  planning: one
+  day: MyString
+  start_hour: MyString
+  end_hour: MyString
+  seats: 1
+
+two:
+  planning: two
+  day: MyString
+  start_hour: MyString
+  end_hour: MyString
+  seats: 1

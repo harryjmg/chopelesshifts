@@ -10,9 +10,38 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_19_055012) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_19_074706) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "plannings", force: :cascade do |t|
+    t.string "name"
+    t.string "type"
+    t.string "state"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "reservations", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "shift_id", null: false
+    t.integer "speed_in_ms"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["shift_id"], name: "index_reservations_on_shift_id"
+    t.index ["user_id"], name: "index_reservations_on_user_id"
+  end
+
+  create_table "shifts", force: :cascade do |t|
+    t.bigint "planning_id", null: false
+    t.string "day"
+    t.string "start_hour"
+    t.string "end_hour"
+    t.integer "seats"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["planning_id"], name: "index_shifts_on_planning_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", null: false
@@ -23,4 +52,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_19_055012) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  add_foreign_key "reservations", "shifts"
+  add_foreign_key "reservations", "users"
+  add_foreign_key "shifts", "plannings"
 end
