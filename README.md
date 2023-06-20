@@ -1,24 +1,6 @@
-# README
+Ce projet est une application d'entraînement conçue pour aider les développeurs à perfectionner leur maîtrise des appels API. L'application fonctionne en fournissant une interface pour la réservation de créneaux.
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Fonctionnalités
+Création, lecture, mise à jour et suppression de réservations.
+Authentification des utilisateurs via email et mot de passe.
+Exposition d'une API RESTful pour interagir avec les données de réservation.
