@@ -1,6 +1,21 @@
 <p style="color: green"><%= notice %></p>
 
 <%= render @planning %>
+  
+<h4>Shifts :</h4>
+<ul>
+  <% @planning.shifts.each do |shift| %>
+    <li>
+      <% if current_user.reserved?(shift) %>
+        <% reservation = current_user.reservations.find_by(shift_id: shift.id) %>
+        <%= button_to "Cancel", reservation, method: :delete, style: "background-color: red" %>
+      <% else %>
+        <%= button_to "Reserve", reservations_url, params: { reservation: { shift_id: shift.id, user_id: current_user.id } }, style: "#{current_user.reserved?(shift) ? 'display: none' : ''}" %>
+      <% end %>
+      <%= link_to "#{shift.day} #{shift.start_hour}-#{shift.end_hour}", shift %>
+    </li>
+  <% end %>
+</ul>
 
 <div>
   <%= link_to "Edit this planning", edit_planning_path(@planning) %> |
