@@ -1,9 +1,11 @@
 Rails.application.routes.draw do
+  get 'pages/home'
+  get 'pages/api'
+  root "pages#home"
+
   resources :reservations
   resources :shifts
   resources :plannings
-  root "users#index"
-  
   resources :users
 
   get 'login' => 'user_sessions#new', :as => :login

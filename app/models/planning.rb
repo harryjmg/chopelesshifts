@@ -4,6 +4,6 @@ class Planning < ApplicationRecord
     has_many :users, through: :reservations
 
     validates :name, presence: true
-    validates :type, presence: true
+    validates :planning_type, presence: true
     validates :state, presence: true
 end

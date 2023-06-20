@@ -15,6 +15,7 @@ gem "bootsnap", require: false
 
 gem "bootstrap"
 gem "sassc-rails"
+gem "hashid-rails", "~> 1.0"
 
 group :development, :test do
   gem "debug", platforms: %i[ mri mingw x64_mingw ]

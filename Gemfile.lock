@@ -103,6 +103,10 @@ GEM
     ffi (1.15.5)
     globalid (1.1.0)
       activesupport (>= 5.0)
+    hashid-rails (1.4.1)
+      activerecord (>= 4.0)
+      hashids (~> 1.0)
+    hashids (1.0.6)
     hashie (5.0.0)
     i18n (1.14.1)
       concurrent-ruby (~> 1.0)
@@ -262,6 +266,7 @@ DEPENDENCIES
   bootstrap
   capybara
   debug
+  hashid-rails (~> 1.0)
   importmap-rails
   jbuilder
   pg (~> 1.1)
