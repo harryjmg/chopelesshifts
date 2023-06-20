@@ -6,4 +6,6 @@ class Planning < ApplicationRecord
     validates :name, presence: true
     validates :planning_type, presence: true
     validates :state, presence: true
+
+    # States : draft, ready, available, closed, archived
 end

@@ -1,4 +1,6 @@
 class Shift < ApplicationRecord
+  include Hashid::Rails
+
   belongs_to :planning
 
   has_many :reservations
