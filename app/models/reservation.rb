@@ -6,4 +6,6 @@ class Reservation < ApplicationRecord
 
   validates :user_id, presence: true
   validates :shift_id, presence: true
+
+  validates :shift_id, uniqueness: { scope: :user_id }
 end
