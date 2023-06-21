@@ -12,6 +12,10 @@ class Api::V1::ShiftsController < Api::V1::ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_planning
-      @planning = Planning.find(params[:planning_id])
+      begin
+        @planning = Planning.find(params[:planning_id])
+      rescue ActiveRecord::RecordNotFound
+        render json: { error: "Planning not found" }, status: :not_found
+      end
     end
 end
