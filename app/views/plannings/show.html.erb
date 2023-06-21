@@ -18,7 +18,6 @@
   <tbody>
     <tr>
       <% @planning.morning_shifts.each do |shift| %>
-        <%= shift.day %>
         <%= render "plannings/shift", shift: shift %>
       <% end %>
     </tr>

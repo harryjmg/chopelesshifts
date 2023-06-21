@@ -1,0 +1,10 @@
+<%= turbo_frame_tag dom_id(shift) do %>
+    <% if user_shifts.include?(shift) %>
+        <% reservation = current_user.reservations.find_by(shift_id: shift.id) %>
+        <%= button_to "Annuler la réservation", reservation, method: :delete, class: "btn btn-warning" %>
+    <% elsif shift.seats_taken < shift.seats %>
+        <%= button_to "Réserver", reservations_url, params: { reservation: { shift_id: shift.id, user_id: current_user.id } }, class: "btn btn-primary" %>
+    <% else %>
+        <%= button_to "Réserver", reservations_url, params: { reservation: { shift_id: shift.id, user_id: current_user.id } }, class: "btn btn-primary", disabled: true %>
+    <% end %>
+<% end %>

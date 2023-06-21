@@ -22,15 +22,17 @@ class ReservationsController < ApplicationController
   # POST /reservations or /reservations.json
   def create
     @reservation = Reservation.new(reservation_params)
+    @shift = @reservation.shift
+    @user_shifts = current_user.shifts.where(planning_id: @shift.planning.id)
 
-    respond_to do |format|
-      if @reservation.save
-        format.html { redirect_to reservation_url(@reservation), notice: "Reservation was successfully created." }
-        format.json { render :show, status: :created, location: @reservation }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @reservation.errors, status: :unprocessable_entity }
-      end
+    if @reservation.save
+      render turbo_stream: turbo_stream.replace(
+        "shift_#{@shift.id}",
+        partial: 'reservations/create',
+        locals: { shift: @shift, reservation: @reservation, user_shifts: @user_shifts }
+      )
+    else
+      puts "ERROR"
     end
   end
 
@@ -49,12 +51,16 @@ class ReservationsController < ApplicationController
 
   # DELETE /reservations/1 or /reservations/1.json
   def destroy
+    @user_shifts = current_user.shifts.where(planning_id: @reservation.shift.planning.id)
+    @shift = @reservation.shift
+    @planning = @shift.planning
     @reservation.destroy
 
-    respond_to do |format|
-      format.html { redirect_to planning_url(@reservation.shift.planning), notice: "Reservation was successfully destroyed." }
-      format.json { head :no_content }
-    end
+    render turbo_stream: turbo_stream.replace(
+      "shift_#{@shift.id}",
+      partial: 'reservations/destroy',
+      locals: { shift: @shift, reservation: @reservation, user_shifts: @user_shifts }
+    )
   end
 
   private
