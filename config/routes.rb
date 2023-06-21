@@ -17,8 +17,8 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :plannings, only: [:index, :show] do
         resources :shifts, only: [:index, :show]
-        resources :reservations, only: [:index, :create, :destroy]
       end
+      resources :reservations, only: [:index, :create, :destroy]
       resources :users, only: [:show]
     end
   end

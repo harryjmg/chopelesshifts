@@ -1,6 +1,5 @@
 class Api::V1::ReservationsController < Api::V1::ApplicationController
   before_action :require_login
-  before_action :set_planning, only: %i[ index ]
 
   # GET /reservations or /reservations.json
   def index
@@ -42,9 +41,5 @@ class Api::V1::ReservationsController < Api::V1::ApplicationController
       params[:reservation][:user_id] = current_user.id
       params[:reservation][:shift_id] = params[:shift_id]
       params.require(:reservation).permit(:user_id, :shift_id)
-    end
-
-    def set_planning
-      @planning = Planning.find(params[:planning_id])
     end
 end
