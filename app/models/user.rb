@@ -18,7 +18,4 @@ class User < ApplicationRecord
     user_logs.create(description: description)
   end
 
-  def reserved?(shift)
-    shifts.include?(shift)
-  end
 end

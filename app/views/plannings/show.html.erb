@@ -3,23 +3,33 @@
 <%= render @planning %>
   
 <h4>Shifts :</h4>
-<ul>
-  <% @planning.shifts.each do |shift| %>
-    <li>
-      <% if current_user.reserved?(shift) %>
-        <% reservation = current_user.reservations.find_by(shift_id: shift.id) %>
-        <%= button_to "Cancel", reservation, method: :delete, style: "background-color: red" %>
-      <% else %>
-        <%= button_to "Reserve", reservations_url, params: { reservation: { shift_id: shift.id, user_id: current_user.id } }, style: "#{current_user.reserved?(shift) ? 'display: none' : ''}" %>
+<table class="table table-sm">
+  <thead>
+    <tr>
+      <th scope="col">Lundi</th>
+      <th scope="col">Mardi</th>
+      <th scope="col">Mercredi</th>
+      <th scope="col">Jeudi</th>
+      <th scope="col">Vendredi</th>
+      <th scope="col">Samedi</th>
+      <th scope="col">Dimanche</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <% @planning.morning_shifts.each do |shift| %>
+        <%= shift.day %>
+        <%= render "plannings/shift", shift: shift %>
       <% end %>
-      <%= link_to "#{shift.day} #{shift.start_hour}-#{shift.end_hour}", shift %>
-    </li>
-  <% end %>
-</ul>
+    </tr>
+    <tr>
+      <% @planning.afternoon_shifts.each do |shift| %>
+        <%= render "plannings/shift", shift: shift %>
+      <% end %>
+    </tr>
+  </tbody>
+</table>
 
 <div>
-  <%= link_to "Edit this planning", edit_planning_path(@planning) %> |
   <%= link_to "Back to plannings", plannings_path %>
-
-  <%= button_to "Destroy this planning", @planning, method: :delete %>
 </div>

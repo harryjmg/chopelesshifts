@@ -3,7 +3,7 @@ class ReservationsController < ApplicationController
 
   # GET /reservations or /reservations.json
   def index
-    @reservations = Reservation.all
+    @reservations = current_user.reservations
   end
 
   # GET /reservations/1 or /reservations/1.json
@@ -52,7 +52,7 @@ class ReservationsController < ApplicationController
     @reservation.destroy
 
     respond_to do |format|
-      format.html { redirect_to reservations_url, notice: "Reservation was successfully destroyed." }
+      format.html { redirect_to planning_url(@reservation.shift.planning), notice: "Reservation was successfully destroyed." }
       format.json { head :no_content }
     end
   end

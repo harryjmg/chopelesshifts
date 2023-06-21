@@ -1,0 +1,35 @@
+<td>
+    <div class="d-grid gap-2">
+        <%= button_tag "#{shift.start_hour}-#{shift.end_hour} (#{shift.seats_taken}/#{shift.seats})", type: "button", class: "btn btn-primary", data: { bs_toggle: "modal", bs_target: "#modal#{shift.id}" } %>
+    </div>
+</td>
+
+<div class="modal fade" id="modal<%= shift.id %>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <%= shift.day.capitalize %> - <%= shift.start_hour %> à <%= shift.end_hour %>
+                <br>
+                <%= shift.seats_taken %> / <%= shift.seats %>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <%= button_to "Réserver", reservations_url, params: { reservation: { shift_id: shift.id, user_id: current_user.id } }, class: "btn btn-primary" %>
+                <% if @user_shifts.include?(shift) %>
+                    <% reservation = current_user.reservations.find_by(shift_id: shift.id) %>
+                    <%= button_to "Annuler la réservation", reservation, method: :delete, class: "btn btn-danger" %>
+                <% end %>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<% if @user_shifts.include?(shift) %>
+    <% reservation = current_user.reservations.find_by(shift_id: shift.id) %>
+    <%= button_to "Annuler la réservation", reservation, method: :delete, class: "btn btn-danger", remote: true %>
+<% end %>
