@@ -6,11 +6,11 @@
 
 <h1><%= @planning.name %></h1>
 
-<table class="table">
+<table class="table shifts">
   <thead>
     <tr>
       <th scope="col">Heures</th>
-      <% Planning.week_days.each_with_index do |day_name, day| %>
+      <% "lundi mardi mercredi jeudi vendredi samedi dimanche".split(" ").each_with_index do |day_name, day| %>
         <th scope="col"><%= day_name %></th> <!-- Affiche le jour de la semaine -->
       <% end %>
     </tr>
@@ -19,7 +19,7 @@
     <% [8, 14].each do |hour| %>
       <tr>
         <td><%= '%02d:00' % hour %></td> <!-- Affiche l'heure -->
-        <% Planning.week_days.each_with_index do |day_name, day| %>
+        <% "lundi mardi mercredi jeudi vendredi samedi dimanche".split(" ").each_with_index do |day_name, day| %>
           <td>
             <% @planning.shifts.where(day: day_name.downcase).each do |shift| %> <!-- Boucle à travers les shifts pour le jour actuel -->
               <% if shift.start_hour.hour == hour %>

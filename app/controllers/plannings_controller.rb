@@ -5,6 +5,8 @@ class PlanningsController < ApplicationController
   # GET /plannings or /plannings.json
   def index
     @plannings = Planning.all
+    @available_plannings = Planning.available_plannings.sort_by(&:order_by_type)
+    @closed_plannings = Planning.closed_plannings
   end
 
   # GET /plannings/1 or /plannings/1.json

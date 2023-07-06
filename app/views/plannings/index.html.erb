@@ -1,16 +1,66 @@
 <p style="color: green"><%= notice %></p>
 
-<h1>Plannings</h1>
+<h1>Les plannings</h1>
 
 <div id="plannings" class="row">
-  <% @plannings.each do |planning| %>
-    <div class="col-sm-4">
-      <div class="card">
-        <div class="card-body">
-          <%= render planning %>
-          <a href="<%= planning_path(planning) %>" class="btn btn-primary">Voir ce planning</a>
+  <% ["permanent", "daily", "weekly"].each do |planning_type| %>
+    <% planning = @available_plannings.find { |p| p.planning_type == planning_type } %>
+    <% if planning %>
+      <div class="col-sm-4">
+        <h3><%= planning_type %></h3>
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Rempli à <%= planning.filling_rate %>%</h5>
+            <p class="card-text">Créneaux obtenus : <%= planning.reservations.where(user_id: current_user.id).count %>/<%= planning.shifts.count %></p>
+            <p class="card-text">
+              <small class="text-body-secondary text-muted">
+                <%= planning.description %>
+              </small>
+            </p>
+            <a href="<%= planning_path(planning) %>" class="btn btn-<%= planning.theme_color %>">Ouvrir</a>
+          </div>
+          <div class="card-footer">
+            <small class="text-body-secondary">
+              <%= planning.state_in_french %> 
+              <% unless "permanent" == planning.planning_type && @available_plannings.first == planning %>
+                il y a <%= time_ago_in_words(planning.published_at) %>
+              <% end %>
+            </small>
+          </div>
         </div>
       </div>
-    </div>
+    <% end %>
   <% end %>
 </div>
+
+<div class="mt-5">
+  <h2>Anciens Plannings</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Type</th>
+        <th scope="col">Nom</th>
+        <th scope="col">Taux de remplissage</th>
+        <th scope="col">Créneaux obtenus</th>
+        <th scope="col">État</th>
+        <th scope="col">Créé le</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @closed_plannings.sort_by(&:order_by_type).each_with_index do |planning, index| %>
+        <tr>
+          <th scope="row"><%= index + 1 %></th>
+          <td><%= planning.planning_type %></td>
+          <td><%= planning.name %></td>
+          <td><%= planning.filling_rate %>%</td>
+          <td><%= planning.reservations.where(user_id: current_user.id).count %>/<%= planning.shifts.count %></td>
+          <td><%= planning.state_in_french %></td>
+          <td><%= planning.created_at.strftime("%d/%m/%Y") %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+

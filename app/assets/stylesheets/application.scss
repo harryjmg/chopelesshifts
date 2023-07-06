@@ -6,68 +6,98 @@
     margin: auto;
 }
 
-.row {
-    display: flex;
-    flex-wrap: wrap;
-}
-
-.col {
-    flex: 1;
-    border: 1px solid #ccc;
-    min-height: 600px; /* Vous pouvez ajuster cela en fonction de vos besoins */
-}
-
-.hour {
-    height: 6.25%; /* 100% / 16 */
-    border-top: 1px solid #ccc;
-    padding: 5px;
-    box-sizing: border-box;
-    font-size: 0.8em;
-    color: #666;
-}
-
-.day {
-    position: relative; /* Position relative pour que les positions absolues des .event soient correctes */
-    height: 100%;
-}
-
-.event {
-    background-color: #d2d2d2;
-    color: black;
-    box-sizing: border-box;
-    padding: 10px;
-    width: 100%;
-    opacity: 0.9;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
-    border-radius: 10px;
-    height: 8em;
-
-    a {
+.shifts {
+    .row {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    
+    .col {
+        flex: 1;
+        border: 1px solid #ccc;
+        min-height: 600px; /* Vous pouvez ajuster cela en fonction de vos besoins */
+    }
+    
+    .hour {
+        height: 6.25%; /* 100% / 16 */
+        border-top: 1px solid #ccc;
+        padding: 5px;
+        box-sizing: border-box;
+        font-size: 0.8em;
+        color: #666;
+    }
+    
+    .day {
+        position: relative; /* Position relative pour que les positions absolues des .event soient correctes */
+        height: 100%;
+    }
+    
+    .event {
+        background-color: #d2d2d2;
+        color: black;
+        box-sizing: border-box;
+        padding: 10px;
+        width: 100%;
+        opacity: 0.9;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+        border-radius: 10px;
+        height: 8em;
+    
+        a {
+            text-decoration: none !important; /* Supprime le soulignement */
+        }
+    
+        &:hover {
+            filter: brightness(1.1);
+        }
+    
+        &.reserved {
+            background-color: #085ed7;
+            color: white;
+        }
+    }
+    
+    td > a {
         text-decoration: none !important; /* Supprime le soulignement */
     }
-
-    &:hover {
-        filter: brightness(1.1);
+    
+    .row > * {
+        padding: 0;
     }
-
-    &.reserved {
-        background-color: #085ed7;
-        color: white;
+    
+    /* Dans votre fichier CSS */
+    .shift {
+        position: relative;
+        /* Vous pouvez ajuster cette valeur si nécessaire */
+        height: 1em; 
     }
 }
 
-td > a {
-    text-decoration: none !important; /* Supprime le soulignement */
+#plannings {
+    text-align: center;
+
+    .card {
+        margin: 2em;
+        border: 1px solid #E4E4E4;
+    }
 }
 
-.row > * {
-    padding: 0;
+.btn {
+    display: block;
+    text-align: center;
+    margin: 5px 16px;
+    border-radius: 5px;
+    font-weight: 700;
+    padding: 12px;
+    font-size: 16px;
+    cursor: pointer;
 }
 
-/* Dans votre fichier CSS */
-.shift {
-    position: relative;
-    /* Vous pouvez ajuster cette valeur si nécessaire */
-    height: 1em; 
-}
+.base-container {
+    margin-top: 4em;
 
+    h1:first-of-type {
+        margin-bottom: 2em;
+        text-align: center;
+    }
+}
