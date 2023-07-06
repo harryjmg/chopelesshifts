@@ -13,6 +13,7 @@ class User < ApplicationRecord
   has_many :shifts, through: :reservations
 
   has_many :user_logs
+  has_many :api_tokens
 
   def create_log(description)
     user_logs.create(description: description)

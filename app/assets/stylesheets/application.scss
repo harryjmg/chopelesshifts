@@ -1,1 +1,73 @@
 @import "bootstrap";
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.col {
+    flex: 1;
+    border: 1px solid #ccc;
+    min-height: 600px; /* Vous pouvez ajuster cela en fonction de vos besoins */
+}
+
+.hour {
+    height: 6.25%; /* 100% / 16 */
+    border-top: 1px solid #ccc;
+    padding: 5px;
+    box-sizing: border-box;
+    font-size: 0.8em;
+    color: #666;
+}
+
+.day {
+    position: relative; /* Position relative pour que les positions absolues des .event soient correctes */
+    height: 100%;
+}
+
+.event {
+    background-color: #d2d2d2;
+    color: black;
+    box-sizing: border-box;
+    padding: 10px;
+    width: 100%;
+    opacity: 0.9;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+    border-radius: 10px;
+    height: 8em;
+
+    a {
+        text-decoration: none !important; /* Supprime le soulignement */
+    }
+
+    &:hover {
+        filter: brightness(1.1);
+    }
+
+    &.reserved {
+        background-color: #085ed7;
+        color: white;
+    }
+}
+
+td > a {
+    text-decoration: none !important; /* Supprime le soulignement */
+}
+
+.row > * {
+    padding: 0;
+}
+
+/* Dans votre fichier CSS */
+.shift {
+    position: relative;
+    /* Vous pouvez ajuster cette valeur si nécessaire */
+    height: 1em; 
+}
+

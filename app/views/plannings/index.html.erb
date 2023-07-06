@@ -2,13 +2,15 @@
 
 <h1>Plannings</h1>
 
-<div id="plannings">
+<div id="plannings" class="row">
   <% @plannings.each do |planning| %>
-    <%= render planning %>
-    <p>
-      <%= link_to "Show this planning", planning %>
-    </p>
+    <div class="col-sm-4">
+      <div class="card">
+        <div class="card-body">
+          <%= render planning %>
+          <a href="<%= planning_path(planning) %>" class="btn btn-primary">Voir ce planning</a>
+        </div>
+      </div>
+    </div>
   <% end %>
 </div>
-
-<%= link_to "New planning", new_planning_path %>

@@ -8,6 +8,7 @@ class ShiftsController < ApplicationController
 
   # GET /shifts/1 or /shifts/1.json
   def show
+    @user_shifts = current_user.shifts.where(planning_id: @shift.planning.id)
   end
 
   # GET /shifts/new

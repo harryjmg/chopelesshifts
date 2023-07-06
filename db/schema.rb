@@ -10,9 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_21_113816) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_05_104908) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "api_tokens", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.text "token", null: false
+    t.boolean "active", default: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_api_tokens_on_user_id"
+  end
 
   create_table "plannings", force: :cascade do |t|
     t.string "name"
@@ -35,8 +44,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_21_113816) do
   create_table "shifts", force: :cascade do |t|
     t.bigint "planning_id", null: false
     t.string "day"
-    t.string "start_hour"
-    t.string "end_hour"
+    t.time "start_hour"
+    t.time "end_hour"
     t.integer "seats"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -61,6 +70,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_21_113816) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  add_foreign_key "api_tokens", "users"
   add_foreign_key "reservations", "shifts"
   add_foreign_key "reservations", "users"
   add_foreign_key "shifts", "plannings"

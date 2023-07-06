@@ -1,6 +1,6 @@
 require "test_helper"
 
-class UserLogsControllerTest < ActionDispatch::IntegrationTest
+class ApiTokenTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

@@ -1,4 +1,4 @@
-class Api::V1::ShiftsController < Api::V1::ApplicationController
+class Api::V1::ShiftsController < Api::V1:AuthenticatedController
   before_action :require_login
   before_action :set_planning, only: %i[ index ]
   before_action :set_shift, only: %i[ show edit update destroy ]

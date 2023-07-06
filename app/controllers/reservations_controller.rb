@@ -1,11 +1,6 @@
 class ReservationsController < ApplicationController
   before_action :set_reservation, only: %i[ show edit update destroy ]
 
-  # GET /reservations or /reservations.json
-  def index
-    @reservations = current_user.reservations
-  end
-
   # GET /reservations/1 or /reservations/1.json
   def show
   end
@@ -15,10 +10,6 @@ class ReservationsController < ApplicationController
     @reservation = Reservation.new
   end
 
-  # GET /reservations/1/edit
-  def edit
-  end
-
   # POST /reservations or /reservations.json
   def create
     @reservation = Reservation.new(reservation_params)
@@ -26,41 +17,21 @@ class ReservationsController < ApplicationController
     @user_shifts = current_user.shifts.where(planning_id: @shift.planning.id)
 
     if @reservation.save
-      render turbo_stream: turbo_stream.replace(
-        "shift_#{@shift.id}",
-        partial: 'reservations/create',
-        locals: { shift: @shift, reservation: @reservation, user_shifts: @user_shifts }
-      )
+      redirect_to shift_url(@shift), notice: "Reservation was successfully created."
     else
-      puts "ERROR"
-    end
-  end
-
-  # PATCH/PUT /reservations/1 or /reservations/1.json
-  def update
-    respond_to do |format|
-      if @reservation.update(reservation_params)
-        format.html { redirect_to reservation_url(@reservation), notice: "Reservation was successfully updated." }
-        format.json { render :show, status: :ok, location: @reservation }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @reservation.errors, status: :unprocessable_entity }
-      end
+      redirect_to shift_url(@shift), notice: "Reservation was not successfully created."
     end
   end
 
   # DELETE /reservations/1 or /reservations/1.json
   def destroy
-    @user_shifts = current_user.shifts.where(planning_id: @reservation.shift.planning.id)
-    @shift = @reservation.shift
-    @planning = @shift.planning
+    shift = @reservation.shift
     @reservation.destroy
 
-    render turbo_stream: turbo_stream.replace(
-      "shift_#{@shift.id}",
-      partial: 'reservations/destroy',
-      locals: { shift: @shift, reservation: @reservation, user_shifts: @user_shifts }
-    )
+    respond_to do |format|
+      format.html { redirect_to shift_url(shift), notice: "Reservation was successfully destroyed." }
+      format.json { head :no_content }
+    end
   end
 
   private

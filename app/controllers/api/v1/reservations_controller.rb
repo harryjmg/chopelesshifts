@@ -1,4 +1,4 @@
-class Api::V1::ReservationsController < Api::V1::ApplicationController
+class Api::V1::ReservationsController < Api::V1::AuthenticatedController
   before_action :require_login
 
   # GET /reservations or /reservations.json

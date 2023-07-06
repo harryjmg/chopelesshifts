@@ -1,10 +1,33 @@
-<p style="color: green"><%= notice %></p>
+<div class="container-sm mt-5">
 
-<%= render @shift %>
+  <h1>Réserver un créneau</h1>
+    <div class="col-lg-12">
+      <% if notice %>
+        <div class="alert alert-success">
+          <%= notice %>
+        </div>
+      <% end %>
 
-<div>
-  <%= link_to "Edit this shift", edit_shift_path(@shift) %> |
-  <%= link_to "Back to planning", planning_path(@shift.planning) %>
+      
 
-  <%= button_to "Destroy this shift", @shift, method: :delete %>
+      <div class="container mt-5">
+        <p>> <%= link_to @shift.planning.name, planning_path(@shift.planning) %></p>
+        
+        <h3><%= @shift.day.capitalize %> - <%= @shift.start_hour.strftime('%Hh') %> à <%= @shift.end_hour.strftime('%Hh') %></h3>
+
+        <p>Places totales : <%= @shift.seats %></p>
+        <p>Places restantes : <%= @shift.seats - @shift.seats_taken %></p>
+        
+        <% if @user_shifts.include?(@shift) %>
+          <% reservation = current_user.reservations.find_by(shift_id: @shift.id) %>
+          <%= button_to "Annuler la réservation", reservation, method: :delete, class: "btn btn-warning" %>
+        <% elsif @shift.seats_taken < @shift.seats %>
+          <%= button_to "Réserver", reservations_url, params: { reservation: { shift_id: @shift.id, user_id: current_user.id } }, class: "btn btn-primary" %>
+        <% else %>
+          <%= button_to "Réserver", reservations_url, params: { reservation: { shift_id: @shift.id, user_id: current_user.id } }, class: "btn btn-primary", disabled: true %>
+        <% end %>
+      </div>
+
+    </div>
+
 </div>

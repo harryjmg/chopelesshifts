@@ -2,10 +2,10 @@
 
 one:
   name: MyString
-  type: 
+  planning_type: 
   state: MyString
 
 two:
   name: MyString
-  type: 
+  planning_type: 
   state: MyString
