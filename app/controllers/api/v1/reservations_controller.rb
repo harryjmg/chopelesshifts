@@ -1,45 +1,52 @@
 class Api::V1::ReservationsController < Api::V1::AuthenticatedController
-  before_action :require_login
+  before_action :set_planning
+  before_action :set_shift, only: [:create, :destroy]
+  before_action :set_reservation, only: [:destroy]
 
-  # GET /reservations or /reservations.json
+  # GET /plannings/:planning_id/reservations
   def index
-    @reservations = current_user.reservations
-    render json: @reservations
+    @reservations = @planning.reservations.where(user: current_user)
+    render json: @reservations.map(&:to_api_json)
   end
 
-  # curl -X POST -H "Content-Type: application/json" \
-  # -d '{"email": "test@test.fr", "password": "Testi", "shift_id": "1"}' \
-  # http://localhost:3000/api/v1/plannings/2/reservations
+  # POST /plannings/:planning_id/shifts/:shift_id/reservations
   def create
-    @reservation = Reservation.new(reservation_params)
+    @reservation = @shift.reservations.build(user: current_user)
 
     if @reservation.save
-      render json: @reservation, status: :created
+      render json: @reservation.to_api_json, status: :created
     else
-      render json: @reservation.errors, status: :unprocessable_entity
+      render json: { errors: @reservation.errors.full_messages }, status: :unprocessable_entity
     end
-
   end
 
-  # curl -X DELETE -H "Content-Type: application/json" \
-  # -d '{"email": "test@test.fr", "password": "Testi"}' \
-  # http://localhost:3000/api/v1/plannings/2/reservations/3
+  # DELETE /plannings/:planning_id/shifts/:shift_id/reservations/:id
   def destroy
-    @reservation = Reservation.find(params[:id])
-    if @reservation.nil?
-      render json: { error: "Reservation not found" }, status: :not_found
+    if @reservation.user == current_user
+      @reservation.destroy
+      render json: { message: "Reservation deleted" }, status: :ok
+    else
+      render json: { error: 'Not Authorized' }, status: :unauthorized
     end
-
-    @reservation.destroy
-
-    render json: @reservation, status: :ok
   end
 
   private
-    # Only allow a list of trusted parameters through.
-    def reservation_params
-      params[:reservation][:user_id] = current_user.id
-      params[:reservation][:shift_id] = params[:shift_id]
-      params.require(:reservation).permit(:user_id, :shift_id)
+
+  def set_planning
+    @planning = Planning.find(params[:planning_id])
+    unless @planning
+      render json: { error: 'Planning not found' }, status: :not_found
     end
+  end
+
+  def set_shift
+    @shift = @planning.shifts.find(params[:shift_id])
+  end
+
+  def set_reservation
+    @reservation = @shift.reservations.find_by(user: current_user)
+    unless @reservation
+      render json: { error: 'Reservation not found' }, status: :not_found
+    end
+  end
 end

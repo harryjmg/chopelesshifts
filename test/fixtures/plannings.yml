@@ -2,10 +2,12 @@
 
 one:
   name: MyString
-  planning_type: 
-  state: MyString
+  planning_type: permanent
+  state: available
+  user: one
 
 two:
   name: MyString
-  planning_type: 
-  state: MyString
+  planning_type: daily
+  state: available
+  user: one

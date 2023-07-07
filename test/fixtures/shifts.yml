@@ -5,11 +5,14 @@ one:
   day: MyString
   start_hour: MyString
   end_hour: MyString
-  seats: 1
+  seats: 10
+  seats_taken: 0
+
 
 two:
   planning: two
   day: MyString
   start_hour: MyString
   end_hour: MyString
-  seats: 1
+  seats: 10
+  seats_taken: 0

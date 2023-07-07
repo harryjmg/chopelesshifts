@@ -4,13 +4,8 @@ class Api::V1::AuthenticatedController < ActionController::API
 
     before_action :authenticate
     rescue_from StandardError, with: :render_error_response
-    rescue_from ActionController::RoutingError, with: :catch_404
 
     attr_reader :current_user, :current_api_token
-
-    def catch_404(e)
-        render json: { error: 'Page not found' }, status: :not_found
-    end
     
     def render_error_response(exception)
         render json: { error: exception.message }, status: :internal_server_error

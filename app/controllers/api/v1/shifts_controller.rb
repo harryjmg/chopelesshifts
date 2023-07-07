@@ -1,21 +1,19 @@
-class Api::V1::ShiftsController < Api::V1:AuthenticatedController
-  before_action :require_login
-  before_action :set_planning, only: %i[ index ]
-  before_action :set_shift, only: %i[ show edit update destroy ]
+class Api::V1::ShiftsController < Api::V1::AuthenticatedController
+  before_action :set_planning
 
-  # curl -X GET "http://localhost:3000/api/v1/plannings/2/shifts?email=test@test.fr&password=Testi"
+  # GET /planning/:planning_id/shifts
   def index
-    @shifts = @planning.shifts
-    render json: @shifts
+    @shifts = @planning.shifts.map(&:to_api_json)
+    render json: @shifts, status: :ok
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_planning
-      begin
-        @planning = Planning.find(params[:planning_id])
-      rescue ActiveRecord::RecordNotFound
-        render json: { error: "Planning not found" }, status: :not_found
-      end
+
+  def set_planning
+    @planning = Planning.find(params[:planning_id])
+    unless @planning
+      render json: { error: 'Planning not found' }, status: :not_found
     end
+  end
+
 end

@@ -10,9 +10,23 @@ class Reservation < ApplicationRecord
   validates :shift_id, uniqueness: { scope: :user_id }
 
   validate :shift_full, on: :create
+  validate :planning_available, on: :create
+  validate :planning_belongs_to_user, on: :create
 
   after_create :add_seat_taken
   after_destroy :remove_seat_taken
+
+  def planning_available
+    if planning.state != "available"
+      errors.add(:base, "This planning is not available")
+    end
+  end
+
+  def planning_belongs_to_user
+    if planning.user != user && planning.planning_type != "weekly"
+      errors.add(:base, "This planning does not belong to you")
+    end
+  end
 
   def add_seat_taken
     shift.update(seats_taken: shift.seats_taken + 1)
@@ -30,5 +44,12 @@ class Reservation < ApplicationRecord
 
   def duration_in_hours
     shift.duration_in_hours
+  end
+
+  def to_api_json
+    {
+      id: id,
+      shift_id: shift.hashid
+    }
   end
 end

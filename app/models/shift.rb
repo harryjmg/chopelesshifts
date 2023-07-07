@@ -19,4 +19,15 @@ class Shift < ApplicationRecord
   def duration_in_hours
     (duration / 60.0 / 60).round(2)
   end
+
+  def to_api_json
+    {
+      id: hashid,
+      day: day,
+      start_hour: start_hour,
+      end_hour: end_hour,
+      seats: seats,
+      seats_taken: seats_taken
+    }
+  end
 end
