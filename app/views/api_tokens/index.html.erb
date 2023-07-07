@@ -1,0 +1,19 @@
+<%= button_to "Generate API Token", api_tokens_path, class: "btn btn-primary mb-3" %>
+
+<div id="api_tokens">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Créé</th>
+                <th scope="col">Token</th>
+                <th scope="col">Status</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% @api_tokens.each do |api_token| %>
+                <%= render partial: "api_tokens/api_token", locals: { api_token: api_token } %>
+            <% end %>
+        </tbody>
+    </table>
+</div>

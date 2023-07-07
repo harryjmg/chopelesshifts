@@ -1,4 +1,5 @@
 class ShiftsController < ApplicationController
+  before_action :require_login
   before_action :set_shift, only: %i[ show edit update destroy ]
 
   # GET /shifts or /shifts.json

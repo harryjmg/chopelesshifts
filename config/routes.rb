@@ -1,13 +1,15 @@
 Rails.application.routes.draw do
   resources :user_logs
+  resources :api_tokens, only: [:index, :create, :update]
+
   get 'pages/home'
   get 'pages/api'
   root "pages#home"
 
-  resources :reservations
-  resources :shifts
-  resources :plannings
-  resources :users
+  resources :reservations, only: [:create, :destroy]
+  resources :shifts, only: [:show]
+  resources :plannings, only: [:index, :show]
+  resources :users, only: [:new, :create, :show, :edit, :update]
 
   get 'login' => 'user_sessions#new', :as => :login
   post 'login' => "user_sessions#create"

@@ -1,5 +1,6 @@
 class PlanningsController < ApplicationController
   before_action :require_login
+  
   # GET /plannings or /plannings.json
   def index
     @permanent_planning = current_user.plannings.where(planning_type: 'permanent', state: 'available').first

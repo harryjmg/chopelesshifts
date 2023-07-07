@@ -1,0 +1,6 @@
+<tr id="<%= dom_id(api_token) %>">
+    <td>il y a <%= time_ago_in_words(api_token.created_at) %></td>
+    <td><%= api_token.token %></td>
+    <td><%= api_token.active ? "Actif" : "Désactivé" %></td>
+    <td><%= button_to "Switch", api_token_path(api_token), method: :patch, class: "" %></td>
+</tr>
