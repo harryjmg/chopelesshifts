@@ -1,8 +1,8 @@
 
-Documentation API pour chopelesshifts.fr
+Documentation API pour shiftheroes.fr
 =======================
 
-Hey, ici se trouve la documentation de l'**API REST** simplifiée de chopelesshifts.fr.
+Hey, ici se trouve la documentation de l'**API REST** simplifiée de shiftheroes.fr.
 
 
 ### Authentification
@@ -16,7 +16,7 @@ Toutes les requêtes de l'API doivent être authentifiées à l'aide du token d'
   - Endpoint: `GET /api/v1/plannings`
   - Requête:
     ```
-    curl -X GET "http://localhost:3000/api/v1/plannings" -H "Authorization: Bearer YOUR_API_TOKEN"
+    curl -X GET "https://shiftheroes.fr/api/v1/plannings" -H "Authorization: Bearer YOUR_API_TOKEN"
     ```
   - Réponse:
     ```json
@@ -47,7 +47,7 @@ Toutes les requêtes de l'API doivent être authentifiées à l'aide du token d'
   - Endpoint: `GET /api/v1/plannings/:planning_id`
   - Requête:
     ```
-    curl -X GET "http://localhost:3000/api/v1/plannings/:planning_id" -H "Authorization: Bearer YOUR_API_TOKEN"
+    curl -X GET "https://shiftheroes.fr/api/v1/plannings/:planning_id" -H "Authorization: Bearer YOUR_API_TOKEN"
     ```
   - Réponse:
     ```json
@@ -67,7 +67,7 @@ Toutes les requêtes de l'API doivent être authentifiées à l'aide du token d'
   - Endpoint: `GET /api/v1/plannings/:planning_id/shifts`
   - Requête:
     ```
-    curl -X GET "http://localhost:3000/api/v1/plannings/:planning_id/shifts" -H "Authorization: Bearer YOUR_API_TOKEN"
+    curl -X GET "https://shiftheroes.fr/api/v1/plannings/:planning_id/shifts" -H "Authorization: Bearer YOUR_API_TOKEN"
     ```
   - Réponse:
     ```json
@@ -99,7 +99,7 @@ Toutes les requêtes de l'API doivent être authentifiées à l'aide du token d'
   - Endpoint: `GET /api/v1/plannings/:planning_id/reservations`
   - Requête:
     ```
-    curl -X GET "http://localhost:3000/api/v1/plannings/:planning_id/reservations" -H "Authorization: Bearer YOUR_API_TOKEN"
+    curl -X GET "https://shiftheroes.fr/api/v1/plannings/:planning_id/reservations" -H "Authorization: Bearer YOUR_API_TOKEN"
     ```
   - Réponse:
     ```json
@@ -125,7 +125,7 @@ Toutes les requêtes de l'API doivent être authentifiées à l'aide du token d'
   - Endpoint: `POST /api/v1/plannings/:planning_id/shifts/:shift_id/reservations`
   - Requête:
     ```
-    curl -X POST "http://localhost:3000/api/v1/plannings/:planning_id/shifts/:shift_id/reservations" -H "Authorization: Bearer YOUR_API_TOKEN"
+    curl -X POST "https://shiftheroes.fr/api/v1/plannings/:planning_id/shifts/:shift_id/reservations" -H "Authorization: Bearer YOUR_API_TOKEN"
     ```
   - Réponse: La réservation est créée avec succès.
 
@@ -134,7 +134,7 @@ Toutes les requêtes de l'API doivent être authentifiées à l'aide du token d'
   - Endpoint: `DELETE /api/v1/plannings/:planning_id/shifts/:shift_id/reservations/:reservation_id`
   - Requête:
     ```
-    curl -X DELETE "http://localhost:3000/api/v1/plannings/:planning_id/shifts/:shift_id/reservations/:reservation_id" -H "Authorization: Bearer YOUR_API_TOKEN"
+    curl -X DELETE "https://shiftheroes.fr/api/v1/plannings/:planning_id/shifts/:shift_id/reservations/:reservation_id" -H "Authorization: Bearer YOUR_API_TOKEN"
     ```
   - Réponse: La réservation est supprimée avec succès.
 
