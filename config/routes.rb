@@ -24,7 +24,6 @@ Rails.application.routes.draw do
           end
           resources :reservations, only: [:index]
         end
-        resources :users, only: [:show]
       end
     end
   end
