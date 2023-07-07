@@ -2,7 +2,7 @@ namespace :planning do
     desc "Create, publish and simulate human users by progressively filling up planning slots"
 
     task daily: :environment do
-        create_and_fill_planning('daily', 180, 15, 1, 0.01)  # Sleep 1 second between each fill, and fill 1% of remaining slots each time
+        User.all.each { |user| create_daily_planning(user) }
     end
 
     task weekly: :environment do
@@ -11,9 +11,18 @@ namespace :planning do
 
     task clean: :environment do
         # Archive plannings older than 1 month
-        puts "Archiving plannings older than 1 month..."
-        Planning.where("published_at < ?", 1.month.ago).update_all(state: 'archived')
+        puts "Archiving plannings older than 3 month..."
+        Planning.where("published_at < ?", 3.month.ago).where(planning_type: 'weekly').update_all(state: 'archived')
         puts "Done."
+    end
+
+    def create_daily_planning(user)
+        puts "Starting task to create daily planning for user #{user.id}."
+        
+        user.plannings.where(planning_type: 'daily', state: 'available').update_all(state: 'closed')
+
+        planning = Planning.create_planning('daily', user)
+        planning.publish
     end
 
     def create_and_fill_planning(type, times_to_fill, sleep_before_fill, sleep_between_fill, percent_to_fill)
@@ -36,6 +45,7 @@ namespace :planning do
             fill_shifts(planning, percent_to_fill)
             sleep sleep_between_fill
         end
+        puts ""
 
         puts "Filling all remaining shifts."
         full_all_shifts(planning)
@@ -46,7 +56,7 @@ namespace :planning do
     def fill_shifts(planning, percent_to_fill)
         available_shifts = planning.shifts.where("seats_taken < seats")
 
-        num_slots_to_fill = (available_shifts.sum(:seats) * percent_to_fill).round
+        num_slots_to_fill = (available_shifts.sum(:seats) * percent_to_fill).ceil
         shifts_to_reserve = available_shifts.sample(num_slots_to_fill)
 
         shifts_to_reserve.each do |shift|
@@ -54,7 +64,6 @@ namespace :planning do
             print "."
             shift.update(seats_taken: shift.seats_taken + 1)
         end
-        puts ""
     end
 
     def full_all_shifts(planning)

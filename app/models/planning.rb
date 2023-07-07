@@ -1,8 +1,10 @@
 class Planning < ApplicationRecord
     include Hashid::Rails
 
-    has_many :shifts
-    has_many :reservations, through: :shifts
+    belongs_to :user, optional: true
+
+    has_many :shifts, dependent: :destroy
+    has_many :reservations, through: :shifts, dependent: :destroy
     has_many :users, through: :reservations
 
     validates :name, presence: true
@@ -68,9 +70,9 @@ class Planning < ApplicationRecord
         end
     end
 
-    def self.create_planning(type)
+    def self.create_planning(type, user=nil)
         name = "Planning #{type}"
-        planning = Planning.create!(name: name, planning_type: type, state: "draft")
+        planning = Planning.create!(name: name, planning_type: type, state: "draft", user: user)
         Planning::DAYS.each do |day|
             Planning.last.shifts.create!(day: day, start_hour: "08:00", end_hour: "14:00", seats: rand(10..15))
             Planning.last.shifts.create!(day: day, start_hour: "14:00", end_hour: "21:00", seats: rand(3..8))
