@@ -33,8 +33,8 @@
     }
     
     .event {
-        background-color: #d2d2d2;
-        color: black;
+        background-color: #c4decb;
+        color: #366d56;
         box-sizing: border-box;
         padding: 10px;
         width: 100%;
@@ -52,8 +52,13 @@
         }
     
         &.reserved {
-            background-color: #085ed7;
-            color: white;
+            background-color: #cedef7;
+            color: #2b6edb;
+        }
+
+        &.full {
+            background-color: #f5dfdf;
+            color: #e85050;
         }
     }
     

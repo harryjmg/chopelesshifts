@@ -6,7 +6,7 @@ class PlanningsController < ApplicationController
   def index
     @plannings = Planning.all
     @available_plannings = Planning.available_plannings.sort_by(&:order_by_type)
-    @closed_plannings = Planning.closed_plannings
+    @closed_plannings = Planning.closed_plannings.sort_by(&:published_at).reverse
   end
 
   # GET /plannings/1 or /plannings/1.json

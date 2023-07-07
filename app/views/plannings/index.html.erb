@@ -11,7 +11,11 @@
         <div class="card">
           <div class="card-body">
             <h5 class="card-title">Rempli à <%= planning.filling_rate %>%</h5>
-            <p class="card-text">Créneaux obtenus : <%= planning.reservations.where(user_id: current_user.id).count %>/<%= planning.shifts.count %></p>
+            <p class="card-text">
+              Créneaux obtenus : <%= planning.reservations.where(user_id: current_user.id).count %>/<%= planning.shifts.count %>
+              <br>
+              Revenus estimés : <%= planning.hourly_rate > 0 ? number_to_currency(planning.earnings(current_user), unit: "€") : "–" %>
+            </p>
             <p class="card-text">
               <small class="text-body-secondary text-muted">
                 <%= planning.description %>
@@ -33,30 +37,28 @@
   <% end %>
 </div>
 
-<div class="mt-5">
+<div class="container-sm mt-5">
   <h2>Anciens Plannings</h2>
-  <table class="table">
+  <table class="table table-striped">
     <thead>
       <tr>
         <th scope="col">#</th>
         <th scope="col">Type</th>
-        <th scope="col">Nom</th>
-        <th scope="col">Taux de remplissage</th>
+        <th scope="col">Publié le</th>
         <th scope="col">Créneaux obtenus</th>
-        <th scope="col">État</th>
-        <th scope="col">Créé le</th>
+        <th scope="col">Revenus obtenus</th>  <!-- Nouvelle colonne -->
       </tr>
     </thead>
     <tbody>
-      <% @closed_plannings.sort_by(&:order_by_type).each_with_index do |planning, index| %>
+      <% @closed_plannings.each_with_index do |planning, index| %>
         <tr>
           <th scope="row"><%= index + 1 %></th>
           <td><%= planning.planning_type %></td>
-          <td><%= planning.name %></td>
-          <td><%= planning.filling_rate %>%</td>
+          <td><%= planning.published_at.strftime("%d/%m/%Y") %> - Il y a <%= time_ago_in_words(planning.published_at) %></td>
           <td><%= planning.reservations.where(user_id: current_user.id).count %>/<%= planning.shifts.count %></td>
-          <td><%= planning.state_in_french %></td>
-          <td><%= planning.created_at.strftime("%d/%m/%Y") %></td>
+          <td>
+            <%= planning.hourly_rate > 0 ? number_to_currency(planning.earnings(current_user), unit: "€") : "–" %>
+          </td>
         </tr>
       <% end %>
     </tbody>

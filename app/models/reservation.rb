@@ -27,4 +27,8 @@ class Reservation < ApplicationRecord
       errors.add(:base, "This shift is full")
     end
   end
+
+  def duration_in_hours
+    shift.duration_in_hours
+  end
 end

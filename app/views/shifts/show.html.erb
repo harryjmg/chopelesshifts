@@ -11,7 +11,7 @@
       
 
       <div class="container mt-5">
-        <p>> <%= link_to @shift.planning.name, planning_path(@shift.planning) %></p>
+        <p> <%= link_to "Retour sur le planning", planning_path(@shift.planning) %></p>
         
         <h3><%= @shift.day.capitalize %> - <%= @shift.start_hour.strftime('%Hh') %> à <%= @shift.end_hour.strftime('%Hh') %></h3>
 
