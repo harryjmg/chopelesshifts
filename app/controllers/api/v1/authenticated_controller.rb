@@ -1,15 +1,12 @@
-class Api::V1::AuthenticatedController < ActionController::API
-    include ActionController::HttpAuthentication::Token::ControllerMethods
-    include ActionController::HttpAuthentication::Basic::ControllerMethods
+class Api::V1::AuthenticatedController < ActionController::Base
+    rescue_from ActiveRecord::RecordNotFound, with: :handle_not_found
+    protect_from_forgery with: :null_session
 
     before_action :authenticate
-    rescue_from StandardError, with: :render_error_response
+    before_action :check_api_limit
+    before_action :log_api_request
 
     attr_reader :current_user, :current_api_token
-    
-    def render_error_response(exception)
-        render json: { error: exception.message }, status: :internal_server_error
-    end
     
     def authenticate
         authenticate_user_with_token || handle_bad_authentication
@@ -24,8 +21,21 @@ class Api::V1::AuthenticatedController < ActionController::API
         end
     end
 
+    def check_api_limit
+        if current_user.api_limit_exceeded?
+            render json: { message: "API limit exceeded" }, status: :too_many_requests
+        end
+    end
+
     def handle_bad_authentication
         render json: { message: "Bad credentials" }, status: :unauthorized
     end
 
+    def handle_not_found
+        render json: { message: "Not found" }, status: :not_found
+    end
+
+    def log_api_request
+        current_user&.api_requests&.create!(path: request.path, method: request.method)
+    end
 end

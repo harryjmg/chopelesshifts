@@ -14,10 +14,21 @@ class User < ApplicationRecord
 
   has_many :user_logs, dependent: :destroy
   has_many :api_tokens, dependent: :destroy
+  has_many :api_requests, dependent: :destroy
 
   has_many :plannings, class_name: "Planning", dependent: :destroy
 
   after_create :create_permanent_planning
+
+  MAX_API_REQUESTS_PER_10_MINUTE = 300
+
+  def api_requests_within_last_10_minutes
+    api_requests.where("created_at > ?", 10.minutes.ago).count
+  end
+
+  def api_limit_exceeded?
+    api_requests_within_last_10_minutes >= MAX_API_REQUESTS_PER_10_MINUTE
+  end
 
   def create_log(description)
     user_logs.create(description: description)
