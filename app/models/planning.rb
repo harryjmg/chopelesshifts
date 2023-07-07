@@ -1,4 +1,6 @@
 class Planning < ApplicationRecord
+    include Hashid::Rails
+
     has_many :shifts
     has_many :reservations, through: :shifts
     has_many :users, through: :reservations

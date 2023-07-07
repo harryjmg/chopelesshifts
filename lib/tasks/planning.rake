@@ -9,6 +9,13 @@ namespace :planning do
         create_and_fill_planning('weekly', 60, 5, 1, 0.03)  # Sleep 1 second between each fill, and fill 3% of remaining slots each time
     end
 
+    task clean: :environment do
+        # Archive plannings older than 1 month
+        puts "Archiving plannings older than 1 month..."
+        Planning.where("published_at < ?", 1.month.ago).update_all(state: 'archived')
+        puts "Done."
+    end
+
     def create_and_fill_planning(type, times_to_fill, sleep_before_fill, sleep_between_fill, percent_to_fill)
         puts "Starting task to create and fill #{type} planning."
 

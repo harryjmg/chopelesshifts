@@ -16,6 +16,9 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       defaults format: :json do
+        # Unmatched routes to catch_404 method in API::V1::AuthenticatdController
+        match '*unmatched_route', to: 'authenticated#catch_404', via: :all
+
         resources :plannings, only: [:index, :show] do
           resources :shifts, only: [:index, :show]
         end
