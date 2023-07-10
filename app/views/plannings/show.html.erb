@@ -1,44 +1,57 @@
-<p style="color: green"><%= notice %></p>
+<%= render "shared/navbar" %>
 
-<div>
-  <%= link_to "> Retour aux plannings", plannings_path %>
+<div class="container-md">
+    <div class="row justify-content-center text-center mt-5 mb-3">
+        <div class="col-lg-8">
+            <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3">Planning de semaine n°<%= @planning.published_at.strftime("%W") %></h1>
+            <p class="lead">
+              Publié il y a <%= distance_of_time_in_words(Time.now, @planning.published_at) %>
+            </p>
+        </div>
+    </div>
 </div>
 
-<p class="text-center"><%= @planning.description %></p>
-<p class="text-center">Publié le <%= @planning.created_at.strftime("%d/%m/%Y à %H:%M") %></p>
-<h1><%= @planning.planning_type.capitalize %></h1>
+<p style="color: green"><%= notice %></p>
 
-<table class="table shifts">
-  <thead style="text-align: center; text-transform: capitalize;">
-    <tr>
-      <th scope="col">Heures</th>
-      <% "lundi mardi mercredi jeudi vendredi samedi dimanche".split(" ").each_with_index do |day_name, day| %>
-        <th scope="col"><%= day_name %></th> <!-- Affiche le jour de la semaine -->
-      <% end %>
-    </tr>
-  </thead>
-  <tbody>
-    <% [8, 14].each do |hour| %>
+<div class="container-md mb-5">
+  <table class="table shifts">
+    <thead style="text-align: center; text-transform: capitalize;">
       <tr>
-        <td><%= '%02d:00' % hour %></td> <!-- Affiche l'heure -->
+        <th scope="col"></th>
         <% "lundi mardi mercredi jeudi vendredi samedi dimanche".split(" ").each_with_index do |day_name, day| %>
-          <td>
-            <% @planning.shifts.where(day: day_name.downcase).each do |shift| %> <!-- Boucle à travers les shifts pour le jour actuel -->
-              <% if shift.start_hour.hour == hour %>
-                <%= link_to shift do %> <!-- Lien vers le shift -->
-                  <div class="event <%= 'reserved' if current_user.shifts.include?(shift) %> <%= 'full' if shift.seats_taken == shift.seats %>">
-                    <%= shift.start_hour.strftime("%H:%M") %> - <%= shift.end_hour.strftime("%H:%M") %>
-                    <div>
-                      Places: <%= shift.seats_taken %> / <%= shift.seats %>
-                    </div>
-                  </div>
-                <% end %>
-              <% end %>
-            <% end %>
-          </td>
+          <th scope="col"><%= day_name %></th> <!-- Affiche le jour de la semaine -->
         <% end %>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      <% [8, 14].each do |hour| %>
+        <tr>
+          <td><%= '%02d:00' % hour %></td> <!-- Affiche l'heure -->
+          <% "lundi mardi mercredi jeudi vendredi samedi dimanche".split(" ").each_with_index do |day_name, day| %>
+            <td>
+              <% @planning.shifts.where(day: day_name.downcase).each do |shift| %> <!-- Boucle à travers les shifts pour le jour actuel -->
+                <% if shift.start_hour.hour == hour %>
+                  <%= link_to shift do %> <!-- Lien vers le shift -->
+                    <div class="event <%= 'reserved' if current_user.shifts.include?(shift) %> <%= 'full' if shift.seats_taken == shift.seats %>">
+                      <%= shift.start_hour.strftime("%H:%M") %> - <%= shift.end_hour.strftime("%H:%M") %>
+                      <div>
+                        Places: <%= shift.seats_taken %> / <%= shift.seats %>
+                      </div>
+                    </div>
+                  <% end %>
+                <% end %>
+              <% end %>
+            </td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+
+</div>
+
+<div class="container-md text-center">
+  <p><%= link_to "Retour aux plannings", plannings_path  %></p>
+</div>
 

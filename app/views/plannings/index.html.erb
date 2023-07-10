@@ -1,5 +1,7 @@
 <%= render "shared/navbar" %>
 
+<p style="color: green"><%= notice %></p>
+
 <div class="container-md">
   <div class="row justify-content-center text-center mt-5 mb-3">
       <div class="col-lg-8">
@@ -38,8 +40,6 @@
     </div>
   </div>
 </div>
-
-<p style="color: green"><%= notice %></p>
 
 <div class="product-boxes">
   <% ["permanent", "daily"].each do |planning_type| %>
