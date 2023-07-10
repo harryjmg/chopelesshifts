@@ -1,12 +1,12 @@
 Rails.application.routes.draw do
+  root "pages#home"
+  
   resources :user_logs
   resources :api_tokens, only: [:index, :create, :update]
 
   get 'pages/home'
   get 'pages/api', as: :api
   get 'pages/instructions', as: :instructions
-  get 'pages/dashboard'
-  root "pages#home"
 
   resources :reservations, only: [:create, :destroy]
   resources :shifts, only: [:show]

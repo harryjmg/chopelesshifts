@@ -5,6 +5,8 @@ class PagesController < ApplicationController
   
   def dashboard; end
 
+  def instructions; end
+
   def api
   end
 end

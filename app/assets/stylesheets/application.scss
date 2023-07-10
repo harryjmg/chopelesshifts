@@ -1,5 +1,6 @@
 @import "bootstrap";
 @import "skool_swag";
+@import "font-awesome";
 
 .container {
     width: 100%;
@@ -117,6 +118,16 @@
     -z-animation: rainbow 8s ease infinite;
     -o-animation: rainbow 8s ease infinite;
     animation: rainbow 8s ease infinite;
+}
+
+
+.bg-simple{
+    background: #d9dfe7;
+    color: #3c3d40;
+    &:hover {
+        background: #c8cdd4;
+        color: #3c3d40;
+    }
 }
 
 @-webkit-keyframes rainbow {

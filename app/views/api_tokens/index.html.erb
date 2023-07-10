@@ -1,19 +1,33 @@
-<%= button_to "Generate API Token", api_tokens_path, class: "btn btn-primary mb-3" %>
+<%= render "shared/navbar" %>
 
-<div id="api_tokens">
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th scope="col">Créé</th>
-                <th scope="col">Token</th>
-                <th scope="col">Status</th>
-                <th scope="col">Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            <% @api_tokens.each do |api_token| %>
-                <%= render partial: "api_tokens/api_token", locals: { api_token: api_token } %>
-            <% end %>
-        </tbody>
-    </table>
+<div class="container-md">
+    <div class="row justify-content-center text-center mt-5 mb-3">
+        <div class="col-lg-8">
+            <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3">Tes tokens API</h1>
+            <p class="lead">Génère un token API pour accéder à l'API de la plateforme.</p>
+        </div>
+    </div>
 </div>
+
+<div class="container-md" style="max-width: 800px;">
+    <%= button_to "Generate API Token", api_tokens_path, class: "btn btn-primary mb-3" %>
+
+    <div id="api_tokens">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Créé</th>
+                    <th scope="col">Token</th>
+                    <th scope="col">Statut</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% @api_tokens.each do |api_token| %>
+                    <%= render partial: "api_tokens/api_token", locals: { api_token: api_token } %>
+                <% end %>
+            </tbody>
+        </table>
+    </div>
+</div>
+

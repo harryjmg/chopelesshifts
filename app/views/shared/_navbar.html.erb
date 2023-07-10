@@ -1,31 +1,13 @@
-<nav class="navbar navbar-expand-md navbar-light bg-light" aria-label="Fourth navbar example">
-  <div class="container">
-    <%= link_to "Shift Heroes", root_path, class: "navbar-brand" %>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="navbarsExample04">
-      <ul class="navbar-nav me-auto mb-2 mb-md-0">
-        <% if current_user %>
-          <li class="nav-item">
-            <%= link_to "Plannings", plannings_path, class: "nav-link" %>
-          </li>
-          <li class="nav-item">
-            <%= link_to "Éditer Profil", edit_user_path(current_user.id), class: "nav-link" %>
-          </li>
-          <li class="nav-item">
-            <%= link_to "Se déconnecter", :logout, class: "nav-link", data: { turbo_method: :post } %>
-          </li>
-        <% else %>
-          <li class="nav-item">
-            <%= link_to "Inscription", new_user_path, class: "nav-link" %>
-          </li>
-          <li class="nav-item">
-            <%= link_to "Connexion", :login, class: "nav-link" %>
-          </li>
-        <% end %>
-      </ul>
+<div class="container-md" style="max-width: 1140px;">
+  <div class="row justify-content-center my-5">
+    <div class="col-auto">
+        <%= button_active_to "Nos Plannings", plannings_path, method: :get, class: "btn btn-outline-secondary btn-sm px-4 me-md-2" %>
+    </div>
+    <div class="col-auto">
+        <%= button_active_to "Documentation API", api_path, method: :get, class: "btn btn-outline-secondary btn-sm px-4 me-md-2" %>
+    </div>
+    <div class="col-auto">
+        <%= button_active_to "Instructions vidéos de Harry", instructions_path, method: :get, class: "btn btn-outline-secondary btn-sm px-4" %>
     </div>
   </div>
-</nav>
+</div>

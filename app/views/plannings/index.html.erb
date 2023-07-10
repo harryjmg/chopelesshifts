@@ -1,16 +1,7 @@
-<div class="container-md" style="max-width: 1140px;">
-  <div class="row justify-content-center my-5">
-    <div class="col-auto">
-        <%= button_active_to "Nos Plannings", plannings_path, method: :get, class: "btn btn-outline-secondary btn-sm px-4 me-md-2" %>
-    </div>
-    <div class="col-auto">
-        <%= button_active_to "Documentation API", login_path, method: :get, class: "btn btn-outline-secondary btn-sm px-4 me-md-2" %>
-    </div>
-    <div class="col-auto">
-        <%= button_active_to "Instructions vidéos de Harry", new_user_path, method: :get, class: "btn btn-outline-secondary btn-sm px-4" %>
-    </div>
-  </div>
-  <div class="row justify-content-center text-center my-5">
+<%= render "shared/navbar" %>
+
+<div class="container-md">
+  <div class="row justify-content-center text-center mt-5 mb-3">
       <div class="col-lg-8">
           <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3">Mode réel</h1>
           <p class="lead">Tous les utilisateurs sont en compétition. Que le plus rapide gagne.</p>
@@ -18,30 +9,29 @@
   </div>
 </div>
 
-<% planning = @available_plannings.find { |p| p.planning_type == "weekly" } %>
-<% if planning %>
+<% if @weekly_planning %>
   <div class="product-boxes">
     <span class="product-box" style="margin: 0 auto; margin: 0 auto;">
-      <div class="icon uplevel">
-        <span class="text">n°<%= planning.published_at.strftime('%U') %></span>
+      <div class="icon weekly">
+        <span class="text">n°<%= @weekly_planning.published_at.strftime('%U') %></span>
       </div>
       <div class="details">
-        <span class="title"><%= planning.seats_left %> places restantes</span>
+        <span class="title"><%= @weekly_planning.seats_left %> places restantes</span>
         <p class="text-muted">
-          Publié il y a <%= time_ago_in_words(planning.published_at) %><br>
+          Publié il y a <%= time_ago_in_words(@weekly_planning.published_at) %><br>
           Prochain : <span id="weeklyCountdown"></span>
         </p>
         <p class="text-muted">
-          Créneaux obtenus : <%= user_slots = planning.reservations.where(user_id: current_user.id).count %> / 14 <%= evaluate_performance(user_slots) %>        </p>
+          Créneaux obtenus : <%= user_slots = @weekly_planning.reservations.where(user_id: current_user.id).count %> / 14 <%= evaluate_performance(user_slots) %>        </p>
         </p>
       </div>
-      <a class="button-block bg-rainbow" href="<%= planning_path(planning) %>">OUVRIR LE PLANNING</a>
+      <a class="button-block bg-rainbow" href="<%= planning_path(@weekly_planning) %>">OUVRIR LE PLANNING</a>
     </span>
   </div>
 <% end %>
 
 <div class="container-md">
-  <div class="row justify-content-center text-center my-5">
+  <div class="row justify-content-center text-center mt-5 mb-3">
     <div class="col-lg-8">
       <h2 class="display-6 fw-bold text-body-emphasis lh-1 mb-3">Mode entraînement</h2>
       <p class="lead">Ces deux plannings ne sont accessible qu'à toi.</p>
@@ -56,34 +46,49 @@
     <% planning = @available_plannings.find { |p| p.planning_type == planning_type } %>
     <% if planning %>
       <span class="product-box">
-        <div class="icon uplevel">
-          <span class="text"><%= planning_type.capitalize %></span>
+        <div class="icon weekly">
+          <% if planning.planning_type == "permanent" %>
+            <i class="fa-solid fa-infinity"></i>
+          <% else %>
+            <i class="fa-solid fa-calendar-day"></i>
+          <% end %>
         </div>
         <div class="details">
           <span class="title"><%= planning.shifts.count - planning.reservations.count %> places restantes</span>
           <p class="text-muted">
             Publié il y a <%= time_ago_in_words(planning.published_at) %><br>
-            Prochain dans : <span id="dailyCountdown"></span>
+            <% if planning.planning_type == "daily" %>
+              Prochain dans : <span id="dailyCountdown"></span>
+            <% else %>
+              Toujours disponible
+            <% end %>
           </p>
           <p class="text-muted">
-            Créneaux obtenus : <%= user_slots = planning.reservations.where(user_id: current_user.id).count %> / <%= planning.shifts.count %> <%= evaluate_performance(user_slots) %>
+            Créneaux obtenus : <%= user_slots = planning.reservations.where(user_id: current_user.id).count %> / <%= planning.shifts.count %> <%= evaluate_performance(user_slots) if planning.planning_type == "weekly" %>
           </p>
-          <a class="button-block bg-rainbow" href="<%= planning_path(planning) %>">Voir le planning</a>
         </div>
+        <a class="button-block bg-simple" href="<%= planning_path(planning) %>">OUVRIR LE PLANNING</a>
       </span>
     <% end %>
   <% end %>
 </div>
 
+<div class="container-md">
+  <div class="row justify-content-center text-center mt-5 mb-3">
+    <div class="col-lg-8">
+      <h2 class="display-6 fw-bold text-body-emphasis lh-1 mb-3">Anciens plannings</h2>
+      <p class="lead">Ces plannings hebdomadaires sont déjà passés, mais tu peux toujours voir tes résultats.</p>
+    </div>
+  </div>
+</div>
 
-<div class="container-sm mt-5">
-  <h2>Anciens Plannings Hebdomadaires</h2>
-  <table class="table table-striped">
+
+<div class="container-sm mt-5" style="max-width:780px">
+  <table class="table">
     <thead>
       <tr>
-        <th scope="col">#</th>
-        <th scope="col">Type</th>
-        <th scope="col">Publié le</th>
+        <th scope="col">Semaine</th>
+        <th scope="col">Publication</th>
         <th scope="col">Créneaux obtenus</th>
         <th scope="col">Revenus obtenus</th>  <!-- Nouvelle colonne -->
       </tr>
@@ -91,9 +96,8 @@
     <tbody>
       <% @closed_plannings.each_with_index do |planning, index| %>
         <tr>
-          <th scope="row"><%= index + 1 %></th>
-          <td><%= planning.planning_type %></td>
-          <td><%= planning.published_at.strftime("%d/%m/%Y") %> - Il y a <%= time_ago_in_words(planning.published_at) %></td>
+          <th scope="row">n°<%= planning.published_at.strftime('%U') %></th>
+          <td>Il y a <%= time_ago_in_words(planning.published_at) %></td>
           <td><%= planning.reservations.where(user_id: current_user.id).count %>/<%= planning.shifts.count %></td>
           <td>
             <%= planning.hourly_rate > 0 ? number_to_currency(planning.earnings(current_user), unit: "€") : "–" %>

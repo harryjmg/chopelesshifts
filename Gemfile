@@ -17,6 +17,7 @@ gem "bootstrap"
 gem "sassc-rails"
 gem "hashid-rails", "~> 1.0"
 gem 'rack-attack'
+gem 'font-awesome-sass'
 
 group :development, :test do
   gem "debug", platforms: %i[ mri mingw x64_mingw ]

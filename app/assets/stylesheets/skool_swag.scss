@@ -1,8 +1,17 @@
 
-.icon {
-    .weekly {
-        color: #6c757d;
-    }
+.product-box > .details > .title {
+    color: #1f3950 !important;
+}
+
+.icon.weekly {
+    color: #7aa9d2 !important;
+}
+
+pre {
+    background: #343434;
+    color: #f6f6f6;
+    border-radius: 10px;
+    max-width: 740px;
 }
 
 // Add 5em padding bottom to the last section

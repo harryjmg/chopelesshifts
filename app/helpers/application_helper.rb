@@ -8,15 +8,22 @@ module ApplicationHelper
     end
 
     def evaluate_performance(count)
+        comments = [
+            ["(nul)", "(bouuh)", "(claqué)", "(à chier)", "(pitoyable)", "(nullos)", "(la honte)"],
+            ["(pas terrible)", "(bof)", "(moyen)", "(pas fou)", "(pas top)", "(passable)"],
+            ["(presque!)", "(respectable!)", "(c'est ton max ?)"],
+            ["(tu es l'élu)", "(t'as géré)", "(tu triches ?)", "(génie)", "(exceptionnel)", "(wow)", "(godlike)", "(incroyable)"]
+        ]
+
         case count
         when 0..4
-            "(bouuh nul)"
+            comments[0].sample
         when 5..9
-            "(peux mieux faire)"
+            comments[1].sample
         when 10..12
-            "(pas mal)"
+            comments[2].sample
         else
-            "(bravo, champion!)"
+            comments[3].sample
         end
     end
 end

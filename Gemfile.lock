@@ -101,6 +101,8 @@ GEM
       ruby2_keywords (>= 0.0.4)
     faraday-net_http (3.0.2)
     ffi (1.15.5)
+    font-awesome-sass (6.4.0)
+      sassc (~> 2.0)
     globalid (1.1.0)
       activesupport (>= 5.0)
     hashid-rails (1.4.1)
@@ -282,6 +284,7 @@ DEPENDENCIES
   bootstrap
   capybara
   debug
+  font-awesome-sass
   hashid-rails (~> 1.0)
   importmap-rails
   jbuilder
