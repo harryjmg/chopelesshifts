@@ -44,6 +44,10 @@ class Planning < ApplicationRecord
         return 0 if shifts.count == 0
         (shifts.sum(:seats_taken) / shifts.sum(:seats).to_f * 100).round(2)
     end
+
+    def seats_left
+        shifts.sum(:seats) - shifts.sum(:seats_taken)
+    end
     
     def theme_color
         name.include?("hebdomadaire") ? "warning" : "success"

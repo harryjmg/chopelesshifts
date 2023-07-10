@@ -3,7 +3,9 @@ Rails.application.routes.draw do
   resources :api_tokens, only: [:index, :create, :update]
 
   get 'pages/home'
-  get 'pages/api'
+  get 'pages/api', as: :api
+  get 'pages/instructions', as: :instructions
+  get 'pages/dashboard'
   root "pages#home"
 
   resources :reservations, only: [:create, :destroy]

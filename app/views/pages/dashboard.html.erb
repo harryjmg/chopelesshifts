@@ -1,0 +1,34 @@
+<div class="container-md" style="max-width: 1140px;">
+    <div class="row justify-content-center">
+        <div class="col-md-8 text-center mt-5">
+            <%= image_tag "yt_mini_sh.jpg", alt: "Image", class: "my-5 img-fluid" %>
+        </div>
+    </div>
+    <div class="row justify-content-center text-center my-5">
+        <div class="col-lg-8">
+            <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-4">Choisissez une partie de l'application</h1>
+            <div class="row">
+                <div class="col-md-4">
+                    <h2>Réserver des créneaux en ligne</h2>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ultrices, neque sed eleifend blandit.</p>
+                    <%= button_to "Choisir", plannings_path, method: :get, class: "btn btn-primary btn-lg mt-3" %>
+                </div>
+                <div class="col-md-4">
+                    <h2>L'API de l'application</h2>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ultrices, neque sed eleifend blandit.</p>
+                    <%= button_to "Choisir", api_path, method: :get, class: "btn btn-primary btn-lg mt-3" %>
+                </div>
+                <div class="col-md-4">
+                    <h2>Instructions de Harry</h2>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ultrices, neque sed eleifend blandit.</p>
+                    <%= button_to "Choisir", instructions_path, method: :get, class: "btn btn-primary btn-lg mt-3" %>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row justify-content-center my-5">
+        <div class="col-auto">
+            <%= link_to "Se déconnecter", :logout, class: "nav-link", data: { turbo_method: :post } %>
+        </div>
+    </div>
+</div>

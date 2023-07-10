@@ -11,11 +11,7 @@
   </head>
 
   <body>
-    <%= render "shared/navbar" %>
-    <div class="container base-container">
-      <%= yield %>
-    </div>
+    <%= yield %>
     <%= render "shared/footer" %>
-    <%= console if Rails.env.development? %>
   </body>
 </html>
