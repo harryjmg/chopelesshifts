@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Bienvenue sur Shift Heroes, <%= @user.email %> !</h1>
+    <p>Pour activer votre compte, veuillez cliquer sur le lien suivant :</p>
+    <%= link_to 'Activer mon compte', activate_user_url(@user.activation_token) %>
+    <p>Merci d'avoir rejoint Shift Heroes!</p>
+  </body>
+</html>

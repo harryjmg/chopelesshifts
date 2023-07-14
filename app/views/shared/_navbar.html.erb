@@ -9,5 +9,24 @@
     <div class="col-auto">
         <%= button_active_to "Instructions vidéos de Harry", instructions_path, method: :get, class: "btn btn-outline-secondary btn-sm px-4" %>
     </div>
+    <div class="col-auto d-flex align-items-center">
+      <div class="dropdown">
+        <a href="#" class="d-flex align-items-center text-secondary text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+          <%= image_tag "https://gravatar.com/avatar/#{Digest::MD5.hexdigest(current_user.email)}?s=32", class: "rounded-circle me-2" %>
+          <strong>Mon compte</strong>
+          <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+            2
+            <span class="visually-hidden">notifications</span>
+          </span>
+        </a>
+        <ul class="dropdown-menu dropdown-menu-light text-small shadow" style="">
+          <li><%= link_to "Mon profil", profil_path, class: "dropdown-item" %></li>
+          <li><%= link_to "Mes succès", achievements_path, class: "dropdown-item" %></li>
+          <li><%= link_to "Mes tokens API", api_tokens_path, class: "dropdown-item" %></li>
+          <li><hr class="dropdown-divider"></li>
+          <li><%= link_to "Se déconnecter", :logout, data: { turbo_method: :post }, class: "dropdown-item" %></li>
+        </ul>
+      </div>
+    </div>
   </div>
 </div>

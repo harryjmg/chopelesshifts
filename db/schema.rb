@@ -10,9 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_07_184510) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_14_055801) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "achievements", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.integer "points"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "api_requests", force: :cascade do |t|
     t.bigint "user_id", null: false
@@ -65,6 +73,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_07_184510) do
     t.index ["planning_id"], name: "index_shifts_on_planning_id"
   end
 
+  create_table "user_achievements", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "achievement_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["achievement_id"], name: "index_user_achievements_on_achievement_id"
+    t.index ["user_id"], name: "index_user_achievements_on_user_id"
+  end
+
   create_table "user_logs", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.text "description"
@@ -79,6 +96,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_07_184510) do
     t.string "salt"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "first_name"
+    t.string "activation_state"
+    t.string "activation_token"
+    t.datetime "activation_token_expires_at"
+    t.index ["activation_token"], name: "index_users_on_activation_token"
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
@@ -88,5 +110,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_07_184510) do
   add_foreign_key "reservations", "shifts"
   add_foreign_key "reservations", "users"
   add_foreign_key "shifts", "plannings"
+  add_foreign_key "user_achievements", "achievements"
+  add_foreign_key "user_achievements", "users"
   add_foreign_key "user_logs", "users"
 end

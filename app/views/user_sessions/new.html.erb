@@ -7,6 +7,8 @@
     <div class="row justify-content-center my-5">
         <div class="col-lg-8">
             <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3">Connecte-toi à Shift Heroes</h1>
+            <p style="color: green"><%= notice %></p>
+            <p style="color: red"><%= alert %></p>
             <%= form_with(url: login_path, method: :post, html: {class: "needs-validation", novalidate: ""}) do |f| %>
                 <div class="mb-3">
                     <%= f.label :email, class: "form-label" %>

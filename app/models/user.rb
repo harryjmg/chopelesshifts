@@ -3,6 +3,7 @@ class User < ApplicationRecord
 
   authenticates_with_sorcery!
 
+  validates :first_name, presence: true
   validates :password, length: { minimum: 3 }, if: -> { new_record? || changes[:crypted_password] }
   validates :password, confirmation: true, if: -> { new_record? || changes[:crypted_password] }
   validates :password_confirmation, presence: true, if: -> { new_record? || changes[:crypted_password] }
@@ -15,6 +16,8 @@ class User < ApplicationRecord
   has_many :user_logs, dependent: :destroy
   has_many :api_tokens, dependent: :destroy
   has_many :api_requests, dependent: :destroy
+  has_many :user_achievements, dependent: :destroy
+  has_many :achievements, through: :user_achievements
 
   has_many :plannings, class_name: "Planning", dependent: :destroy
 

@@ -13,9 +13,15 @@ Rails.application.routes.draw do
   resources :plannings, only: [:index, :show]
   resources :users, only: [:new, :create, :show, :edit, :update]
 
+  get 'achievements' => 'users#achievements', :as => :achievements
+
+  get 'profil' => 'users#edit', :as => :profil
+
   get 'login' => 'user_sessions#new', :as => :login
   post 'login' => "user_sessions#create"
   post 'logout' => 'user_sessions#destroy', :as => :logout
+
+  get 'users/activate/:id', to: 'users#activate', as: :activate_user
 
   namespace :api do
     namespace :v1 do

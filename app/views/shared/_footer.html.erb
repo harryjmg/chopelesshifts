@@ -2,9 +2,9 @@
     <hr class="text-muted mt-5" style="max-width: 200px; margin: 0 auto;">
     <footer class="d-flex flex-wrap justify-content-center align-items-center py-3 my-4">
         <% if current_user %>
-          <p class="col-md-12 mb-0 text-muted text-center small">
-              Connecté avec <%= current_user.email %> – <%= link_to "Se déconnecter", :logout, class: "text-decoration-none mr-2", data: { turbo_method: :post } %>
-          </p>
+            <p class="col-md-12 mb-0 text-muted text-center small">
+                Connecté avec <%= current_user.email %> – <%= link_to "Se déconnecter", :logout, class: "text-decoration-none mr-2", data: { turbo_method: :post } %>
+            </p>
         <% end %>
         <p class="col-md-12 mb-0 text-muted text-center small">
             Shiftheroes.fr – Created in 2023 by <a href="https://harryjmg.fr" class="text-decoration-none">Harry Jmg</a>

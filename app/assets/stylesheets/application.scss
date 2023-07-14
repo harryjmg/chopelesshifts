@@ -2,9 +2,12 @@
 @import "skool_swag";
 @import "font-awesome";
 
+.profile-image {
+    height: 20px;
+    width: 20px;
+}
 
-
-tbody > tr {
+.shifts > tbody > tr {
     border-width: 0 !important;
     td {
         padding: 0 !important;
