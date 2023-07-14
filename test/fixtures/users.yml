@@ -5,3 +5,8 @@ one:
 
 two:
   email: "user2@test.ts"
+
+not_activated:
+  first_name: "Jacques"
+  email: "user3@test.ts"
+  activation_token: "test_token3"

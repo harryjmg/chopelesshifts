@@ -21,6 +21,8 @@ gem 'font-awesome-sass'
 
 group :development, :test do
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
+  gem 'guard'
+  gem 'guard-minitest'
 end
 
 group :development do

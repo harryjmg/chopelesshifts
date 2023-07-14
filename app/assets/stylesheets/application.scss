@@ -2,6 +2,72 @@
 @import "skool_swag";
 @import "font-awesome";
 
+
+body {
+    background-image: radial-gradient(#efe2ef 0%, #ffffff 100%);
+}
+
+// .background {
+// 	position: absolute;
+// 	overflow: hidden;
+// 	width: 100%;
+// 	height: 100%;
+// 	top: 0;
+// 	left: 0;
+// 	background: linear-gradient(to right, #FFFFFF, #ECE9E6);
+// 	display: flex;
+// 	flex-grow: 1;
+// 	z-index: -1;
+// 	div {
+// 		position: absolute;
+// 		border-radius: 100%;
+// 		height: 0;
+// 		filter: blur(240vw);
+// 		opacity: 0.4;
+// 		&:nth-child(1) {
+// 			background: linear-gradient(132deg, #1FCFC3 0.00%, #1F91CF 100.00%);
+// 			width: 30%;
+// 			padding-top: 30%;
+// 			left: 20%;
+// 			top: 20%;
+// 			transform: translateX(-50%) translateY(-50%);
+// 		}
+// 		&:nth-child(2) {
+// 			background: linear-gradient(132deg, #81b4a3 0.00%, #d9bf38 100.00%);
+// 			width: 77%;
+// 			padding-top: 77%;
+// 			left: 76%;
+// 			top: 94%;
+// 			transform: translateX(-50%) translateY(-50%);
+// 		}
+// 		&:nth-child(3) {
+// 			background: linear-gradient(132deg, #c53193 0.00%, #505420 100.00%);
+// 			width: 54%;
+// 			padding-top: 54%;
+// 			left: 97%;
+// 			top: 78%;
+// 			transform: translateX(-50%) translateY(-50%);
+// 		}
+// 		&:nth-child(4) {
+// 			background: linear-gradient(132deg, #f601a4 0.00%, #e318f0 100.00%);
+// 			width: 3%;
+// 			padding-top: 3%;
+// 			left: 75%;
+// 			top: 46%;
+// 			transform: translateX(-50%) translateY(-50%);
+// 		}
+// 		&:nth-child(5) {
+// 			background: linear-gradient(132deg, #cfec8a 0.00%, #ba21b8 100.00%);
+// 			width: 99%;
+// 			padding-top: 99%;
+// 			left: 66%;
+// 			top: 38%;
+// 			transform: translateX(-50%) translateY(-50%);
+// 		}
+// 	}
+// }
+
+
 .profile-image {
     height: 20px;
     width: 20px;
@@ -128,6 +194,7 @@
 }
 
 .bg-rainbow {
+    border: 1px solid #b5b5b5;
     color: #4b556e;
     background: linear-gradient(124deg, hsl(0, 100%, 90%), hsl(0, 70%, 90%), hsl(45, 70%, 90%), hsl(60, 70%, 90%), hsl(120, 70%, 90%), hsl(180, 70%, 90%), hsl(240, 70%, 90%), hsl(300, 70%, 90%), hsl(300, 70%, 90%));
     background-size: 1800% 1800%;
