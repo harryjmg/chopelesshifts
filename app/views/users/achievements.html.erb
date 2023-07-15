@@ -2,10 +2,59 @@
 <%= render "shared/flash" %>
 
 <div class="container-md">
-  <div class="row justify-content-center text-center mt-5 mb-3">
-      <div class="col-lg-8">
-          <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3">Tes succès</h1>
-          <p class="lead">Parce que t'es quelqu'un de franchement exceptionnel !</p>
-      </div>
-  </div>
+    <div class="row justify-content-center text-center mt-5 mb-3">
+        <div class="col-lg-8">
+            <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3">Tes succès</h1>
+            <p class="lead">Parce que t'es quelqu'un de franchement exceptionnel !</p>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="progress mb-4 border rounded-5" style="height: 3em;">
+            <% total_points = current_user.user_achievements.sum(&:points) %>
+            <% max_points = Achievement.sum(&:points) %>
+            <div class="progress-bar bg-rainbow border" role="progressbar" style="width: <%= (total_points.to_f/max_points.to_f)*100 %>%" aria-valuenow="<%= total_points %>" aria-valuemin="0" aria-valuemax="<%= max_points %>">
+                <%= ((total_points.to_f/max_points.to_f)*100).to_i %> %
+            </div>
+        </div>
+    </div>
+    </div>
+    <% @achievements.each do |achievement| %>
+        <div class="row justify-content-center mb-2">
+            <div class="col-lg-8">
+            <% if current_user.achievements.include?(achievement) %>
+                <div class="card border rounded-4">
+                    <div class="card-body row align-items-center">
+                        <div class="col-2 text-center" style="color: #8787a9;">
+                            <i class="fas <%= achievement.icon %> fa-3x"></i> 
+                        </div>
+                        <div class="col-10">
+                            <h5 class="card-title">
+                                <%= achievement.name %>
+                            </h5>
+                            <p class="card-text"><%= achievement.description %></p>
+                            <span class="badge bg-rainbow">Obtenu</span>
+                        </div>
+                    </div>
+                </div>
+            <% else %>
+                <div class="card bg-light border rounded-4">
+                    <div class="card-body row align-items-center" style="opacity: 0.3;">
+                        <div class="col-2 text-center">
+                            <i class="fas <%= achievement.icon %> fa-3x text-muted"></i> 
+                        </div>
+                        <div class="col-10">
+                            <h5 class="card-title">
+                                <%= achievement.name %>
+                            </h5>
+                            <p class="card-text text-muted"><%= achievement.description %></p>
+                            <span class="badge bg-secondary">A obtenir</span>
+                        </div>
+                    </div>
+                </div>
+            <% end %>
+            </div>
+        </div>
+    <% end %>
+
 </div>

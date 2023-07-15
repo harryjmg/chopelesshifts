@@ -47,4 +47,10 @@ class User < ApplicationRecord
     planning = Planning.create_planning("daily", self)
     planning.publish
   end
+
+  def record_achievement(key)
+    achievement = Achievement.find_by(key: key)
+    return if self.achievements.include?(achievement)
+    user_achievements.create(achievement: achievement) if achievement
+  end
 end

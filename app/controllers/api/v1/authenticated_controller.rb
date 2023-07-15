@@ -23,6 +23,7 @@ class Api::V1::AuthenticatedController < ActionController::Base
 
     def check_api_limit
         if current_user.api_limit_exceeded?
+            current_user.record_achievement("api_limit_reached")
             render json: { message: "API limit exceeded " }, status: :too_many_requests
         end
     end
@@ -36,6 +37,7 @@ class Api::V1::AuthenticatedController < ActionController::Base
     end
 
     def log_api_request
-        current_user&.api_requests&.create!(path: request.path, method: request.method)
+        current_user.api_requests&.create!(path: request.path, method: request.method)
+        current_user.record_achievement("first_successful_api_call")
     end
 end

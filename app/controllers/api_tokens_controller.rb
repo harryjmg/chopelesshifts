@@ -7,6 +7,7 @@ class ApiTokensController < ApplicationController
 
     def create
         @api_token = current_user.api_tokens.create!
+        current_user.record_achievements('first_api_token')
         respond_to do |format|
             format.turbo_stream
         end

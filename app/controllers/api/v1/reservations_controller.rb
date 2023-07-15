@@ -14,6 +14,7 @@ class Api::V1::ReservationsController < Api::V1::AuthenticatedController
     @reservation = @shift.reservations.build(user: current_user)
 
     if @reservation.save
+      check_and_record_achievements
       render json: @reservation.to_api_json, status: :created
     else
       render json: { errors: @reservation.errors.full_messages }, status: :unprocessable_entity
@@ -31,6 +32,16 @@ class Api::V1::ReservationsController < Api::V1::AuthenticatedController
   end
 
   private
+
+  def check_and_record_achievements
+    current_user.record_achievement('first_api_booking')
+    if @planning.planning_type == 'weekly'
+      current_user.record_achievement('first_api_weekly_booking')
+      if current_user.reservations.where(planning: @planning).count >= 14
+        current_user.record_achievement('booked_14_slots_via_api')
+      end
+    end
+  end
 
   def set_planning
     @planning = Planning.find(params[:planning_id])

@@ -9,6 +9,8 @@ class ReservationsController < ApplicationController
     @user_shifts = current_user.shifts.where(planning_id: @shift.planning.id)
 
     if @reservation.save
+      current_user.record_achievement('first_booking')
+      current_user.record_achievement('first_weekly_booking') if @shift.planning.planning_type == 'weekly'
       redirect_to planning_shift_url(@shift.planning, @shift), notice: "La réservation a été faite avec succès."
     else
       redirect_to planning_shift_url(@shift.planning, @shift), notice: "La réservation a échoué."
