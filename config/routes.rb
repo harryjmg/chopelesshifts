@@ -9,8 +9,9 @@ Rails.application.routes.draw do
   get 'pages/instructions', as: :instructions
 
   resources :reservations, only: [:create, :destroy]
-  resources :shifts, only: [:show]
-  resources :plannings, only: [:index, :show]
+  resources :plannings, only: [:index, :show] do
+    resources :shifts, only: [:show]
+  end
   resources :users, only: [:new, :create, :show, :edit, :update]
 
   get 'achievements' => 'users#achievements', :as => :achievements
