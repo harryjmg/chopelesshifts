@@ -1,10 +1,14 @@
-<p style="color: green"><%= notice %></p>
+<%= render "shared/navbar" %>
+<%= render "shared/flash" %>
 
-<%= render @user %>
+<div class="container-md">
+  <div class="row justify-content-center text-center mt-5 mb-3">
+      <div class="col-lg-8">
+          <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3">Ton profil</h1>
+      </div>
+  </div>
+</div>
 
-<div>
-  <%= link_to "Edit this user", edit_user_path(@user) %> |
-  <%= link_to "Back to users", users_path %>
-
-  <%= button_to "Destroy this user", @user, method: :delete %>
+<div class="container-md rounded bg-white p-3 border" style="max-width:800px">
+  <%= render @user %>
 </div>

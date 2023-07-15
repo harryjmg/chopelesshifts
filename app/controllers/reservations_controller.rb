@@ -1,15 +1,6 @@
 class ReservationsController < ApplicationController
   before_action :require_login
-  before_action :set_reservation, only: %i[ show edit update destroy ]
-
-  # GET /reservations/1 or /reservations/1.json
-  def show
-  end
-
-  # GET /reservations/new
-  def new
-    @reservation = Reservation.new
-  end
+  before_action :set_reservation, only: %i[ destroy ]
 
   # POST /reservations or /reservations.json
   def create

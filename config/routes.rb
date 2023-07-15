@@ -12,11 +12,11 @@ Rails.application.routes.draw do
   resources :plannings, only: [:index, :show] do
     resources :shifts, only: [:show]
   end
-  resources :users, only: [:new, :create, :show, :edit, :update]
+  resources :users, only: [:new, :create, :show]
 
   get 'achievements' => 'users#achievements', :as => :achievements
 
-  get 'profil' => 'users#edit', :as => :profil
+  get 'profil' => 'users#show', :as => :profil
 
   get 'login' => 'user_sessions#new', :as => :login
   post 'login' => "user_sessions#create"
