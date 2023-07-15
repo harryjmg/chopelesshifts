@@ -17,9 +17,7 @@ body {
     td {
         padding: 0 !important;
         a > .event {
-            border-radius: 0 !important;
             box-shadow: none !important;
-            border: 1px solid white;
         }
     }
 }
@@ -58,14 +56,11 @@ body {
     }
     
     .event {
-        background-color: #c4decb;
-        color: #366d56;
+        background-color: white;
+        color: #606060;
         box-sizing: border-box;
         padding: 10px;
         width: 100%;
-        opacity: 0.9;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
-        border-radius: 10px;
         height: 8em;
     
         a {
@@ -73,22 +68,24 @@ body {
         }
     
         &:hover {
-            filter: brightness(1.1);
+            background-color: #f5f5f5;
         }
     
         &.reserved {
-            background-color: #cedef7;
-            color: #2b6edb;
+            background-color: #e8f4ff;
+            border: 1px solid #cfe2ff;
         }
-
+    
         &.full {
-            background-color: #f5dfdf;
-            color: #e85050;
+            background-color: #fff5f5;
+            border: 1px solid #ffc7c7;
         }
     }
     
     td > a {
         text-decoration: none !important; /* Supprime le soulignement */
+        display: block;
+        margin: 0.2em;
     }
     
     .row > * {
