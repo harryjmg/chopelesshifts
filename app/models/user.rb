@@ -22,6 +22,7 @@ class User < ApplicationRecord
   has_many :plannings, class_name: "Planning", dependent: :destroy
 
   after_create :create_permanent_planning
+  after_create :create_daily_planning
 
   MAX_API_REQUESTS_PER_10_MINUTE = 300
 
@@ -39,6 +40,11 @@ class User < ApplicationRecord
 
   def create_permanent_planning
     planning = Planning.create_planning("permanent", self)
+    planning.publish
+  end
+
+  def create_daily_planning
+    planning = Planning.create_planning("daily", self)
     planning.publish
   end
 end
