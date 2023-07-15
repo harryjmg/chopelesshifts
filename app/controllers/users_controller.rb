@@ -32,8 +32,10 @@ class UsersController < ApplicationController
   end
 
   def achievements
-    @user = current_user
     @achievements = Achievement.all
+    @user_achievements = current_user.user_achievements
+    @new_achievement_ids = @user_achievements.where(seen: false).pluck(:achievement_id)
+    @user_achievements.update_all(seen: true)
   end
 
   private

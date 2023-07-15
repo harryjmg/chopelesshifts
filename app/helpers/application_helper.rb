@@ -41,4 +41,15 @@ module ApplicationHelper
             flash_type.to_s
         end
     end
+
+    def random_success_message
+        messages = [
+            "Youyou !",
+            "Bravo !",
+            "Tout neuf !",
+            "Bouyaka !",
+            "BLUT BLUT !",
+            "Gangsta !"
+        ].sample
+    end
 end

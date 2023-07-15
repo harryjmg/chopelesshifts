@@ -22,7 +22,8 @@
     <% @achievements.each do |achievement| %>
         <div class="row justify-content-center mb-2">
             <div class="col-lg-8">
-            <% if current_user.achievements.include?(achievement) %>
+            <% user_achievement = @user_achievements.find_by(achievement_id: achievement.id) %>
+            <% if user_achievement.present? %>
                 <div class="card border rounded-4">
                     <div class="card-body row align-items-center">
                         <div class="col-2 text-center" style="color: #8787a9;">
@@ -33,7 +34,11 @@
                                 <%= achievement.name %>
                             </h5>
                             <p class="card-text"><%= achievement.description %></p>
-                            <span class="badge bg-rainbow">Obtenu</span>
+                            <% if @new_achievement_ids.include?(user_achievement.achievement_id) %>
+                                <span class="badge bg-rainbow"><%= random_success_message %> Obtenu il y a <%= time_ago_in_words(achievement.created_at) %></span>
+                            <% else %>
+                                <span class="badge bg-simple">Obtenu il y a <%= time_ago_in_words(achievement.created_at) %></span>
+                            <% end %>
                         </div>
                     </div>
                 </div>
@@ -41,7 +46,7 @@
                 <div class="card bg-light border rounded-4">
                     <div class="card-body row align-items-center" style="opacity: 0.3;">
                         <div class="col-2 text-center">
-                            <i class="fas <%= achievement.icon %> fa-3x text-muted"></i> 
+                            <i class="fas <%= achievement.icon %> fa-2x text-muted"></i> 
                         </div>
                         <div class="col-10">
                             <h5 class="card-title">
