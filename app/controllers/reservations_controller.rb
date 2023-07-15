@@ -18,9 +18,9 @@ class ReservationsController < ApplicationController
     @user_shifts = current_user.shifts.where(planning_id: @shift.planning.id)
 
     if @reservation.save
-      redirect_to shift_url(@shift), notice: "Reservation was successfully created."
+      redirect_to shift_url(@shift), notice: "La réservation a été faite avec succès."
     else
-      redirect_to shift_url(@shift), notice: "Reservation was not successfully created."
+      redirect_to shift_url(@shift), notice: "La réservation a échoué."
     end
   end
 
@@ -30,7 +30,7 @@ class ReservationsController < ApplicationController
     @reservation.destroy
 
     respond_to do |format|
-      format.html { redirect_to shift_url(shift), notice: "Reservation was successfully destroyed." }
+      format.html { redirect_to shift_url(shift), notice: "La réservation a été annulée avec succès." }
       format.json { head :no_content }
     end
   end

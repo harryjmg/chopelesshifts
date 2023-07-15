@@ -51,7 +51,11 @@
 
 </div>
 
-<div class="container-md text-center">
-  <p><%= link_to "Retour aux plannings", plannings_path  %></p>
+<div class="container-md text-center mt-4">
+  <p>
+    <%= link_to plannings_path, class: "link-secondary" do %>
+      <i class="fa-solid fa-arrow-right-from-bracket"></i>
+      Retour aux plannings
+    <% end %>
+  </p>
 </div>
-

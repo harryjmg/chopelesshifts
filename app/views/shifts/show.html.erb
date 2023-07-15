@@ -1,30 +1,42 @@
 <%= render "shared/navbar" %>
-
-<p style="color: green"><%= notice %></p>
+<%= render "shared/flash" %>
 
 <div class="container-md">
+    <div class="row justify-content-center text-center mt-5 mb-3">
+        <div class="col-lg-8">
+            <h1 class="display-6 fw-bold text-body-emphasis lh-1 mb-3">Réserver un créneau</h1>
+            <p class="lead">Réserver un créneau pour le planning <%= @shift.planning.name %></p>
+        </div>
+    </div>
+</div>
+
+<div class="container-md bg-white p-2 rounded border" style="max-width: 500px;">
   <div class="row justify-content-center text-center mt-5 mb-5">
       <div class="col-lg-8">
-          <h1 class="display-6 fw-bold text-body-emphasis lh-1 mb-5">Réserver un créneau</h1>
-          <p class="lead">
+          <p class="">
             <%= @shift.day.capitalize %> - <%= @shift.start_hour.strftime('%Hh') %> à <%= @shift.end_hour.strftime('%Hh') %>
           </p>
-          <p class="lead">
+          <p class="">
             Places restantes : <%= @shift.seats - @shift.seats_taken %>/<%= @shift.seats %>
           </p>
 
           <% if @user_shifts.include?(@shift) %>
             <% reservation = current_user.reservations.find_by(shift_id: @shift.id) %>
-            <%= button_to "Annuler la réservation", reservation, method: :delete, class: "btn btn-warning", style: "display: inline" %>
+            <%= button_to "Annuler la réservation", reservation, method: :delete, class: "btn btn-outline-secondary", style: "display: inline" %>
           <% elsif @shift.seats_taken < @shift.seats %>
-            <%= button_to "Réserver ce créneau", reservations_url, params: { reservation: { shift_id: @shift.id, user_id: current_user.id } }, class: "btn btn-primary", style: "display: inline" %>
+            <%= button_to "Réserver ce créneau", reservations_url, params: { reservation: { shift_id: @shift.id, user_id: current_user.id } }, class: "btn btn-secondary", style: "display: inline" %>
           <% else %>
-            <%= button_to "Réserver ce créneau", reservations_url, params: { reservation: { shift_id: @shift.id, user_id: current_user.id } }, class: "btn btn-primary", style: "display: inline", disabled: true %>
+            <%= button_to "Réserver ce créneau", reservations_url, params: { reservation: { shift_id: @shift.id, user_id: current_user.id } }, class: "btn btn-secondary", style: "display: inline", disabled: true %>
           <% end %>
       </div>
   </div>
 </div>
 
-<div class="container-md text-center">
-  <p><%= link_to "Retour au planning", planning_path(@shift.planning)%></p>
+<div class="container-md text-center mt-4">
+  <p>
+    <%= link_to planning_path(@shift.planning), class: "link-secondary" do %>
+      <i class="fa-solid fa-arrow-right-from-bracket"></i>
+      Retour au planning
+    <% end %>
+  </p>
 </div>
