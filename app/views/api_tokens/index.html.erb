@@ -9,25 +9,32 @@
     </div>
 </div>
 
-<div class="container-md" style="max-width: 800px;">
-    <%= button_to "Generate API Token", api_tokens_path, class: "btn btn-primary mb-3" %>
+<div class="container-md bg-white border rounded-3 p-4" style="max-width: 800px;">
 
     <div id="api_tokens">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">Créé</th>
-                    <th scope="col">Token</th>
-                    <th scope="col">Statut</th>
-                    <th scope="col">Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <% @api_tokens.each do |api_token| %>
-                    <%= render partial: "api_tokens/api_token", locals: { api_token: api_token } %>
-                <% end %>
-            </tbody>
-        </table>
+        <% if @api_tokens.empty? %>
+            <div class="alert alert-info fw-bold" role="alert">
+                Prêt à générer ton premier token API ? Alors clique sur le bouton ci-dessous
+                <i class="fa-regular fa-face-smile"></i>
+            </div>
+        <% else %>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Créé</th>
+                        <th scope="col">Token</th>
+                        <th scope="col">Statut</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% @api_tokens.each do |api_token| %>
+                        <%= render partial: "api_tokens/api_token", locals: { api_token: api_token } %>
+                    <% end %>
+                </tbody>
+            </table>
+        <% end %>
     </div>
+    <%= button_to "Generate API Token", api_tokens_path, class: "btn bg-rainbow mb-3 mt-5" %>
 </div>
 

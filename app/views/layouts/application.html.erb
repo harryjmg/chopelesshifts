@@ -13,6 +13,6 @@
   <body>
     <%= yield %>
     <%= render "shared/footer" %>
-    <%= console %>
+    <%= console if Rails.env.development? %>
   </body>
 </html>

@@ -1,4 +1,4 @@
-<%= turbo_stream.prepend :api_tokens do %>
+<%= turbo_stream.append :api_tokens do %>
     <div>
         <p>Ton nouveau token est : <%= @api_token.token %></p>
     </div>
