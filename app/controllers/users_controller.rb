@@ -32,15 +32,25 @@ class UsersController < ApplicationController
   end
 
   def achievements
-    @achievements = Achievement.all
-    @user_achievements = current_user.user_achievements
+    @user_achievements = current_user.user_achievements.includes(:achievement)
+  
     @new_achievement_ids = @user_achievements.where(seen: false).pluck(:achievement_id)
-    @user_achievements.update_all(seen: true)
+  
+    @new_achievements = Achievement.where(id: @new_achievement_ids).order(created_at: :desc)
+    @obtained_achievements = Achievement.where(id: @user_achievements.where.not(id: @new_achievement_ids).pluck(:achievement_id)).order(created_at: :desc)
+    @not_obtained_achievements = Achievement.where.not(id: @user_achievements.pluck(:achievement_id))
+  
+    @achievements = @new_achievements + @obtained_achievements + @not_obtained_achievements
+
+    @total_points = current_user.user_achievements.sum(&:points)
+    @max_points = Achievement.sum(&:points)
+  
+    @user_achievements.where(achievement_id: @new_achievement_ids).update_all(seen: true)
   end
+  
+  
 
   private
-
-    # Only allow a list of trusted parameters through.
     def user_params
       params.require(:user).permit(:first_name, :email, :password, :password_confirmation)
     end

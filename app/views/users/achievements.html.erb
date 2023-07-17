@@ -11,55 +11,13 @@
     <div class="row justify-content-center">
     <div class="col-lg-8">
         <div class="progress mb-4 border rounded-5" style="height: 3em;">
-            <% total_points = current_user.user_achievements.sum(&:points) %>
-            <% max_points = Achievement.sum(&:points) %>
-            <div class="progress-bar bg-rainbow border" role="progressbar" style="width: <%= (total_points.to_f/max_points.to_f)*100 %>%" aria-valuenow="<%= total_points %>" aria-valuemin="0" aria-valuemax="<%= max_points %>">
-                <%= ((total_points.to_f/max_points.to_f)*100).to_i %> %
+            <div class="progress-bar bg-rainbow border" role="progressbar" style="width: <%= (@total_points.to_f/@max_points.to_f)*100 %>%" aria-valuenow="<%= @total_points %>" aria-valuemin="0" aria-valuemax="<%= @max_points %>">
+                <%= ((@total_points.to_f/@max_points.to_f)*100).to_i %> %
             </div>
         </div>
     </div>
     </div>
     <% @achievements.each do |achievement| %>
-        <div class="row justify-content-center mb-2">
-            <div class="col-lg-8">
-            <% user_achievement = @user_achievements.find_by(achievement_id: achievement.id) %>
-            <% if user_achievement.present? %>
-                <div class="card border rounded-4">
-                    <div class="card-body row align-items-center">
-                        <div class="col-2 text-center" style="color: #8787a9;">
-                            <i class="fas <%= achievement.icon %> fa-3x"></i> 
-                        </div>
-                        <div class="col-10">
-                            <h5 class="card-title">
-                                <%= achievement.name %>
-                            </h5>
-                            <p class="card-text"><%= achievement.description %></p>
-                            <% if @new_achievement_ids.include?(user_achievement.achievement_id) %>
-                                <span class="badge bg-rainbow"><%= random_success_message %> Obtenu il y a <%= time_ago_in_words(achievement.created_at) %></span>
-                            <% else %>
-                                <span class="badge bg-simple">Obtenu le <%= l(user_achievement.created_at, format: :long) %></span>
-                            <% end %>
-                        </div>
-                    </div>
-                </div>
-            <% else %>
-                <div class="card bg-light border rounded-4">
-                    <div class="card-body row align-items-center" style="opacity: 0.3;">
-                        <div class="col-2 text-center">
-                            <i class="fas <%= achievement.icon %> fa-2x text-muted"></i> 
-                        </div>
-                        <div class="col-10">
-                            <h5 class="card-title">
-                                <%= achievement.name %>
-                            </h5>
-                            <p class="card-text text-muted"><%= achievement.description %></p>
-                            <span class="badge bg-secondary">A obtenir</span>
-                        </div>
-                    </div>
-                </div>
-            <% end %>
-            </div>
-        </div>
+        <%= render 'achievement_card', achievement: achievement %>
     <% end %>
-
 </div>
