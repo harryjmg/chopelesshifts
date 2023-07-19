@@ -20,6 +20,8 @@ gem 'rack-attack'
 gem 'font-awesome-sass'
 
 gem 'rails-i18n'
+gem 'sidekiq'
+gem 'redis'
 
 group :development, :test do
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
