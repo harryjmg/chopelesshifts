@@ -13,6 +13,9 @@ class Planning < ApplicationRecord
 
     before_save :set_publication_date, if: -> { state_changed? && state == 'available' }
 
+    scope :weekly, -> { where(planning_type: 'weekly') }
+    scope :available, -> { where(state: 'available') }
+
     # States : draft, ready, available, closed, archived
 
     DAYS = ["lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi", "dimanche"]

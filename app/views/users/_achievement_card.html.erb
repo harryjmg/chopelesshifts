@@ -14,7 +14,7 @@
                     </h5>
                     <p class="card-text"><%= achievement.description %></p>
                     <% if is_new %>
-                        <span class="badge bg-rainbow"><%= random_success_message %> Obtenu il y a <%= time_ago_in_words(achievement.created_at) %></span>
+                        <span class="badge bg-rainbow"><%= random_success_message %> Obtenu il y a <%= time_ago_in_words(user_achievement.created_at) %></span>
                     <% else %>
                         <span class="badge bg-simple">Obtenu le <%= l(user_achievement.created_at, format: :long) %></span>
                     <% end %>

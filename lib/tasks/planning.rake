@@ -6,6 +6,7 @@ namespace :planning do
     end
 
     task weekly: :environment do
+        return if Planning.weekly.available.where("published_at > ?", Time.now.beginning_of_week).exists?
         create_and_fill_planning('weekly', 60, 2, 1, 0.03)  # Sleep 1 second between each fill, and fill 3% of remaining slots each time
     end
 
