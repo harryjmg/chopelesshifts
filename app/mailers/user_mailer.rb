@@ -1,5 +1,5 @@
 class UserMailer < ApplicationMailer
-  default from: 'support@joincodingnow.com'
+  default from: 'support@shiftheroes.fr'
   
   def activation_needed_email(user)
     @user = user

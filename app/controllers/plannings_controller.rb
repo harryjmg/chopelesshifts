@@ -8,8 +8,6 @@ class PlanningsController < ApplicationController
     @weekly_planning = Planning.where(planning_type: 'weekly', state: 'available').order(published_at: :desc).first
 
     @available_plannings = [@permanent_planning, @daily_planning, @weekly_planning].compact
-
-    # @available_plannings = Planning.available_plannings.sort_by(&:order_by_type)
     @closed_plannings = Planning.closed_plannings.where(planning_type: 'weekly').sort_by(&:published_at).reverse
   end
 
