@@ -97,14 +97,12 @@ Rails.application.configure do
 
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    address: 'ssl0.ovh.net',
+    address: 'smtp-relay.brevo.com',
     port: 587,
     domain: 'shiftheroes.fr',
-    authentication: 'plain',
-    enable_starttls_auto: true,
-    user_name: ENV.fetch('MAILER_USERNAME', nil),
-    password: ENV.fetch('MAILER_PASSWORD', nil)
+    user_name: ENV.fetch('SMTP_USERNAME', nil),
+    password: ENV.fetch('SMTP_PASSWORD', nil),
+    authentication: 'login',
+    enable_starttls_auto: true
   }
-
-  ActionMailer::Base.register_interceptor(Dkim::Interceptor)
 end
