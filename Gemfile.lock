@@ -96,6 +96,7 @@ GEM
     debug (1.8.0)
       irb (>= 1.5.0)
       reline (>= 0.3.1)
+    dkim (1.1.0)
     erubi (1.12.0)
     execjs (2.8.1)
     faraday (2.7.6)
@@ -325,6 +326,7 @@ DEPENDENCIES
   bootstrap
   capybara
   debug
+  dkim
   font-awesome-sass
   guard
   guard-minitest

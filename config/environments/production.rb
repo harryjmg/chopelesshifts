@@ -105,4 +105,6 @@ Rails.application.configure do
     user_name: ENV.fetch('MAILER_USERNAME', nil),
     password: ENV.fetch('MAILER_PASSWORD', nil)
   }
+
+  ActionMailer::Base.register_interceptor(Dkim::Interceptor)
 end
