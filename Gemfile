@@ -30,6 +30,7 @@ end
 group :development do
   gem "web-console"
   gem "rails_live_reload"
+  gem "letter_opener"
 end
 
 group :test do

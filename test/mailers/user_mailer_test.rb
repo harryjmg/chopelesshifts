@@ -4,7 +4,7 @@ class UserMailerTest < ActionMailer::TestCase
   test "activation_needed_email" do
     user = users(:not_activated)
     mail = UserMailer.activation_needed_email(user)
-    assert_equal "Active ton compte", mail.subject
+    assert_equal "Lien d'activation ton compte", mail.subject
     assert_equal [user.email], mail.to
     assert_equal ["support@joincodingnow.com"], mail.from
     assert_match user.activation_token, mail.body.encoded
