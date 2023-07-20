@@ -53,8 +53,8 @@ class Api::V1::AuthenticatedController < ActionController::Base
         last_3_requests = current_user.api_requests.order(created_at: :desc).limit(3)
         return false unless last_3_requests.count == 3 && last_3_requests.all? { |request| !request.user_agent.include?("curl") }
     
-        last_3_requests[0].path =~ %r{^/plannings/\d+/shifts/\d+/reservations$} && last_3_requests[0].method == "POST" &&
-        last_3_requests[1].path =~ %r{^/plannings/\d+/shifts$} && last_3_requests[1].method == "GET" &&
-        last_3_requests[2].path == "/plannings" && last_3_requests[2].method == "GET"
+        last_3_requests[0].path =~ %r{^/api/v1/plannings/\w+/shifts/\w+/reservations$} && last_3_requests[0].method == "POST" &&
+        last_3_requests[1].path =~ %r{^/api/v1/plannings/\w+/shifts$} && last_3_requests[1].method == "GET" &&
+        last_3_requests[2].path == "api/v1/plannings" && last_3_requests[2].method == "GET"
     end
 end
