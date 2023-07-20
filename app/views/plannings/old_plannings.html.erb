@@ -1,0 +1,41 @@
+<%= render "shared/navbar" %>
+<%= render "shared/flash" %>
+
+<div class="container-md">
+  <div class="row justify-content-center text-center mt-5 mb-3">
+    <div class="col-lg-8">
+      <h2 class="display-6 fw-bold text-body-emphasis lh-1 mb-3">Tes anciens résultats</h2>
+      <p class="lead">Ces plannings hebdomadaires sont déjà passés, mais tu peux toujours voir tes résultats.</p>
+    </div>
+  </div>
+</div>
+
+
+<div class="container-sm mt-5" style="max-width:780px">
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Semaine</th>
+        <th scope="col">Publication</th>
+        <th scope="col">Créneaux obtenus</th>
+        <th scope="col">Revenus obtenus</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+        <% @plannings.each_with_index do |planning, index| %>
+            <tr>
+                    <th scope="row">n°<%= planning.published_at.strftime('%U') %></th>
+                    <td>Il y a <%= time_ago_in_words(planning.published_at) %></td>
+                    <td><%= planning.reservations.where(user_id: current_user.id).count %>/<%= planning.shifts.count %></td>
+                    <td>
+                        <%= planning.hourly_rate > 0 ? number_to_currency(planning.earnings(current_user), unit: "€") : "–" %>
+                    </td>
+                    <td>
+                        <%= link_to "Ouvrir", planning_path(planning), class: "link-secondary" %>
+                    </td>
+            </tr>
+        <% end %>
+    </tbody>
+  </table>
+</div>

@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   get 'pages/api', as: :api
   get 'pages/instructions', as: :instructions
 
+  get 'old_plannings', to: 'plannings#old_plannings', as: :old_plannings
+
   resources :reservations, only: [:create, :destroy]
   resources :plannings, only: [:index, :show] do
     resources :shifts, only: [:show]

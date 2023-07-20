@@ -7,7 +7,7 @@
         <%= button_active_to "Documentation API", api_path, method: :get, class: "btn btn-outline-secondary btn-sm px-4 me-md-2" %>
     </div>
     <div class="col-auto">
-        <%= button_active_to "Instructions vidéos de Harry", instructions_path, method: :get, class: "btn btn-outline-secondary btn-sm px-4" %>
+        <%= button_active_to "Conseils de Harry", instructions_path, method: :get, class: "btn btn-outline-secondary btn-sm px-4" %>
     </div>
     <div class="col-auto d-flex align-items-center">
       <div class="dropdown">
@@ -23,6 +23,7 @@
         </a>
         <ul class="dropdown-menu dropdown-menu-light text-small shadow" style="">
           <li><%= link_to "Mon profil", profil_path, class: "dropdown-item" %></li>
+          <li><%= link_to "Mes résultats", old_plannings_path, class: "dropdown-item" %></li>
           <% if @new_achievements_count > 0 %>
             <li>
               <%= link_to achievements_path, class: "dropdown-item" do %>

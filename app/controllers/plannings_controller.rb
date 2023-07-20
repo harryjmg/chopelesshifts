@@ -11,6 +11,10 @@ class PlanningsController < ApplicationController
     @closed_plannings = Planning.closed_plannings.where(planning_type: 'weekly').sort_by(&:published_at).reverse
   end
 
+  def old_plannings
+    @plannings = Planning.closed_plannings.where(planning_type: 'weekly').sort_by(&:published_at).reverse
+  end
+
   # GET /plannings/1 or /plannings/1.json
   def show
     @planning = Planning.find(params[:id])

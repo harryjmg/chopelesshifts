@@ -32,7 +32,7 @@
               <% @planning.shifts.where(day: day_name.downcase).each do |shift| %> <!-- Boucle à travers les shifts pour le jour actuel -->
                 <% if shift.start_hour.hour == hour %>
                   <%= link_to planning_shift_path(@planning, shift) do %>
-                    <div class="event rounded border <%= 'reserved' if current_user.shifts.include?(shift) %> <%= 'full' if shift.seats_taken == shift.seats %>">
+                    <div class="event rounded border <%= 'reserved bg-rainbow' if current_user.shifts.include?(shift) %> <%= 'full' if shift.seats_taken == shift.seats %>">
                       <%= shift.start_hour.strftime("%H:%M") %> - <%= shift.end_hour.strftime("%H:%M") %>
                       <div>
                         Places: <%= shift.seats_taken %> / <%= shift.seats %>
