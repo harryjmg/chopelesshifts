@@ -54,5 +54,6 @@ class User < ApplicationRecord
     achievement = Achievement.find_by(key: key)
     return if self.achievements.include?(achievement)
     user_achievements.create(achievement: achievement) if achievement
+    user_videos.create(video: Video.find_by(unlocked_by: key)) if achievement
   end
 end

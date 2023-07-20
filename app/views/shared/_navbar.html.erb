@@ -22,12 +22,6 @@
         <a href="#" class="d-flex align-items-center text-secondary text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
           <%= image_tag "https://gravatar.com/avatar/#{Digest::MD5.hexdigest(current_user.email)}?s=32", class: "rounded-circle me-2" %>
           <strong>Mon compte</strong>
-          <% if @new_achievements_count > 0 %>
-            <span id="success_notifications_badge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-              <%= @new_achievements_count %>
-              <span class="visually-hidden">notifications</span>
-            </span>
-          <% end %>
         </a>
         <ul class="dropdown-menu dropdown-menu-light text-small shadow" style="">
           <li><%= link_to "Mon profil", profil_path, class: "dropdown-item" %></li>
