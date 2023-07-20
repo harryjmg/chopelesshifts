@@ -18,6 +18,8 @@ class User < ApplicationRecord
   has_many :api_requests, dependent: :destroy
   has_many :user_achievements, dependent: :destroy
   has_many :achievements, through: :user_achievements
+  has_many :user_videos, dependent: :destroy
+  has_many :videos, through: :user_videos
 
   has_many :plannings, class_name: "Planning", dependent: :destroy
 

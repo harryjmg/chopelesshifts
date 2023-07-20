@@ -6,7 +6,6 @@ Rails.application.routes.draw do
 
   get 'pages/home'
   get 'pages/api', as: :api
-  get 'pages/instructions', as: :instructions
 
   get 'old_plannings', to: 'plannings#old_plannings', as: :old_plannings
 
@@ -17,6 +16,9 @@ Rails.application.routes.draw do
   resources :users, only: [:new, :create, :show]
 
   get 'achievements' => 'users#achievements', :as => :achievements
+  get 'videos' => 'videos#index', :as => :videos
+  put '/videos/:id/complete', to: 'videos#complete', as: 'complete_video'
+
 
   get 'profil' => 'users#show', :as => :profil
 

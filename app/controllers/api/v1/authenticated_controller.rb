@@ -13,6 +13,10 @@ class Api::V1::AuthenticatedController < ActionController::Base
     end
 
     private
+    
+    def curl_used
+        request.user_agent.include?('curl')
+    end
 
     def authenticate_user_with_token
         authenticate_with_http_token do |token, options|
@@ -37,7 +41,20 @@ class Api::V1::AuthenticatedController < ActionController::Base
     end
 
     def log_api_request
-        current_user.api_requests&.create!(path: request.path, method: request.method)
+        current_user.api_requests&.create!(path: request.path, method: request.method, user_agent: request.user_agent)
         current_user.record_achievement("first_successful_api_call")
+
+        if chained_api_calls_without_curl?
+            current_user.record_achievement("chained_api_calls_without_curl")
+        end
+    end
+
+    def chained_api_calls_without_curl?
+        last_3_requests = current_user.api_requests.order(created_at: :desc).limit(3)
+        return false unless last_3_requests.count == 3 && last_3_requests.all? { |request| !request.user_agent.include?("curl") }
+    
+        last_3_requests[0].path =~ %r{^/plannings/\d+/shifts/\d+/reservations$} && last_3_requests[0].method == "POST" &&
+        last_3_requests[1].path =~ %r{^/plannings/\d+/shifts$} && last_3_requests[1].method == "GET" &&
+        last_3_requests[2].path == "/plannings" && last_3_requests[2].method == "GET"
     end
 end

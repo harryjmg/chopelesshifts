@@ -14,10 +14,3 @@ class Api::V1::PlanningsController < Api::V1::AuthenticatedController
     @planning = Planning.find(params[:id])
   end
 end
-
-# Ce dont on a besoin comme routes pour l'API:
-# OK - Lister les plannings disponibles pour un utilisateur (hashid, planning_type, state et date de publication)
-# OK - Lister les shifts disponibles pour un planning renseigné via son hash_id (jour, horaires, places disponibles, places réservées)
-# OK - Lister les réservations d'un utilisateur sur un planning.
-# OK - Créer une réservation pour un utilisateur sur un shift.
-# OK - Supprimer une réservation d'un utilisateur sur un shift.

@@ -10,9 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_19_103144) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_20_100903) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "achievement_videos", force: :cascade do |t|
+    t.bigint "video_id", null: false
+    t.bigint "achievement_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["achievement_id"], name: "index_achievement_videos_on_achievement_id"
+    t.index ["video_id"], name: "index_achievement_videos_on_video_id"
+  end
 
   create_table "achievements", force: :cascade do |t|
     t.string "name"
@@ -22,6 +31,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_19_103144) do
     t.datetime "updated_at", null: false
     t.string "icon"
     t.string "key"
+    t.integer "position"
   end
 
   create_table "api_requests", force: :cascade do |t|
@@ -30,6 +40,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_19_103144) do
     t.string "method", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "user_agent"
     t.index ["user_id"], name: "index_api_requests_on_user_id"
   end
 
@@ -93,6 +104,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_19_103144) do
     t.index ["user_id"], name: "index_user_logs_on_user_id"
   end
 
+  create_table "user_videos", force: :cascade do |t|
+    t.bigint "video_id", null: false
+    t.bigint "user_id", null: false
+    t.boolean "is_complete", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_user_videos_on_user_id"
+    t.index ["video_id"], name: "index_user_videos_on_video_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", null: false
     t.string "crypted_password"
@@ -108,6 +129,17 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_19_103144) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  create_table "videos", force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.string "url"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "unlocked_by"
+  end
+
+  add_foreign_key "achievement_videos", "achievements"
+  add_foreign_key "achievement_videos", "videos"
   add_foreign_key "api_requests", "users"
   add_foreign_key "api_tokens", "users"
   add_foreign_key "plannings", "users"
@@ -117,4 +149,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_19_103144) do
   add_foreign_key "user_achievements", "achievements"
   add_foreign_key "user_achievements", "users"
   add_foreign_key "user_logs", "users"
+  add_foreign_key "user_videos", "users"
+  add_foreign_key "user_videos", "videos"
 end

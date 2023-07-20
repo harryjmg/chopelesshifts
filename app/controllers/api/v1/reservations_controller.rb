@@ -41,6 +41,9 @@ class Api::V1::ReservationsController < Api::V1::AuthenticatedController
         current_user.record_achievement('booked_14_slots_via_api')
       end
     end
+    if @planing.planning_type != 'permanent' && !curl_used
+      current_user.record_achievement('fast_booking_without_curl') if Time.now - @planning.published_at < 5.seconds
+    end
   end
 
   def set_planning

@@ -36,9 +36,9 @@ class UsersController < ApplicationController
 
     @new_achievement_ids = @user_achievements.where(seen: false).pluck(:achievement_id)
 
-    @new_achievements = Achievement.where(id: @new_achievement_ids).order(created_at: :desc)
-    @obtained_achievements = Achievement.where(id: @user_achievements.pluck(:achievement_id)).where.not(id: @new_achievement_ids).order(created_at: :desc)
-    @not_obtained_achievements = Achievement.where.not(id: @user_achievements.pluck(:achievement_id))
+    @new_achievements = Achievement.where(id: @new_achievement_ids).order(position: :asc)
+    @obtained_achievements = Achievement.where(id: @user_achievements.pluck(:achievement_id)).where.not(id: @new_achievement_ids).order(position: :asc)
+    @not_obtained_achievements = Achievement.where.not(id: @user_achievements.pluck(:achievement_id)).order(position: :asc)
 
     @achievements = @new_achievements + @obtained_achievements + @not_obtained_achievements
 
@@ -47,9 +47,6 @@ class UsersController < ApplicationController
 
     @user_achievements.where(achievement_id: @new_achievement_ids).update_all(seen: true)
   end
-
-  
-  
 
   private
     def user_params
