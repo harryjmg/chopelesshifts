@@ -55,6 +55,6 @@ class Api::V1::AuthenticatedController < ActionController::Base
     
         last_3_requests[0].path =~ %r{^/api/v1/plannings/\w+/shifts/\w+/reservations$} && last_3_requests[0].method == "POST" &&
         last_3_requests[1].path =~ %r{^/api/v1/plannings/\w+/shifts$} && last_3_requests[1].method == "GET" &&
-        last_3_requests[2].path == "api/v1/plannings" && last_3_requests[2].method == "GET"
+        last_3_requests[2].path == "/api/v1/plannings" && last_3_requests[2].method == "GET"
     end
 end
