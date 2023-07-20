@@ -1,0 +1,28 @@
+<%= render "shared/navbar" %>
+<%= render "shared/flash" %>
+
+<% achievement = Achievement.find_by(key: @video.unlocked_by) %>
+<div class="container-md">
+    <div class="row justify-content-center text-center mt-5 mb-3">
+        <div class="col-lg-8">
+            <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3">Il faut qu'on parle</h1>
+            <p class="lead">Vidéo débloquée suite au succès suivant :</p>
+            <p class="text-muted">
+                <i class="fa <%= achievement.icon %>"></i>
+            <%= achievement.description %></i>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card">
+                <div class="embed-responsive embed-responsive-16by9">
+                    <div style="position: relative; padding-bottom: 64.90384615384616%; height: 0;"><iframe src="https://www.loom.com/embed/e35aaccfb9744a8b994deee254b552f1?sid=3e1110c6-cb10-41b3-acd3-311ff7bd85fa?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe></div>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title"><%= @video.title %></h5>
+                    <%= button_to "J'ai vu la vidéo", complete_video_path(@video), method: :put, class: "btn btn-primary" %>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

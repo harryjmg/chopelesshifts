@@ -113,49 +113,49 @@ end
 puts "Creating videos..."
 videos_data = [
     {
-        title: "Pourquoi ce projet ? Installer votre environnement de travail. C’est quoi une API et comment obtenir son token API",
+        title: "1 - Environnement de travail et API",
         description: "Dans cette vidéo, nous allons voir pourquoi ce projet est intéressant et comment installer votre environnement de travail. Nous allons également voir ce qu’est une API et comment obtenir votre token API.",
         url: "https://www.loom.com/share/e35aaccfb9744a8b994deee254b552f1?sid=995a5946-26a3-4c91-a38f-94c22f9f45ad",
         unlocked_by: "account_activation"
     },
     {
-        title: "Comment faire des requêtes et lire les réponses",
+        title: "2 - Introduction aux requêtes via CURL",
         description: "Dans cette vidéo, nous allons voir comment faire des requêtes et lire les réponses.",
         url: "https://www.loom.com/share/e35aaccfb9744a8b994deee254b552f1?sid=995a5946-26a3-4c91-a38f-94c22f9f45ad",
         unlocked_by: "first_api_token"
     },
     {
-        title: "Comment réserver un créneau via l’API",
+        title: "3 - Réserver un créneau via l'API",
         description: "Dans cette vidéo, nous allons voir comment réserver un créneau via l’API.",
         url: "https://www.loom.com/share/e35aaccfb9744a8b994deee254b552f1?sid=995a5946-26a3-4c91-a38f-94c22f9f45ad",
         unlocked_by: "first_successful_api_call"
     },
     {
-        title: "Comment passer de CURL à RUBY et utiliser les variables",
+        title: "4 - Passer de CURL à RUBY",
         description: "Dans cette vidéo, nous allons voir comment passer de CURL à RUBY et utiliser les variables.",
         url: "https://www.loom.com/share/e35aaccfb9744a8b994deee254b552f1?sid=995a5946-26a3-4c91-a38f-94c22f9f45ad",
         unlocked_by: "first_api_booking"
     },
     {
-        title: "Comment détecter la sortie d’un planning",
+        title: "5 - Détecter la sortie d'un planning",
         description: "Dans cette vidéo, nous allons voir comment détecter la sortie d’un planning.",
         url: "https://www.loom.com/share/e35aaccfb9744a8b994deee254b552f1?sid=995a5946-26a3-4c91-a38f-94c22f9f45ad",
         unlocked_by: "chained_api_calls_without_curl"
     },
     {
-        title: "Comment prendre un créneau dès sa sortie",
+        title: "6 - Réservation rapide d'un créneau",
         description: "Dans cette vidéo, nous allons voir comment prendre un créneau dès sa sortie.",
         url: "https://www.loom.com/share/e35aaccfb9744a8b994deee254b552f1?sid=995a5946-26a3-4c91-a38f-94c22f9f45ad",
         unlocked_by: "fast_listing_without_curl"
     },
     {
-        title: "Comment tout relier pour prendre tous les créneaux de la semaine",
+        title: "7 - Récupérer tous les créneaux instantanément",
         description: "Dans cette vidéo, nous allons voir comment tout relier pour prendre tous les créneaux de la semaine.",
         url: "https://www.loom.com/share/e35aaccfb9744a8b994deee254b552f1?sid=995a5946-26a3-4c91-a38f-94c22f9f45ad",
         unlocked_by: "fast_booking_without_curl"
     },
     {
-        title: "Bravo, ce que tu as appris ici et rappel de l interet",
+        title: "8 - Félicitaitons !",
         description: "Dans cette vidéo, nous allons voir bravo, ce que tu as appris ici et rappel de l interet.",
         url: "https://www.loom.com/share/e35aaccfb9744a8b994deee254b552f1?sid=995a5946-26a3-4c91-a38f-94c22f9f45ad",
         unlocked_by: "booked_14_slots_via_api"

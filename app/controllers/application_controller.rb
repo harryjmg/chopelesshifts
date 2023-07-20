@@ -9,6 +9,7 @@ class ApplicationController < ActionController::Base
     def set_notifications
         if current_user
             @new_achievements_count = current_user.user_achievements.where(seen: false).count
+            @new_videos_count = current_user.user_videos.where(is_complete: false).count
         end
     end
 end

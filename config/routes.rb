@@ -18,7 +18,7 @@ Rails.application.routes.draw do
   get 'achievements' => 'users#achievements', :as => :achievements
   get 'videos' => 'videos#index', :as => :videos
   put '/videos/:id/complete', to: 'videos#complete', as: 'complete_video'
-
+  get 'videos/:id' => 'videos#show', :as => :video
 
   get 'profil' => 'users#show', :as => :profil
 

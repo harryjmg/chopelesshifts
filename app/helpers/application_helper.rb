@@ -7,6 +7,14 @@ module ApplicationHelper
         button_to(name, options, html_options, &block)
     end
 
+    def button_active_to_block(options = nil, html_options = nil, &block)
+        html_options = {} if html_options.nil?
+        if current_page?(options)
+            html_options[:class] = "#{html_options[:class]} active"
+        end
+        button_to(options, html_options, &block)
+    end
+
     def evaluate_performance(count)
         comments = [
             ["(nul)", "(bouuh)", "(claqué)", "(à chier)", "(pitoyable)", "(nullos)", "(la honte)"],

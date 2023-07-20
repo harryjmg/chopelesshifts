@@ -1,30 +1,50 @@
 <%= render "shared/navbar" %>
 <%= render "shared/flash" %>
 
-<div class="container-md">
-    <div class="row justify-content-center text-center mt-5 mb-3">
-        <div class="col-lg-8">
-            <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3">Tes vidéos</h1>
-            <p class="lead">Parce que tu es sur le point de devenir un expert !</p>
+<% if @uncompleted_video %>
+    <% achievement = Achievement.find_by(key: @uncompleted_video.video.unlocked_by) %>
+    <div class="container-md">
+        <div class="row justify-content-center text-center mt-5 mb-3">
+            <div class="col-lg-8">
+                <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3">Conseils de Harry</h1>
+                <p class="lead">Vidéo débloquée suite à l'action suivante :</p>
+                <p class="text-muted">
+                    <i class="fa <%= achievement.icon %>"></i>
+                    <%= achievement.description %>
+                </p>
+            </div>
         </div>
-    </div>
-    <% if @uncompleted_video %>
         <div class="row justify-content-center">
             <div class="col-lg-8">
                 <div class="card">
                     <div class="embed-responsive embed-responsive-16by9">
-                        <div style="position: relative; padding-bottom: 64.90384615384616%; height: 0;"><iframe src="https://www.loom.com/embed/e35aaccfb9744a8b994deee254b552f1?sid=3e1110c6-cb10-41b3-acd3-311ff7bd85fa" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe></div>
+                        <div style="position: relative; padding-bottom: 64.90384615384616%; height: 0;"><iframe src="https://www.loom.com/embed/e35aaccfb9744a8b994deee254b552f1?sid=3e1110c6-cb10-41b3-acd3-311ff7bd85fa?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe></div>
                     </div>
                     <div class="card-body">
                         <h5 class="card-title"><%= @uncompleted_video.video.title %></h5>
-                        <%= button_to "Marquer comme complétée", complete_video_path(@uncompleted_video.video), method: :put, class: "btn btn-primary" %>
+                        <%= button_to complete_video_path(@uncompleted_video.video), method: :put, class: "btn bg-rainbow" do %>
+                            <i class="fa fa-check"></i>
+                            J'ai vu la vidéo
+                            <span id="success_notifications_badge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-white border">
+                                <i class="fa-solid fa-play fa-bounce text-danger"></i>
+                                <span class="visually-hidden">notifications</span>
+                            </span>
+                        <% end %>
                     </div>
                 </div>
             </div>
         </div>
-    <% else %>
-        <% @videos.each do |video| %>
-            <%= render 'video', video: video %>
-        <% end %>
+    </div>
+<% end %>
+
+<div class="container-md">
+    <div class="row justify-content-center text-center mt-5 mb-3">
+        <div class="col-lg-8">
+            <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3">Autres vidéos</h1>
+        </div>
+    </div>
+    <% @videos.each do |video| %>
+        <%= render 'video', video: video %>
     <% end %>
 </div>
+
