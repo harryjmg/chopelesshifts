@@ -6,7 +6,7 @@ namespace :planning do
     end
 
     task weekly_force: :environment do
-        create_and_fill_planning('weekly', 60, 2, 1, 0.03)
+        create_and_fill_planning('weekly', 30, 1, 0.5, 1)
     end
 
     task weekly: :environment do
