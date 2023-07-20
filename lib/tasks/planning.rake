@@ -13,7 +13,7 @@ namespace :planning do
         if Planning.weekly.available.where("published_at > ?", Time.now.beginning_of_week).exists?
             puts "Weekly planning already exists for this week. Aborting."
         else
-            create_and_fill_planning('weekly', 60, 2, 1, 0.03)
+            create_and_fill_planning('weekly', 60, 2, 1, 0.20)
         end
     end
 
