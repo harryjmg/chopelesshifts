@@ -5,14 +5,18 @@ namespace :planning do
         User.all.each { |user| create_daily_planning(user) }
     end
 
+    task weekly_force: :environment do
+        create_and_fill_planning('weekly', 60, 2, 1, 0.03)
+    end
+
     task weekly: :environment do
         if Planning.weekly.available.where("published_at > ?", Time.now.beginning_of_week).exists?
             puts "Weekly planning already exists for this week. Aborting."
         else
-            create_and_fill_planning('weekly', 60, 2, 1, 0.03)  # Sleep 1 second between each fill, and fill 3% of remaining slots each time
+            create_and_fill_planning('weekly', 60, 2, 1, 0.03)
         end
     end
-    
+
     task clean: :environment do
         # Archive plannings older than 1 month
         puts "Archiving plannings older than 3 month..."
