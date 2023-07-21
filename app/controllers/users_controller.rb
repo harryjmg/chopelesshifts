@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :require_login, only: [:index, :show, :edit, :update, :destroy, :achievements]
-  before_action :check_onboarding
+  before_action :check_onboarding, only: [:show]
 
   def show
     @user = current_user
@@ -25,7 +25,6 @@ class UsersController < ApplicationController
     if (@user = User.load_from_activation_token(params[:id]))
       @user.activate!
       auto_login(@user)
-      @user.remember_me!
       @user.record_achievement('account_activation')
       redirect_to(plannings_path, :notice => 'Ton compte est activé.')
     else

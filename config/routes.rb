@@ -13,7 +13,13 @@ Rails.application.routes.draw do
   resources :plannings, only: [:index, :show] do
     resources :shifts, only: [:show]
   end
-  resources :users, only: [:new, :create, :show]
+  resources :users, only: [:new, :create, :show] do
+  end
+
+  get 'forgot_password', to: 'passwords#forgot_password', as: :forgot_password
+  post 'send_password_reset_instructions', to: 'passwords#send_password_reset_instructions', as: :send_password_reset_instructions
+  get 'reset_password', to: 'passwords#reset_password', as: :reset_password
+  patch 'update_password', to: 'passwords#update_password', as: :update_password
 
   get 'onboarding', to: 'onboarding#onboarding', as: :onboarding
   put 'onboard', to: 'onboarding#onboard', as: :onboard
