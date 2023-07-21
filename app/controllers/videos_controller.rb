@@ -18,6 +18,9 @@ class VideosController < ApplicationController
         end
     end
 
+    def ultimate_advice
+    end
+
     def complete
         user_video = UserVideo.find_by(user: current_user, video_id: @video.id)
         if user_video

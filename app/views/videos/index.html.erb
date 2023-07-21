@@ -26,10 +26,13 @@
             </div>
             <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3 mt-4">Conseils de Harry
             </h1>
+            <%= link_to  ultimate_advice_path, class: "link-secondary" do %>
+                (Cliquez ici en cas d'urgence)
+            <% end %>
         </div>
     </div>
 
-    <div class="row justify-content-center">
+    <div class="row justify-content-center mt-4">
         <div class="col-lg-8">
             <div class="card" style="box-shadow: 0 0 1rem 0 rgba(0, 0, 0, .2);">
                 <div style="position: relative; padding-bottom: 64.90384615384616%; height: 0;">
@@ -37,27 +40,29 @@
                 </div>
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center mb-3">
-                        <h5 class="card-title"><%= @video.title.split(" - ")[1] %></h5>
+                        <h5 class="card-title" style="position: relative; left: 1em"><%= @video.title.split(" - ")[1] %></h5>
                         <% if @user_video.is_complete == false %>
-                            <%= button_to complete_video_path(@video), method: :put, class: "btn bg-rainbow" do %>
+                            <%= button_to complete_video_path(@video), method: :put, class: "btn bg-rainbow", style: "right: 1em; position: relative;" do %>
                                 J'ai vu la vidéo
                             <% end %>
                         <% else %>
-                            <%= button_to uncomplete_video_path(@video), method: :put, class: "btn btn-outline-secondary" do %>
+                            <%= button_to uncomplete_video_path(@video), method: :put, class: "btn btn-outline-secondary", style: "right: 1em; position: relative;" do %>
                                 <i class="fa fa-check"></i>
                                 Vidéo déjà vue
                             <% end %>
                         <% end %>
                     </div>
-                    <h6>Objectif : </h6>
-                    <% @video.achievements.each do |achievement| %>
-                        <% user_achievement = UserAchievement.find_by(user: current_user, achievement: achievement) %>
-                        <% if user_achievement %>
-                            <p class="text-success" style="text-decoration:line-through;"><i class="fa-regular fa-circle-check"></i> <%= achievement.description %></p>
-                        <% else %>
-                            <p><i class="fa-regular fa-circle fa-fade"></i> <%= achievement.description %> (tu peux le faire !)</p>
+                    <h6 style="position: relative; left: 1em">Objectif : </h6>
+                    <ul class="fa-ul">
+                        <% @video.achievements.each do |achievement| %>      
+                            <% user_achievement = UserAchievement.find_by(user: current_user, achievement: achievement) %>
+                            <% if user_achievement %>
+                                <li class="text-success" style="text-decoration: line-through"><span class="fa-li"><i class="fa-regular fa-circle-check"></i></span> <%= achievement.description %></li>
+                            <% else %>
+                                <li><span class="fa-li"><i class="fa-regular fa-circle fa-fade"></i></span> <%= achievement.description %> (tu peux le faire !)</li>
+                            <% end %>
                         <% end %>
-                    <% end %>
+                    </ul>
                 </div>
             </div>
         </div>

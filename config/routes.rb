@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   get 'videos' => 'videos#index', :as => :videos
   put '/videos/:id/complete', to: 'videos#complete', as: 'complete_video'
   put '/videos/:id/uncomplete', to: 'videos#uncomplete', as: 'uncomplete_video'
+  get 'ultimate_advice' => 'videos#ultimate_advice', :as => :ultimate_advice
 
   get 'profil' => 'users#show', :as => :profil
 

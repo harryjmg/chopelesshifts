@@ -1,0 +1,34 @@
+<%= render "shared/navbar" %>
+<%= render "shared/flash" %>
+
+<div class="container-md">
+    <div class="row justify-content-center text-center mt-5 mb-3">
+        <div class="col-lg-8">
+            <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3">Just do it.</h1>
+            <p class="lead">Si t'as un petit coup de mou, regarde cette vidéo.</p>
+        </div>
+    </div>
+</div>
+
+<div class="container-md">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card" style="box-shadow: 0 0 1rem 0 rgba(0, 0, 0, .2);">
+                <div style="position: relative; padding-bottom: 64.90384615384616%; height: 0;">
+                    <iframe src="https://www.youtube.com/embed/5-sfG8BV8wU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe>
+                </div>
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <%= button_to videos_path, method: :get, class: "btn bg-rainbow" do %>
+                            Je suis prêt
+                        <% end %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.body.classList.add('dark-theme');
+</script>
