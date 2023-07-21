@@ -125,25 +125,25 @@ videos_data = [
     {
         title: "5 - Détecter la sortie d'un planning",
         description: "Dans cette vidéo, nous allons voir comment détecter la sortie d’un planning.",
-        url: "https://www.loom.com/share/e35aaccfb9744a8b994deee254b552f1?sid=995a5946-26a3-4c91-a38f-94c22f9f45ad",
+        url: "https://www.loom.com/share/d01a6fad783944d2b4fc4ca7db79dc5a?sid=8716043b-2834-4315-b2e8-5ff2f0fe48ef",
         unlocked_by: "chained_api_calls_without_curl"
     },
     {
         title: "6 - Réservation rapide d'un créneau",
         description: "Dans cette vidéo, nous allons voir comment prendre un créneau dès sa sortie.",
-        url: "https://www.loom.com/share/e35aaccfb9744a8b994deee254b552f1?sid=995a5946-26a3-4c91-a38f-94c22f9f45ad",
+        url: "https://www.loom.com/share/d01a6fad783944d2b4fc4ca7db79dc5a?sid=8716043b-2834-4315-b2e8-5ff2f0fe48ef",
         unlocked_by: "fast_listing_without_curl"
     },
     {
         title: "7 - Récupérer tous les créneaux instantanément",
         description: "Dans cette vidéo, nous allons voir comment tout relier pour prendre tous les créneaux de la semaine.",
-        url: "https://www.loom.com/share/e35aaccfb9744a8b994deee254b552f1?sid=995a5946-26a3-4c91-a38f-94c22f9f45ad",
+        url: "https://www.loom.com/share/d01a6fad783944d2b4fc4ca7db79dc5a?sid=8716043b-2834-4315-b2e8-5ff2f0fe48ef",
         unlocked_by: "fast_booking_without_curl"
     },
     {
         title: "8 - Félicitaitons !",
         description: "Dans cette vidéo, on va fêter tes résultats ensemble et parler de la suite.",
-        url: "https://www.loom.com/share/e35aaccfb9744a8b994deee254b552f1?sid=995a5946-26a3-4c91-a38f-94c22f9f45ad",
+        url: "https://www.loom.com/share/d01a6fad783944d2b4fc4ca7db79dc5a?sid=8716043b-2834-4315-b2e8-5ff2f0fe48ef",
         unlocked_by: "booked_14_slots_via_api"
     }
 ]
