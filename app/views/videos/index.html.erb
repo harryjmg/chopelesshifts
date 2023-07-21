@@ -33,7 +33,9 @@
         <div class="col-lg-8">
             <div class="card" style="box-shadow: 0 0 1rem 0 rgba(0, 0, 0, .2);">
 
-                <div style="position: relative; padding-bottom: 64.90384615384616%; height: 0;"><iframe src="https://www.loom.com/embed/e35aaccfb9744a8b994deee254b552f1?sid=3e1110c6-cb10-41b3-acd3-311ff7bd85fa?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe></div>
+                <div style="position: relative; padding-bottom: 64.90384615384616%; height: 0;">
+                    <iframe src=<%= "https://www.loom.com/embed/" + @video.url.split("share/")[1] + "?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true"%> frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe>
+                </div>
 
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center mb-3">
