@@ -25,7 +25,7 @@ achievements_data = [
     },
     {
         name: "La clé des champs",
-        description: "Obtenir son premier token pour l’API.",
+        description: "Obtenir un token pour accéder l’API",
         points: 20,
         icon: "fa-key",
         key: "first_api_token",
@@ -33,7 +33,7 @@ achievements_data = [
     },
     {
         name: "C’est émouvant non ?",
-        description: "Faire une première requête API qui fonctionne.",
+        description: "Faire une première requête API qui fonctionne (code 2XX)",
         points: 20,
         icon: "fa-heart",
         key: "first_successful_api_call",
@@ -97,20 +97,6 @@ achievements_data = [
     }
 ]
 
-
-puts "Creating achievements..."
-achievements_data.each do |achievement_data|
-    achievement = Achievement.find_or_initialize_by(key: achievement_data[:key])
-    achievement.update(
-        name: achievement_data[:name],
-        description: achievement_data[:description],
-        points: achievement_data[:points],
-        icon: achievement_data[:icon],
-        position: achievement_data[:position]
-    )
-end
-
-puts "Creating videos..."
 videos_data = [
     {
         title: "1 - Environnement de travail et API",
@@ -162,13 +148,36 @@ videos_data = [
     }
 ]
 
-videos_data.each do |video_data|
+
+puts "Creating achievements..."
+achievements_data.each do |achievement_data|
+    achievement = Achievement.find_or_initialize_by(key: achievement_data[:key])
+    achievement.update(
+        name: achievement_data[:name],
+        description: achievement_data[:description],
+        points: achievement_data[:points],
+        icon: achievement_data[:icon],
+        position: achievement_data[:position]
+    )
+end
+
+AchievementVideo.destroy_all
+
+puts "Creating videos..."
+videos_data.each_with_index do |video_data, index|
     video = Video.find_or_initialize_by(unlocked_by: video_data[:unlocked_by])
     video.update(
         title: video_data[:title],
         description: video_data[:description],
         url: video_data[:url]
     )
+
+    break if index == videos_data.length - 1
+
+    achievement = Achievement.find_by(key: videos_data[index + 1][:unlocked_by])
+    if achievement
+        AchievementVideo.find_or_create_by(achievement: achievement, video: video)
+    end
 end
 
 puts "Create user videos..."
