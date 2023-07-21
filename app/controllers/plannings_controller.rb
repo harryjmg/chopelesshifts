@@ -1,5 +1,6 @@
 class PlanningsController < ApplicationController
   before_action :require_login
+  before_action :check_onboarding
   
   # GET /plannings or /plannings.json
   def index

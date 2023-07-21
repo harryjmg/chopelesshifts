@@ -1,5 +1,6 @@
 class VideosController < ApplicationController
     before_action :set_video, only: %i[ show complete uncomplete ]
+    before_action :check_onboarding
 
     def index
         @videos = Video.all.order(:title => :asc)

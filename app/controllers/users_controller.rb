@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :require_login, only: [:index, :show, :edit, :update, :destroy, :achievements]
+  before_action :check_onboarding
 
   def show
     @user = current_user

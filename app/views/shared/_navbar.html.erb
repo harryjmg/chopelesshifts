@@ -20,7 +20,7 @@
     <div class="col-auto d-flex align-items-center">
       <div class="dropdown">
         <a href="#" class="d-flex align-items-center text-secondary text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-          <%= image_tag "https://gravatar.com/avatar/#{Digest::MD5.hexdigest(current_user.email)}?s=32", class: "rounded-circle me-2" %>
+          <%= image_tag "https://seccdn.libravatar.org/avatar/#{Digest::MD5.hexdigest(current_user.email.downcase)}?s=32", class: "rounded-circle me-2" %>
           <strong>Mon compte</strong>
         </a>
         <ul class="dropdown-menu dropdown-menu-light text-small shadow" style="">

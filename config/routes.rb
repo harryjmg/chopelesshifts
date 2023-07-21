@@ -15,6 +15,10 @@ Rails.application.routes.draw do
   end
   resources :users, only: [:new, :create, :show]
 
+  get 'onboarding', to: 'onboarding#onboarding', as: :onboarding
+  put 'onboard', to: 'onboarding#onboard', as: :onboard
+  put 'unboard', to: 'onboarding#unboard', as: :unboard
+
   get 'videos' => 'videos#index', :as => :videos
   put '/videos/:id/complete', to: 'videos#complete', as: 'complete_video'
   put '/videos/:id/uncomplete', to: 'videos#uncomplete', as: 'uncomplete_video'

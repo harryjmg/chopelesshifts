@@ -10,5 +10,20 @@
 </div>
 
 <div class="container-md rounded bg-white p-3 border" style="max-width:800px">
-  <%= render @user %>
+  <p>Ton prénom : <%= @user.first_name %></p>
+  <p>Ton email : <%= @user.email %></p>
+
+  <p>Ta photo de profil :</p>
+  <img src="https://seccdn.libravatar.org/avatar/<%= Digest::MD5.hexdigest(@user.email.downcase) %>?s=100" alt="Profile Picture">
+  
+  <p>
+    <%= link_to "Modifier ton image de profil sur Libravar", "https://libravatar.org/", target: "_blank", class: "link-secondary" %>
+  </p>
+
+  <p>
+    <%= link_to onboarding_path, class: "link-secondary" do %>
+      <i class="fa-solid fa-video"></i>
+      Revoir la première vidéo d'accueil
+    <% end %>
+  </p>
 </div>

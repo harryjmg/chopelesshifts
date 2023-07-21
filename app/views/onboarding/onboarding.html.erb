@@ -1,0 +1,30 @@
+<%= render "shared/flash" %>
+
+<div class="container-md">
+    <div class="row justify-content-center text-center mt-5 mb-3">
+        <div class="col-lg-8">
+            <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-5">Tout commence ici...</h1>
+        </div>
+    </div>
+</div>
+
+<div class="container-md">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="card" style="box-shadow: 0 0 1rem 0 rgba(0, 0, 0, .2);">
+                <div style="position: relative; padding-bottom: 64.90384615384616%; height: 0;">
+                    <iframe src=<%= "https://www.loom.com/embed/2aa8fdcad1864833a89130c734973056?sid=9c6e9fde-12ca-44ec-b48b-0d8688d5ac86?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true"%> frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe>
+                </div>
+            </div>
+            <div class="mt-5 mb-2">
+                <%= button_to onboard_path, method: :put, class: "btn bg-rainbow", style: "margin: 0 auto; scale: 1.3" do %>
+                    Relever le défi
+                <% end %>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.body.classList.add('dark-theme');
+</script>
