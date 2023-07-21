@@ -1,7 +1,7 @@
 class UserSessionsController < ApplicationController
 
   def create
-    @user = login(params[:email], params[:password])
+    @user = login(params[:email], params[:password], params[:remember_me])
 
     if @user
       redirect_to(:plannings, notice: 'Connexion réussie')
@@ -12,6 +12,7 @@ class UserSessionsController < ApplicationController
   end
 
   def destroy
+    current_user.forget_me!
     logout
     redirect_to(:root, notice: 'Déconnexion réussie')
   end

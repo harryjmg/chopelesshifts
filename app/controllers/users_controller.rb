@@ -25,6 +25,7 @@ class UsersController < ApplicationController
     if (@user = User.load_from_activation_token(params[:id]))
       @user.activate!
       auto_login(@user)
+      @user.remember_me!
       @user.record_achievement('account_activation')
       redirect_to(plannings_path, :notice => 'Ton compte est activé.')
     else

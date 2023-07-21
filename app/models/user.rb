@@ -1,7 +1,9 @@
 class User < ApplicationRecord
   include Hashid::Rails
 
-  authenticates_with_sorcery!
+  authenticates_with_sorcery! do |config|
+    config.submodules = [:remember_me, :activation, :reset_password]
+  end
 
   validates :first_name, presence: true
   validates :password, length: { minimum: 3 }, if: -> { new_record? || changes[:crypted_password] }
