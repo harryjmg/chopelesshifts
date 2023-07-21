@@ -60,4 +60,14 @@ module ApplicationHelper
             "Gangsta !"
         ].sample
     end
+
+    def video_status_class(video, current_video)
+        user_video = video.user_videos.where(user: current_user).first
+        return "default" unless user_video
+        if !user_video.is_complete
+            "bg-rainbow to_complete"
+        else
+            "default"
+        end
+    end
 end

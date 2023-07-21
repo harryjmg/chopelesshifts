@@ -15,10 +15,9 @@ Rails.application.routes.draw do
   end
   resources :users, only: [:new, :create, :show]
 
-  get 'achievements' => 'users#achievements', :as => :achievements
   get 'videos' => 'videos#index', :as => :videos
   put '/videos/:id/complete', to: 'videos#complete', as: 'complete_video'
-  get 'videos/:id' => 'videos#show', :as => :video
+  put '/videos/:id/uncomplete', to: 'videos#uncomplete', as: 'uncomplete_video'
 
   get 'profil' => 'users#show', :as => :profil
 

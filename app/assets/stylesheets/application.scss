@@ -2,6 +2,44 @@
 @import "skool_swag";
 @import "font-awesome";
 
+.circle {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.circle.completed {
+    background-color: #4CAF50; /* Green for completed videos */
+    color: white;
+}
+
+.circle.to_complete {
+    color: #7c94a9;
+}
+
+.circle.current {
+    background-color: #2196F3; /* Blue for the current video */
+    color: white;
+}
+
+.circle.unseen {
+    background-color: #f44336; /* Red for unseen videos */
+    color: white;
+}
+
+.circle.last-accessible {
+    background-color: #FFEB3B; /* Yellow for the last accessible video */
+    color: black;
+}
+
+.circle.default {
+    background-color: #9E9E9E; /* Grey for all other videos */
+    color: white;
+}
+
 
 body {
     background: white;

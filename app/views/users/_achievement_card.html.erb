@@ -18,7 +18,7 @@
                     </div>
                     <div class="col-2">
                         <% if Video.find_by(unlocked_by: achievement.key).present? %>
-                            <%= link_to "Voir la vidéo", video_path(Video.find_by(unlocked_by: achievement.key)), class: "link-primary" %><br>
+                            <%= link_to "Voir la vidéo", videos_path(Video.find_by(unlocked_by: achievement.key)), class: "link-primary" %><br>
                         <% end %>
                     </div>
                 </div>

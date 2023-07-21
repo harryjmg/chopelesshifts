@@ -10,8 +10,8 @@
         <%= button_active_to_block videos_path, method: :get, class: "btn btn-outline-secondary btn-sm px-4", style: "position: relative" do %>
           Conseils de Harry
           <% if @new_videos_count > 0 %>
-            <span id="success_notifications_badge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-white border">
-              <i class="fa-solid fa-play fa-bounce text-danger"></i>
+            <span id="success_notifications_badge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+              <%= @new_videos_count %>
               <span class="visually-hidden">notifications</span>
             </span>
           <% end %>
@@ -26,19 +26,6 @@
         <ul class="dropdown-menu dropdown-menu-light text-small shadow" style="">
           <li><%= link_to "Mon profil", profil_path, class: "dropdown-item" %></li>
           <li><%= link_to "Mes résultats", old_plannings_path, class: "dropdown-item" %></li>
-          <% if @new_achievements_count > 0 %>
-            <li>
-              <%= link_to achievements_path, class: "dropdown-item" do %>
-                Mes succès
-                <span id="success_notifications_badge" class="top-0 start-100 badge rounded-pill bg-danger">
-                  <%= @new_achievements_count %>
-                  <span class="visually-hidden">notifications</span>
-                </span>
-              <% end %>
-            </li>
-          <% else %>
-            <li><%= link_to "Mes succès", achievements_path, class: "dropdown-item" %></li>
-          <% end %>
           <li><%= link_to "Mes tokens API", api_tokens_path, class: "dropdown-item" %></li>
           <li><hr class="dropdown-divider"></li>
           <li><%= link_to "Se déconnecter", :logout, data: { turbo_method: :post }, class: "dropdown-item" %></li>
