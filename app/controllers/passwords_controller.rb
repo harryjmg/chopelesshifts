@@ -3,7 +3,7 @@ class PasswordsController < ApplicationController
     def forgot_password ; end
 
     def send_password_reset_instructions
-        @user = User.find_by_email(params[:email])
+        @user = User.find_by_email(params[:email]&.downcase)
         @user.deliver_reset_password_instructions! if @user
         redirect_to root_path, notice: "Normalement, tu as reçu un email avec un lien pour changer ton mot de passe"
     end
