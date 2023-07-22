@@ -2,7 +2,7 @@ namespace :list do
     desc "Add to mailing list all users who have completed the onboarding"
 
     task update: :environment do
-        User.where(added_to_list: false, onboarded: true).each do |user|
+        User.where(added_to_list: false, is_onboarded: true).each do |user|
             response = HTTParty.post("https://hook.eu1.make.com/97b6fgu31virfopvd7lisofsaxflvgpt", 
                 :body => { :email => user.email, :first_name => user.first_name }.to_json,
                 :headers => { 'Content-Type' => 'application/json' }
