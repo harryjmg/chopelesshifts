@@ -1,7 +1,7 @@
 class UserSessionsController < ApplicationController
 
   def create
-    @user = login(params[:email], params[:password], params[:remember_me])
+    @user = login(params[:email]&.downcase, params[:password], params[:remember_me])
 
     if @user
       redirect_to(:plannings, notice: 'Connexion réussie')
