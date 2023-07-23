@@ -2,10 +2,9 @@ namespace :list do
     desc "Add to mailing list all users who have completed the onboarding"
 
     task update: :environment do
-        add_to_list(User.find_by(email: "harry.gueguen@gmail.com"))
-        # User.where(added_to_list: false, is_onboarded: true).each do |user|
-        #     add_to_list(user)
-        # end
+        User.where(added_to_list: false, is_onboarded: true).each do |user|
+            add_to_list(user)
+        end
         puts "Contacts added to list."
     end
 
