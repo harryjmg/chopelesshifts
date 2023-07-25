@@ -56,10 +56,14 @@ class User < ApplicationRecord
   end
 
   def has_all_achievements_for(video)
-    video.achievements_count == self.achievements(where: {video_id: video.id}).count
+    video.achievements_count == self.achievements.where(video_id: video.id).count
   end
 
   def complete_video(video)
-    user_videos.find_or_create_by(video: video).update(is_complete: true)
+    user_videos.find_by(video: video).update(is_complete: true)
+  end
+
+  def unlock_video(video)
+    user_videos.find_or_create_by(video: video)
   end
 end

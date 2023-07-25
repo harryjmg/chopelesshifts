@@ -44,7 +44,7 @@
                     <div class="d-flex justify-content-between align-items-center mb-3">
                         <h5 class="card-title" style="position: relative; left: 1em"><%= @video.title.split(" - ")[1] %></h5>
                         <% if @user_video.is_seen == false %>
-                            <%= button_to video_seen_path(@video), method: :put, class: "btn bg-rainbow", style: "right: 1em; position: relative;" do %>
+                            <%= button_to video_seen_path(@video), method: :put, class: "bg-rainbow border btn", style: "right: 1em; position: relative;" do %>
                                 J'ai vu la vidéo
                             <% end %>
                         <% else %>
@@ -54,7 +54,7 @@
                             <% end %>
                         <% end %>
                     </div>
-                    <h6 style="position: relative; left: 1em">Objectif : </h6>
+                    <h6 style="position: relative; left: 1em">Objectif(s) :</h6>
                     <ul class="fa-ul">
                         <% @video.achievements.each do |achievement| %>      
                             <% user_achievement = UserAchievement.find_by(user: current_user, achievement: achievement) %>
@@ -65,9 +65,17 @@
                             <% end %>
                         <% end %>
                     </ul>
+                    <% if @is_completable %>
+                        <div class="align-items-center d-flex justify-content-center">
+                            <%= button_to video_complete_path(@video), method: :put, class: "bg-rainbow border btn", style: "right: 1em; position: relative;" do %>
+                                Débloquer la vidéo suivante
+                            <% end %>
+                        </div>
+                    <% end %>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
+<%= console %>
