@@ -1,2 +1,0 @@
-class UserLogsController < ApplicationController
-end

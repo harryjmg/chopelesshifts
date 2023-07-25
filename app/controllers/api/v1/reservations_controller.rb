@@ -35,12 +35,17 @@ class Api::V1::ReservationsController < Api::V1::AuthenticatedController
 
   def check_and_record_achievements
     current_user.record_achievement('first_api_booking')
+
     if @planning.planning_type == 'weekly'
       current_user.record_achievement('first_api_weekly_booking')
-      if current_user.reservations.where(planning: @planning).count >= 14
+      reservations_count = current_user.reservations.where(planning: @planning).count
+      if reservations_count >= 14
         current_user.record_achievement('booked_14_slots_via_api')
+      elsif reservations_count >= 7
+        current_user.record_achievement('booked_7_slots_via_api')
       end
     end
+
     if @planning.planning_type != 'permanent' && !curl_used
       current_user.record_achievement('fast_booking_without_curl') if Time.now - @planning.published_at < 5.seconds
     end
@@ -48,6 +53,7 @@ class Api::V1::ReservationsController < Api::V1::AuthenticatedController
 
   def set_planning
     @planning = Planning.find(params[:planning_id])
+
     unless @planning
       render json: { error: 'Planning not found' }, status: :not_found
     end
@@ -59,6 +65,7 @@ class Api::V1::ReservationsController < Api::V1::AuthenticatedController
 
   def set_reservation
     @reservation = @shift.reservations.find_by(user: current_user)
+    
     unless @reservation
       render json: { error: 'Reservation not found' }, status: :not_found
     end

@@ -1,5 +1,5 @@
 class VideosController < ApplicationController
-    before_action :set_video, only: %i[ show complete uncomplete ]
+    before_action :set_video, only: %i[ show seen unseen ]
     before_action :check_onboarding
 
     def index
@@ -13,7 +13,7 @@ class VideosController < ApplicationController
                 redirect_to videos_path, alert: "Vous n'avez pas accès à cette vidéo"
             end
         else
-            @user_video = @user_videos.find_by(is_complete: false)
+            @user_video = @user_videos.where(is_complete: false).first
             @user_video ||= @user_videos.last
             @video = @user_video.video if @user_video
         end
@@ -22,22 +22,23 @@ class VideosController < ApplicationController
     def ultimate_advice
     end
 
-    def complete
+    def seen
         user_video = UserVideo.find_by(user: current_user, video_id: @video.id)
+        
         if user_video
-            user_video.update(is_complete: true)
-            flash[:success] = "Vidéo complétée avec succès!"
+            user_video.update(is_seen: true)
+            flash[:success] = "Vidéo marquée comme vue !"
         else
             flash[:error] = "Vidéo non trouvée ou non accessible"
         end
         redirect_to videos_path(id: @video.id)
     end
 
-    def uncomplete
+    def unseen
         user_video = UserVideo.find_by(user: current_user, video_id: @video.id)
+        
         if user_video
-            user_video.update(is_complete: false)
-            flash[:success] = "Vidéo décomplétée avec succès!"
+            user_video.update(is_seen: false)
         else
             flash[:error] = "Vidéo non trouvée ou non accessible"
         end

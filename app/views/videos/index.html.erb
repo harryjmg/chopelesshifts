@@ -8,24 +8,26 @@
         <div class="col-lg-8">
             <div class="d-flex justify-content-center">
                 <% @videos.each do |video| %>
+                    <% user_video = UserVideo.find_by(user: current_user, video: video) %>
                     <div class="mx-2" style="position: relative">
                         <% if @video == video %>
                             <div class="fa fa-chevron-down fa-fade" style="position: absolute;top: -21px;right: 7px;"></div>
                         <% end %>
                         <%= link_to videos_path(id: video.id), class: "text-decoration-none" do %>
-                            <div class="border circle <%= video_status_class(video, @video) %>">
-                                <% if @user_videos.where(video_id: video.id).any? == false %>
-                                    <div class="fa fa-lock" style="scale:0.8"></div>
-                                <% else %>
+                            <% if user_video.nil? %>
+                                <div class="border circle <%= video_status_class(video, @video) %>"> 
+                                    <div class="fa fa-lock" style="scale:0.8; color: #b0b0b0;"></div>
+                                </div>
+                            <% else %>
+                                <div class="border circle <%= video_status_class(video, @video) %>">
                                     <%= video.title.split(" - ")[0] %>
-                                <% end %>
-                            </div>
+                                </div>
+                            <% end %>
                         <% end %>
                     </div>
                 <% end %>
             </div>
-            <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3 mt-4">Conseils de Harry
-            </h1>
+            <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3 mt-4">Conseils de Harry</h1>
             <%= link_to  ultimate_advice_path, class: "link-secondary" do %>
                 (Cliquez ici en cas d'urgence)
             <% end %>
@@ -41,14 +43,14 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center mb-3">
                         <h5 class="card-title" style="position: relative; left: 1em"><%= @video.title.split(" - ")[1] %></h5>
-                        <% if @user_video.is_complete == false %>
-                            <%= button_to complete_video_path(@video), method: :put, class: "btn bg-rainbow", style: "right: 1em; position: relative;" do %>
+                        <% if @user_video.is_seen == false %>
+                            <%= button_to video_seen_path(@video), method: :put, class: "btn bg-rainbow", style: "right: 1em; position: relative;" do %>
                                 J'ai vu la vidéo
                             <% end %>
                         <% else %>
-                            <%= button_to uncomplete_video_path(@video), method: :put, class: "btn btn-outline-secondary", style: "right: 1em; position: relative;" do %>
+                            <%= button_to video_unseen_path(@video), method: :put, class: "btn btn-outline-secondary", style: "right: 1em; position: relative;" do %>
                                 <i class="fa fa-check"></i>
-                                Vidéo déjà vue
+                                Déjà vue
                             <% end %>
                         <% end %>
                     </div>

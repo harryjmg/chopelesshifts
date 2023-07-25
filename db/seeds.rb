@@ -2,98 +2,80 @@ achievements_data = [
     {
         name: "Il est des nôtres",
         description: "Activer son compte sur la plateforme Shift Heroes.",
-        points: 30,
         icon: "fa-users",
-        key: "account_activation",
-        position: 4
+        key: "account_activation"
     },
     {
         name: "T’as capté !",
         description: "Réserver un premier créneau dans un planning d’entraînement (daily ou permanent).",
-        points: 10,
         icon: "fa-calendar-check",
-        key: "first_booking",
-        position: 5
+        key: "first_booking"
     },
     {
         name: "C’est mignon !",
         description: "Réussir à réserver un créneau hebdomadaire via l’interface du site.",
-        points: 10,
         icon: "fa-smile-beam",
-        key: "first_weekly_booking",
-        position: 6
+        key: "first_weekly_booking"
     },
     {
         name: "La clé des champs",
         description: "Obtenir un token pour accéder l’API",
-        points: 20,
         icon: "fa-key",
-        key: "first_api_token",
-        position: 7
+        key: "first_api_token"
     },
     {
         name: "C’est émouvant non ?",
         description: "Faire une première requête API qui fonctionne (code 2XX)",
-        points: 20,
         icon: "fa-heart",
-        key: "first_successful_api_call",
-        position: 8
+        key: "first_successful_api_call"
     },
     {
         name: "Tu deviens quelqu’un ici !",
         description: "Réserver un premier créneau via API sur un planning d’entraînement (daily ou permanent).",
-        points: 20,
         icon: "fa-user-check",
-        key: "first_api_booking",
-        position: 10
+        key: "first_api_booking"
     },
     {
         name: "Il l’a fait !",
         description: "Réussir à réserver un créneau sur un planning hebdomadaire via l’API.",
-        points: 20,
         icon: "fa-trophy",
-        key: "first_weekly_api_booking",
-        position: 11
+        key: "first_weekly_api_booking"
     },
     {
         name: "Chaîne de requêtes",
         description: "Réussir à enchaîner 3 requêtes API sans utiliser curl.",
-        points: 20,
         icon: "fa-link",
-        key: "chained_api_calls_without_curl",
-        position: 12
+        key: "chained_api_calls_without_curl"
     },
     {
         name: "Rapide comme l’éclair",
         description: "Réussir à lister les créneaux disponibles sur un planning daily ou weekly moins de 5 secondes après sa publication.",
-        points: 20,
         icon: "fa-bolt",
-        key: "fast_listing_without_curl",
-        position: 13
+        key: "fast_listing_without_curl"
     },
     {
         name: "Tu forces",
         description: "Atteindre la limite maximum des appels API.",
-        points: 20,
         icon: "fa-bomb",
-        key: "api_limit_reached",
-        position: 14
+        key: "api_limit_reached"
     },
     {
         name: "Lucky luke",
         description: "Réussir à réserver un créneau sur un planning daily ou weekly moins de 5 secondes après sa publication.",
-        points: 20,
         icon: "fa-horse",
-        key: "fast_booking_without_curl",
-        position: 16
+        key: "fast_booking_without_curl"
+    },
+    {
+        name: "Vice élu",
+        description: "Réussir à réserver 7 créneaux sur un planning hebdomadaire via l’API.",
+        icon: "fa-star-half-alt",
+        key: "booked_7_slots_via_api"
     },
     {
         name: "L’élu",
         description: "Réussir à réserver 14 créneaux sur un planning hebdomadaire via l’API.",
-        points: 20,
         icon: "fa-star",
-        key: "booked_14_slots_via_api",
-        position: 20
+        key: "booked_14_slots_via_api"
     }
 ]
 
@@ -132,7 +114,7 @@ videos_data = [
         title: "6 - Réservation rapide d'un créneau",
         description: "Dans cette vidéo, nous allons voir comment prendre un créneau dès sa sortie.",
         url: "https://www.loom.com/share/d01a6fad783944d2b4fc4ca7db79dc5a?sid=8716043b-2834-4315-b2e8-5ff2f0fe48ef",
-        unlocked_by: "fast_listing_without_curl"
+        unlocked_by: "fast_listing_without_curl, api_limit_reached"
     },
     {
         title: "7 - Récupérer tous les créneaux instantanément",
@@ -144,7 +126,7 @@ videos_data = [
         title: "8 - Félicitaitons !",
         description: "Dans cette vidéo, on va fêter tes résultats ensemble et parler de la suite.",
         url: "https://www.loom.com/share/d01a6fad783944d2b4fc4ca7db79dc5a?sid=8716043b-2834-4315-b2e8-5ff2f0fe48ef",
-        unlocked_by: "booked_14_slots_via_api"
+        unlocked_by: "booked_14_slots_via_api, booked_7_slots_via_api"
     }
 ]
 
@@ -155,39 +137,43 @@ achievements_data.each do |achievement_data|
     achievement.update(
         name: achievement_data[:name],
         description: achievement_data[:description],
-        points: achievement_data[:points],
         icon: achievement_data[:icon],
         position: achievement_data[:position]
     )
 end
 
-AchievementVideo.destroy_all
-
 puts "Creating videos..."
 videos_data.each_with_index do |video_data, index|
-    video = Video.find_or_initialize_by(unlocked_by: video_data[:unlocked_by])
+    video = Video.find_or_initialize_by(title: video_data[:title])
     video.update(
-        title: video_data[:title],
         description: video_data[:description],
         url: video_data[:url]
     )
+end
 
-    break if index == videos_data.length - 1
+puts "Add previous and next video to all videos..."
+videos_data.each_with_index do |video_data, index|
+    video = Video.find_or_initialize_by(title: video_data[:title])
+    video.update(
+        previous_video: (index > 0) ? Video.find_by(title: videos_data[index - 1][:title]) : nil,
+        next_video: (index < videos_data.length - 1) ? Video.find_by(title: videos_data[index + 1][:title]) : nil
+    )
+end
 
-    achievement = Achievement.find_by(key: videos_data[index + 1][:unlocked_by])
-    if achievement
-        AchievementVideo.find_or_create_by(achievement: achievement, video: video)
+puts "Create achievement_videos for all achievements..."
+videos_data.each do |video_data|
+    video_data[:unlocked_by].split(", ").each do |key|
+        Achievement.find_by(key: key).update(video: Video.find_by(title: video_data[:title]))
     end
 end
 
-puts "Create user videos..."
-# Create user videos for each user that has the achievement linked
-
+puts "Create user videos for all users who unlocked them..."
 User.all.each do |user|
     user.user_achievements.each do |user_achievement|
         video = Video.find_by(unlocked_by: user_achievement.achievement.key)
         if video
-            UserVideo.find_or_create_by(user: user, video: video)
+            user_video = UserVideo.find_or_create_by(user: user, video: video)
+            user_video.update(is_complete: false)
         end
     end
 end

@@ -5,7 +5,7 @@ class User < ApplicationRecord
     config.submodules = [:remember_me, :activation, :reset_password]
   end
 
-  validates :first_name, presence: true
+  validates :first_name, presence: true, on: :create
   validates :password, length: { minimum: 3 }, if: -> { new_record? || changes[:crypted_password] }
   validates :password, confirmation: true, on: :create
 
@@ -14,7 +14,6 @@ class User < ApplicationRecord
   has_many :reservations, dependent: :destroy
   has_many :shifts, through: :reservations
 
-  has_many :user_logs, dependent: :destroy
   has_many :api_tokens, dependent: :destroy
   has_many :api_requests, dependent: :destroy
   has_many :user_achievements, dependent: :destroy
@@ -37,10 +36,6 @@ class User < ApplicationRecord
     api_requests_within_last_10_minutes >= MAX_API_REQUESTS_PER_10_MINUTE
   end
 
-  def create_log(description)
-    user_logs.create(description: description)
-  end
-
   def create_permanent_planning
     planning = Planning.create_planning("permanent", self)
     planning.publish
@@ -52,9 +47,19 @@ class User < ApplicationRecord
   end
 
   def record_achievement(key)
-    achievement = Achievement.find_by(key: key)
+    achievement = Achievement.find_by(key: key)  
     return if self.achievements.include?(achievement)
-    user_achievements.create(achievement: achievement) if achievement
-    user_videos.create(video: Video.find_by(unlocked_by: key)) if achievement
+
+    if achievement
+      user_achievements.create(achievement: achievement)
+    end
+  end
+
+  def has_all_achievements_for(video)
+    video.achievements_count == self.achievements(where: {video_id: video.id}).count
+  end
+
+  def complete_video(video)
+    user_videos.find_or_create_by(video: video).update(is_complete: true)
   end
 end

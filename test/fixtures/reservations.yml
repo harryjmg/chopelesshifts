@@ -3,9 +3,7 @@
 one:
   user: one
   shift: one
-  speed_in_ms: 1
 
 two:
   user: two
   shift: two
-  speed_in_ms: 1

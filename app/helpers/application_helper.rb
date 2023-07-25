@@ -63,9 +63,9 @@ module ApplicationHelper
 
     def video_status_class(video, current_video)
         user_video = video.user_videos.where(user: current_user).first
-        return "default" unless user_video
-        if !user_video.is_complete
-            "bg-rainbow to_complete"
+        return "locked" unless user_video
+        if !user_video.is_seen || !user_video.is_complete
+            "bg-rainbow rainbow-text"
         else
             "default"
         end

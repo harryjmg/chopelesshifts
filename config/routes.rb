@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
   root "pages#home"
   
-  resources :user_logs
   resources :api_tokens, only: [:index, :create, :update]
 
   get 'pages/home'
@@ -26,8 +25,8 @@ Rails.application.routes.draw do
   put 'unboard', to: 'onboarding#unboard', as: :unboard
 
   get 'videos' => 'videos#index', :as => :videos
-  put '/videos/:id/complete', to: 'videos#complete', as: 'complete_video'
-  put '/videos/:id/uncomplete', to: 'videos#uncomplete', as: 'uncomplete_video'
+  put '/videos/:id/seen', to: 'videos#seen', as: 'video_seen'
+  put '/videos/:id/unseen', to: 'videos#unseen', as: 'video_unseen'
   get 'ultimate_advice' => 'videos#ultimate_advice', :as => :ultimate_advice
 
   get 'profil' => 'users#show', :as => :profil

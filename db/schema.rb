@@ -10,28 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_21_152202) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_25_064449) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "achievement_videos", force: :cascade do |t|
-    t.bigint "video_id", null: false
-    t.bigint "achievement_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["achievement_id"], name: "index_achievement_videos_on_achievement_id"
-    t.index ["video_id"], name: "index_achievement_videos_on_video_id"
-  end
 
   create_table "achievements", force: :cascade do |t|
     t.string "name"
     t.text "description"
-    t.integer "points"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "icon"
     t.string "key"
-    t.integer "position"
+    t.bigint "video_id"
+    t.index ["video_id"], name: "index_achievements_on_video_id"
   end
 
   create_table "api_requests", force: :cascade do |t|
@@ -67,7 +58,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_21_152202) do
   create_table "reservations", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "shift_id", null: false
-    t.integer "speed_in_ms"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["shift_id"], name: "index_reservations_on_shift_id"
@@ -96,20 +86,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_21_152202) do
     t.index ["user_id"], name: "index_user_achievements_on_user_id"
   end
 
-  create_table "user_logs", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.text "description"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_user_logs_on_user_id"
-  end
-
   create_table "user_videos", force: :cascade do |t|
     t.bigint "video_id", null: false
     t.bigint "user_id", null: false
     t.boolean "is_complete", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "is_seen", default: false
     t.index ["user_id"], name: "index_user_videos_on_user_id"
     t.index ["video_id"], name: "index_user_videos_on_video_id"
   end
@@ -145,10 +128,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_21_152202) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "unlocked_by"
+    t.bigint "next_video_id"
+    t.bigint "previous_video_id"
+    t.integer "achievements_count"
+    t.index ["next_video_id"], name: "index_videos_on_next_video_id"
+    t.index ["previous_video_id"], name: "index_videos_on_previous_video_id"
   end
 
-  add_foreign_key "achievement_videos", "achievements"
-  add_foreign_key "achievement_videos", "videos"
+  add_foreign_key "achievements", "videos"
   add_foreign_key "api_requests", "users"
   add_foreign_key "api_tokens", "users"
   add_foreign_key "plannings", "users"
@@ -157,7 +144,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_21_152202) do
   add_foreign_key "shifts", "plannings"
   add_foreign_key "user_achievements", "achievements"
   add_foreign_key "user_achievements", "users"
-  add_foreign_key "user_logs", "users"
   add_foreign_key "user_videos", "users"
   add_foreign_key "user_videos", "videos"
+  add_foreign_key "videos", "videos", column: "next_video_id"
+  add_foreign_key "videos", "videos", column: "previous_video_id"
 end

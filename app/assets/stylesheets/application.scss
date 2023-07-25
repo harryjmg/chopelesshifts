@@ -32,35 +32,18 @@ body.dark-theme a {
     justify-content: center;
 }
 
-.circle.completed {
-    background-color: #4CAF50; /* Green for completed videos */
-    color: white;
+.circle.rainbow-text {
+    color: #6e7b9d;
 }
 
-.circle.to_complete {
-    color: #7c94a9;
-}
-
-.circle.current {
-    background-color: #2196F3; /* Blue for the current video */
-    color: white;
-}
-
-.circle.unseen {
-    background-color: #f44336; /* Red for unseen videos */
-    color: white;
-}
-
-.circle.last-accessible {
-    background-color: #FFEB3B; /* Yellow for the last accessible video */
-    color: black;
+.circle.locked {
+    background-color: #f0f0f0; /* Grey for all other videos */
 }
 
 .circle.default {
-    background-color: #9E9E9E; /* Grey for all other videos */
+    background-color: #b1b1b1;
     color: white;
 }
-
 
 body {
     background: white;
