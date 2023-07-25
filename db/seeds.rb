@@ -137,8 +137,7 @@ achievements_data.each do |achievement_data|
     achievement.update(
         name: achievement_data[:name],
         description: achievement_data[:description],
-        icon: achievement_data[:icon],
-        position: achievement_data[:position]
+        icon: achievement_data[:icon]
     )
 end
 
