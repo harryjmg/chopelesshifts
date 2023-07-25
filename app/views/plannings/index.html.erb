@@ -57,7 +57,7 @@
           <div class="details">
             <p class="text-muted text-center">
               <% if planning.planning_type == "daily" %>
-                Planning journalier du <%= planning.published_at.strftime('%d/%m') %> à <%= planning.published_at.strftime('%H') %>h<br>
+                Planning journalier du <%= planning.published_at.strftime('%d/%m') %><br>
                 Prochain dans : <span id="dailyCountdown" data-controller="countdown"></span>
               <% else %>
                 Planning permanent<br>
