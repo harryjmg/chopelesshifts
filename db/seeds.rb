@@ -172,7 +172,11 @@ User.all.each do |user|
         video = Video.find_by(unlocked_by: user_achievement.achievement.key)
         if video
             user_video = UserVideo.find_or_create_by(user: user, video: video)
-            user_video.update(is_complete: false)
+            if user.user_videos.last == user_video
+                user_video.update(is_complete: false)
+            else
+                user_video.update(is_complete: true)
+            end
         end
     end
 end
