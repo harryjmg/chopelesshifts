@@ -18,7 +18,7 @@ class VideosController < ApplicationController
             @video = @user_video.video if @user_video
         end
 
-        @is_completable = !@user_video.is_complete && current_user.has_all_achievements_for(@video)
+        @is_completable = @user_video && !@user_video.is_complete && current_user.has_all_achievements_for(@video)
     end
 
     def ultimate_advice
