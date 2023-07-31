@@ -15,9 +15,9 @@ class VideosController < ApplicationController
         else
             @user_video = @user_videos.where(is_complete: false).first
             @user_video ||= @user_videos.last
-            @user_video ||= current_user.user_videos.create(video: Video.find_by(unlocked_by: "account_activation"))
 
-            @video = @user_video.video
+            @video = @user_video.video if @user_video
+            @video ||= @videos.first
         end
 
         @is_completable = @user_video && !@user_video.is_complete && current_user.has_all_achievements_for(@video)
