@@ -10,10 +10,10 @@ namespace :planning do
     end
 
     task weekly: :environment do
-        if Planning.weekly.available.where("published_at > ?", Time.now.beginning_of_week).exists?
-            puts "Weekly planning already exists for this week. Aborting."
+        if Time.now.wday == 6 # Saturday
+            create_and_fill_planning("weekly", 60, 2, 1, 0.20)
         else
-            create_and_fill_planning('weekly', 60, 2, 1, 0.20)
+            puts "Today is not Saturday. Aborting."
         end
     end
 
