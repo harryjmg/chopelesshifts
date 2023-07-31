@@ -15,9 +15,7 @@ class VideosController < ApplicationController
         else
             @user_video = @user_videos.where(is_complete: false).first
             @user_video ||= @user_videos.last
-
-            @video = @user_video.video if @user_video
-            @video ||= @videos.first
+            @video = @user_video.video
         end
 
         @is_completable = @user_video && !@user_video.is_complete && current_user.has_all_achievements_for(@video)
