@@ -1,5 +1,6 @@
 class VideosController < ApplicationController
     before_action :set_video, only: %i[ show seen unseen complete ]
+    before_action :require_login
     before_action :check_onboarding
 
     def index
