@@ -1,36 +1,44 @@
-<div class="container-md" style="max-width: 1140px;">
-  <div class="row justify-content-center my-5">
-    <div class="col-auto">
-        <%= button_active_to "Nos Plannings", plannings_path, method: :get, class: "btn btn-outline-secondary btn-sm px-4 me-md-2" %>
-    </div>
-    <div class="col-auto">
-        <%= button_active_to "Documentation API", api_path, method: :get, class: "btn btn-outline-secondary btn-sm px-4 me-md-2" %>
-    </div>
-    <div class="col-auto">
-        <%= button_active_to_block videos_path, method: :get, class: "btn btn-outline-secondary btn-sm px-4", style: "position: relative" do %>
-          Conseils de Harry
-          <% if @new_videos_count > 0 %>
-            <span id="success_notifications_badge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-              <%= @new_videos_count %>
-              <span class="visually-hidden">notifications</span>
-            </span>
-          <% end %>
-        <% end %>
-    </div>
-    <div class="col-auto d-flex align-items-center">
-      <div class="dropdown">
-        <a href="#" class="d-flex align-items-center text-secondary text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-          <%= image_tag "https://seccdn.libravatar.org/avatar/#{Digest::MD5.hexdigest(current_user.email.downcase)}?s=32", class: "rounded-circle me-2" %>
-          <strong>Mon compte</strong>
-        </a>
-        <ul class="dropdown-menu dropdown-menu-light text-small shadow" style="">
-          <li><%= link_to "Mon profil", profil_path, class: "dropdown-item" %></li>
-          <li><%= link_to "Mes résultats", old_plannings_path, class: "dropdown-item" %></li>
-          <li><%= link_to "Mes tokens API", api_tokens_path, class: "dropdown-item" %></li>
-          <li><hr class="dropdown-divider"></li>
-          <li><%= link_to "Se déconnecter", :logout, data: { turbo_method: :post }, class: "dropdown-item" %></li>
-        </ul>
+<div class="container">
+  <div class="row align-items-center my-5">
+    <div class="col d-flex justify-content-center position-relative flex-md-row flex-column">
+      <div class="col-2 px-3">
+        <%= image_tag "shiftheroes.png", class: "img-fluid", style: "opacity: 0.7; margin-top: 1em;" %>
       </div>
+      <div class="col-8 d-flex mb-3 md-0 justify-content-center">
+        <div class="col-auto">
+            <%= button_active_to_block videos_path, method: :get, class: "btn btn-outline-secondary btn-sm px-4", style: "position: relative" do %>
+              Ma progression
+              <% if @new_videos_count > 0 %>
+                <span id="success_notifications_badge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                  <%= @new_videos_count %>
+                  <span class="visually-hidden">notifications</span>
+                </span>
+              <% end %>
+            <% end %>
+        </div>
+        <div class="col-auto">
+            <%= button_active_to "Nos Plannings", plannings_path, method: :get, class: "btn btn-outline-secondary btn-sm px-4 me-md-2" %>
+        </div>
+        <div class="col-auto">
+            <%= button_active_to "Documentation API", api_path, method: :get, class: "btn btn-outline-secondary btn-sm px-4 me-md-2" %>
+        </div>
+      </div>
+      <div class="col-2 justify-content-end d-flex px-3">
+        <div class="dropdown" style="padding-top: 0.8em">
+          <a href="#" class="d-flex align-items-center text-secondary text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+            <%= image_tag "https://seccdn.libravatar.org/avatar/#{Digest::MD5.hexdigest(current_user.email.downcase)}?s=32", class: "rounded-circle me-2" %>
+            <strong><%= current_user.first_name %></strong>
+          </a>
+          <ul class="dropdown-menu dropdown-menu-light text-small shadow" style="">
+            <li><%= link_to "Mon profil", profil_path, class: "dropdown-item" %></li>
+            <li><%= link_to "Mes résultats", old_plannings_path, class: "dropdown-item" %></li>
+            <li><%= link_to "Mes tokens API", api_tokens_path, class: "dropdown-item" %></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><%= link_to "Se déconnecter", :logout, data: { turbo_method: :post }, class: "dropdown-item" %></li>
+          </ul>
+        </div>
+      </div>
+      
     </div>
   </div>
 </div>

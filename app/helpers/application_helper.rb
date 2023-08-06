@@ -3,6 +3,8 @@ module ApplicationHelper
         html_options = {} if html_options.nil?
         if current_page?(options)
             html_options[:class] = "#{html_options[:class]} active"
+        else
+            html_options[:class] = "#{html_options[:class]} inactive"
         end
         button_to(name, options, html_options, &block)
     end
@@ -11,6 +13,8 @@ module ApplicationHelper
         html_options = {} if html_options.nil?
         if current_page?(options)
             html_options[:class] = "#{html_options[:class]} active"
+        else
+            html_options[:class] = "#{html_options[:class]} inactive"
         end
         button_to(options, html_options, &block)
     end
