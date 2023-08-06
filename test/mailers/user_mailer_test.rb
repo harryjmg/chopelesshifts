@@ -17,4 +17,12 @@ class UserMailerTest < ActionMailer::TestCase
     assert_equal [user.email], mail.to
     assert_equal ["support@joincodingnow.com"], mail.from
   end
+
+  test "reset_password_email" do
+    user = users(:not_activated)
+    mail = UserMailer.reset_password_email(user)
+    assert_equal "Réinitialiser ton mot de passe", mail.subject
+    assert_equal [user.email], mail.to
+    assert_equal ["support@joincodingnow.com"], mail.from
+  end
 end

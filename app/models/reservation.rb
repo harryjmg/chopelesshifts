@@ -42,10 +42,6 @@ class Reservation < ApplicationRecord
     end
   end
 
-  def duration_in_hours
-    shift.duration_in_hours
-  end
-
   def to_api_json
     {
       id: id,
