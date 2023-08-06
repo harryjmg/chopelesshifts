@@ -9,11 +9,10 @@ class PlanningsController < ApplicationController
     @weekly_planning = Planning.where(planning_type: 'weekly', state: 'available').order(published_at: :desc).first
 
     @available_plannings = [@permanent_planning, @daily_planning, @weekly_planning].compact
-    @closed_plannings = Planning.closed_plannings.where(planning_type: 'weekly').sort_by(&:published_at).reverse
   end
 
   def old_plannings
-    @plannings = Planning.closed_plannings.where(planning_type: 'weekly').sort_by(&:published_at).reverse
+    @plannings = current_user.plannings.closed_plannings.where(planning_type: 'weekly').sort_by(&:published_at).reverse
   end
 
   # GET /plannings/1 or /plannings/1.json

@@ -100,6 +100,10 @@ class Planning < ApplicationRecord
         hourly_rate * reservations.where(user_id: user.id).sum { |r| r.duration_in_hours }
     end
 
+    def self.available_types
+        ["permanent", "daily", "weekly"]
+    end
+
     private
     
     def set_publication_date

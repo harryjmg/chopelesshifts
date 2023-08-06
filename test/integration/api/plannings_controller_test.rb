@@ -8,6 +8,31 @@ class PlanningsControllerTest < ActionDispatch::IntegrationTest
         
         assert_response :success
     end
+
+    test 'GET /api/v1/plannings?type=weekly' do
+        user = users(:one)
+        api_token = user.api_tokens.create!
+        get '/api/v1/plannings?type=weekly', headers: { 'Authorization' => "Bearer #{api_token.token}" }
+
+        assert_response :success
+        assert_equal 1, response.parsed_body.count
+    end
+
+    test 'GET /api/v1/plannings?type=donotexist' do
+        user = users(:one)
+        api_token = user.api_tokens.create!
+        get '/api/v1/plannings?type=donotexist', headers: { 'Authorization' => "Bearer #{api_token.token}" }
+
+        assert_response :unprocessable_entity
+    end
+
+    test 'GET /api/v1/plannings?donotexist=weekly' do
+        user = users(:one)
+        api_token = user.api_tokens.create!
+        get '/api/v1/plannings?donotexist=weekly', headers: { 'Authorization' => "Bearer #{api_token.token}" }
+
+        assert_response :unprocessable_entity
+    end
     
     test "when auth token is inactive" do
         user = users(:one)

@@ -1,13 +1,18 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: MyString
+  name: Permanent planning
   planning_type: permanent
   state: available
   user: one
 
 two:
-  name: MyString
+  name: Daily planning
   planning_type: daily
   state: available
   user: one
+  
+three:
+  name: Weekly planning
+  planning_type: weekly
+  state: available

@@ -66,4 +66,10 @@ class User < ApplicationRecord
   def unlock_video(video)
     user_videos.find_or_create_by(video: video)
   end
+
+  def available_plannings(type = nil)
+    plannings = Planning.available.where("user_id = ? OR planning_type = ?", self.id, 'weekly')
+    plannings = plannings.where(planning_type: type) if type.present?
+    plannings = plannings.order(planning_type: :asc)
+  end
 end
