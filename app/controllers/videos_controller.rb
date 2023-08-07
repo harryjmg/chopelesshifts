@@ -13,10 +13,12 @@ class VideosController < ApplicationController
             if @user_video.nil?
                 redirect_to videos_path, alert: "Vous n'avez pas accès à cette vidéo"
             end
+            @user_video.update(is_seen: true) if @user_video.is_seen == false
         else
             @user_video = @user_videos.where(is_complete: false).first
             @user_video ||= @user_videos.last
             @video = @user_video.video
+            @user_video.update(is_seen: true) if @user_video.is_seen == false
         end
 
         @is_completable = @user_video && !@user_video.is_complete && current_user.has_all_achievements_for(@video)
