@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_25_064449) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_07_142226) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -131,6 +131,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_25_064449) do
     t.bigint "next_video_id"
     t.bigint "previous_video_id"
     t.integer "achievements_count"
+    t.string "custom_id"
     t.index ["next_video_id"], name: "index_videos_on_next_video_id"
     t.index ["previous_video_id"], name: "index_videos_on_previous_video_id"
   end

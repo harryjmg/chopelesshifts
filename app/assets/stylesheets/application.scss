@@ -1,10 +1,16 @@
 $secondary: #343A40;
+$success: #7FD823;
+
 
 @import "bootstrap";
 @import "skool_swag";
 @import "font-awesome";
 
 @import url('https://fonts.googleapis.com/css2?family=Allison&display=swap');
+
+.text-light-gray {
+    color: #B2C0CB;
+}
 
 .btn.btn-outline-secondary {
     &.inactive {
@@ -13,6 +19,40 @@ $secondary: #343A40;
         &:hover {
             color: white;
         }
+    }
+}
+
+.achievement-completed {
+    text-decoration: line-through;
+    color: #81a85e;
+    font-size: small;
+}
+
+.achievement-incomplete {
+    font-size: small;
+}
+
+.playlist_title {
+    font-weight: 500;
+}
+
+.playlist_badge {
+    width: 3em;
+    height: 3em;
+    line-height: 2em;
+    text-align: center;
+
+    background: #B2C0CB33;
+    color: #B2C0CB;
+
+    &.success {
+        background: #7FD82333;
+        color: #7FD823;
+    }
+
+    &.warning {
+        background: #ffedcb;
+        color: #FFB932;
     }
 }
 

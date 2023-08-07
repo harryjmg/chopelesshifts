@@ -1,0 +1,36 @@
+<div class="bg-white ms-4 p-4 rounded-4 shadow">
+    <% @videos.each_with_index do |video, index| %>
+        <div class="d-flex align-items-center <%= "mt-4" if index != 0 %>">
+            <%= link_to videos_path(id: video.id), class: "text-decoration-none d-flex align-items-center" do %>
+                <div class="default mr-2 px-3 py-2 rounded-4 me-3 <%= video_status_class(video, @video) %>">
+                    <% if video_states(video, @video).include? :complete %>
+                        <i class="fa fa-check"></i>
+                    <% elsif video_states(video, @video).include? :in_progress %>
+                        <i class="fa-solid fa-ellipsis"></i>
+                    <% else %>
+                        <i class="fa fa-lock"></i>
+                    <% end %>
+                </div>
+
+                <span class="<%= video_title_class(video, @video) %>" style="font-size: large;"><%= video.title.split(" - ")[1] %></span>
+            <% end %>
+        </div>
+
+        <!-- Liste des réalisations pour la vidéo en cours -->
+        <% if video_states(video, @video).include? :active %>
+            <ul class="fa-ul" style="margin-left: 5em;">
+                <% @video.achievements.each do |achievement| %>      
+                    <% user_achievement = UserAchievement.find_by(user: current_user, achievement: achievement) %>
+
+                    <li class="<%= class_for_achievement(user_achievement) %>">
+                        <span class="fa-li">
+                            <i class="<%= icon_class_for_achievement(user_achievement) %>"></i>
+                        </span> 
+                        <%= achievement.description %>
+                    </li>
+                <% end %>
+            </ul>
+        <% end %>
+
+    <% end %>
+</div>

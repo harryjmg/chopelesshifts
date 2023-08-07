@@ -1,0 +1,38 @@
+<div>
+    <div style="position: relative; padding-bottom: 64.90384615384616%; height: 0;">
+        <iframe src=<%= "https://www.loom.com/embed/" + @video.url.split("share/")[1] + "?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true"%> frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe>
+    </div>
+    <div class="card-body">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h5 class="card-title" style="position: relative; left: 1em"><%= @video.title.split(" - ")[1] %></h5>
+            <% if @user_video.is_seen == false %>
+                <%= button_to video_seen_path(@video), method: :put, class: "bg-rainbow border btn", style: "right: 1em; position: relative;" do %>
+                    J'ai vu la vidéo
+                <% end %>
+            <% else %>
+                <%= button_to video_unseen_path(@video), method: :put, class: "btn btn-outline-secondary", style: "right: 1em; position: relative;" do %>
+                    <i class="fa fa-check"></i>
+                    Déjà vue
+                <% end %>
+            <% end %>
+        </div>
+        <h6 style="position: relative; left: 1em">Objectif(s) :</h6>
+        <ul class="fa-ul">
+            <% @video.achievements.each do |achievement| %>      
+                <% user_achievement = UserAchievement.find_by(user: current_user, achievement: achievement) %>
+                <% if user_achievement %>
+                    <li class="text-success" style="text-decoration: line-through"><span class="fa-li"><i class="fa-regular fa-circle-check"></i></span> <%= achievement.description %></li>
+                <% else %>
+                    <li><span class="fa-li"><i class="fa-regular fa-circle fa-fade"></i></span> <%= achievement.description %></li>
+                <% end %>
+            <% end %>
+        </ul>
+        <% if @is_completable %>
+            <div class="align-items-center d-flex justify-content-center">
+                <%= button_to video_complete_path(@video), method: :put, class: "bg-rainbow border btn", style: "right: 1em; position: relative;" do %>
+                    Débloquer la vidéo suivante
+                <% end %>
+            </div>
+        <% end %>
+    </div>
+</div>
