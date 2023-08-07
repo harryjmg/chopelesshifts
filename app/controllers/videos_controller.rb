@@ -4,7 +4,7 @@ class VideosController < ApplicationController
     before_action :check_onboarding
 
     def index
-        @videos = Video.all.order(:title => :asc)
+        @videos = Video.all.to_a.sort_by { |video| Video::CUSTOM_IDS_IN_ORDER.index(video.custom_id) }
         @user_videos = UserVideo.where(user: current_user)
 
         if params[:id]
