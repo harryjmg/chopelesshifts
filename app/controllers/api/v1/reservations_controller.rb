@@ -38,7 +38,7 @@ class Api::V1::ReservationsController < Api::V1::AuthenticatedController
   def check_and_record_achievements
     current_user.record_achievement('first_api_booking')
 
-    if @planning.planning_type == 'weekly'
+    if @planning.planning_type != 'permanent' && !curl_used
       current_user.record_achievement('first_api_weekly_booking')
       reservations_count = current_user.reservations.where(planning: @planning).count
       if reservations_count >= 14
