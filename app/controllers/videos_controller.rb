@@ -12,8 +12,9 @@ class VideosController < ApplicationController
             @user_video = UserVideo.find_by(video_id: params[:id], user: current_user)
             if @user_video.nil?
                 redirect_to videos_path, alert: "Vous n'avez pas accès à cette vidéo"
+            else
+                @user_video.update(is_seen: true) if @user_video.is_seen == false
             end
-            @user_video.update(is_seen: true) if @user_video.is_seen == false
         else
             @user_video = @user_videos.where(is_complete: false).first
             @user_video ||= @user_videos.last
