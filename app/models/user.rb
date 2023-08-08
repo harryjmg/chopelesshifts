@@ -65,11 +65,16 @@ class User < ApplicationRecord
   end
 
   def complete_video(video)
+    return false if !has_all_achievements_for(video)
+
     user_videos.find_by(video: video).update(is_complete: true)
+    user_videos.find_or_create_by(video: video.next_video) 
+    update_level
   end
 
-  def unlock_video(video)
-    user_videos.find_or_create_by(video: video)
+  def update_level
+    videos_completed_count = self.user_videos.where(is_complete: true).count
+    self.update(current_level: videos_completed_count)
   end
 
   def available_plannings(type = nil)

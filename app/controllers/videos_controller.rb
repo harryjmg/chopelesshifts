@@ -54,7 +54,7 @@ class VideosController < ApplicationController
     def complete
         user_video = UserVideo.find_by(user: current_user, video_id: @video.id)
 
-        if user_video.update(is_complete: true)
+        if current_user.complete_video(@video)
             flash[:success] = "Vidéo marquée comme complétée !"
         else
             flash[:error] = "Apparemment, ce n'est pas possible."

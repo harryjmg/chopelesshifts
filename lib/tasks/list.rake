@@ -10,7 +10,9 @@ namespace :list do
 
     def add_to_list(user)
         response = HTTParty.post("https://hook.eu1.make.com/97b6fgu31virfopvd7lisofsaxflvgpt", 
-            :body => { :email => user.email, :first_name => user.first_name }.to_json,
+            :body => { :email => user.email,
+                :first_name => user.first_name
+            }.to_json,
             :headers => { 'Content-Type' => 'application/json' }
         )
         

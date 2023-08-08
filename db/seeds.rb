@@ -202,4 +202,6 @@ User.all.each do |user|
             user_video.update(is_complete: true)
         end
     end
+
+    user.update(current_level: user.user_videos.where(is_complete: true).count)
 end
