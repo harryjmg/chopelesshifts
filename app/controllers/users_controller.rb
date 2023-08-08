@@ -28,7 +28,7 @@ class UsersController < ApplicationController
       @user.record_achievement('account_activation')
       @user.unlock_video(Video.first)
 
-      redirect_to(plannings_path, :notice => 'Ton compte est activé.')
+      redirect_to(videos_path, :notice => 'Ton compte est activé.')
     else
       not_authenticated
     end
