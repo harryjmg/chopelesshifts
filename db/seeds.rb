@@ -37,7 +37,7 @@ achievements_data = [
     },
     {
         name: "Il l’a fait !",
-        description: "Réussir à réserver un créneau sur un planning hebdomadaire via l’API.",
+        description: "Réussir à réserver un créneau sur un planning daily ou weekly via l’API.",
         icon: "fa-trophy",
         key: "first_weekly_api_booking"
     },
@@ -91,13 +91,13 @@ achievements_data = [
     },
     {
         name: "Vice élu",
-        description: "Réussir à réserver 7 créneaux sur un planning hebdomadaire via l’API.",
+        description: "Réussir à réserver 7 créneaux sur un planning daily ou weekly via l’API dans les 10 secondes après publication.",
         icon: "fa-star-half-alt",
         key: "booked_7_slots_via_api"
     },
     {
         name: "L’élu",
-        description: "Réussir à réserver 14 créneaux sur un planning hebdomadaire via l’API.",
+        description: "Réussir à réserver 14 créneaux sur un planning daily ou weekly via l’API dans les 10 secondes après publication.",
         icon: "fa-star",
         key: "booked_14_slots_via_api"
     },

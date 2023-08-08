@@ -40,13 +40,16 @@ class Api::V1::ReservationsController < Api::V1::AuthenticatedController
     current_user.record_achievement('book_shift_with_python') if python_used
 
     if @planning.planning_type != 'permanent' && python_used
-      current_user.record_achievement('first_api_weekly_booking')
-      reservations_count = current_user.reservations.joins(:shift).where(shifts: { planning: @planning }).count
-      if reservations_count >= 14
-        current_user.record_achievement('booked_14_slots_via_api')
-        current_user.record_achievement('booked_7_slots_via_api')
-      elsif reservations_count >= 7
-        current_user.record_achievement('booked_7_slots_via_api')
+      current_user.record_achievement('first_api_weekly_booking') if @planning.planning_type == 'weekly'
+      
+      if Time.now - @planning.published_at < 10.seconds
+        reservations_count = current_user.reservations.joins(:shift).where(shifts: { planning: @planning }).count
+        if reservations_count >= 14
+          current_user.record_achievement('booked_14_slots_via_api')
+          current_user.record_achievement('booked_7_slots_via_api')
+        elsif reservations_count >= 7
+          current_user.record_achievement('booked_7_slots_via_api')
+        end
       end
     end
 
