@@ -18,6 +18,10 @@ class Api::V1::AuthenticatedController < ActionController::Base
         request.user_agent.include?('curl')
     end
 
+    def python_used
+        request.user_agent.include?('python')
+    end
+
     def authenticate_user_with_token
         authenticate_with_http_token do |token, options|
             @current_api_token = ApiToken.where(active: true).find_by(token: token)
@@ -26,6 +30,8 @@ class Api::V1::AuthenticatedController < ActionController::Base
     end
 
     def check_api_limit
+        current_user.record_achievement("20_api_calls_in_10_seconds") if current_user.api_requests_within_last_10_seconds >= 20
+        
         if current_user.api_limit_exceeded?
             current_user.record_achievement("api_limit_reached")
             render json: { message: "API limit exceeded " }, status: :too_many_requests

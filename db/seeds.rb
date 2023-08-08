@@ -42,8 +42,26 @@ achievements_data = [
         key: "first_weekly_api_booking"
     },
     {
+        name: "Listeur de plannings Python",
+        description: "Réussir à lister les plannings disponibles en utilisant Python.",
+        icon: "fa-list",
+        key: "list_plannings_with_python"
+    },
+    {
+        name: "Listeur de créneaux Python",
+        description: "Réussir à lister les créneaux disponibles sur un planning daily ou weekly en utilisant Python.",
+        icon: "fa-list",
+        key: "list_shifts_with_python"
+    },
+    {
+        name: "Réserveur de créneaux Python",
+        description: "Réussir à réserver un créneau sur un planning daily ou weekly en utilisant Python.",
+        icon: "fa-calendar-check",
+        key: "book_shift_with_python"
+    },
+    {
         name: "Chaîne de requêtes",
-        description: "Réussir à enchaîner 3 requêtes API sans utiliser curl.",
+        description: "Enchaîner les requêtes `lister les plannings`, `lister les créneaux` et `réserver un créneau` en moins de 2 secondes en utilisant Python.",
         icon: "fa-link",
         key: "chained_api_calls_without_curl"
     },
@@ -52,6 +70,12 @@ achievements_data = [
         description: "Réussir à lister les créneaux disponibles sur un planning daily ou weekly moins de 5 secondes après sa publication.",
         icon: "fa-bolt",
         key: "fast_listing_without_curl"
+    },
+    {
+        name: "La boucle",
+        description: "Faire 20 appels API en moins de 10 secondes.",
+        icon: "fa-infinity",
+        key: "20_api_calls_in_10_seconds"
     },
     {
         name: "Tu forces",
@@ -111,22 +135,15 @@ videos_data = [
         title: "Charmer le Python",
         description: "Dans cette vidéo, nous allons voir comment passer de Curl à un langage de programmation et utiliser les variables.",
         url: "https://www.loom.com/share/0e8cf2117869429e840dddef7d3d2bb8?sid=529511f3-25ad-41bd-86d8-1612dc65f736",
-        objectives: ["chained_api_calls_without_curl"],
+        objectives: ["list_plannings_with_python", "list_shifts_with_python", "book_shift_with_python", "chained_api_calls_without_curl"],
         custom_id: "curl_to_python"
     },
     {
-        title: "Détecter les mouvements",
+        title: "Détecter les changements",
         description: "Dans cette vidéo, nous allons voir comment détecter la sortie d’un planning.",
         url: "https://www.loom.com/share/d01a6fad783944d2b4fc4ca7db79dc5a?sid=8716043b-2834-4315-b2e8-5ff2f0fe48ef",
-        objectives: ["fast_listing_without_curl", "api_limit_reached"],
+        objectives: ["fast_listing_without_curl", "20_api_calls_in_10_seconds", "fast_booking_without_curl"],
         custom_id: "detect_planning_release"
-    },
-    {
-        title: "Détecter et tirer",
-        description: "Dans cette vidéo, nous allons voir comment prendre un créneau dès sa sortie.",
-        url: "https://www.loom.com/share/d01a6fad783944d2b4fc4ca7db79dc5a?sid=8716043b-2834-4315-b2e8-5ff2f0fe48ef",
-        objectives: ["fast_booking_without_curl"],
-        custom_id: "fast_booking"
     },
     {
         title: "800€ par semaine",
@@ -142,17 +159,6 @@ videos_data = [
         objectives: ["apply_for_coding_accelerator"],
         custom_id: "congratulations"
     }
-]
-
-custom_ids_in_order = [
-    "environment_and_api",
-    "curl_introduction",
-    "first_api_booking",
-    "curl_to_python",
-    "detect_planning_release",
-    "fast_booking",
-    "book_all_slots",
-    "congratulations"
 ]
 
 puts "Creating achievements..."

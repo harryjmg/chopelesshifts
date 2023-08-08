@@ -14,6 +14,7 @@ class Api::V1::ShiftsController < Api::V1::AuthenticatedController
     if @planning.planning_type != 'permanent' && !curl_used
       current_user.record_achievement('fast_listing_without_curl') if Time.now - @planning.published_at < 5.seconds
     end
+    current_user.record_achievement('list_shifts_with_python') if python_used
   end
 
   def set_planning

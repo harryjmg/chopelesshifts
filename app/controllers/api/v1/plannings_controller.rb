@@ -9,6 +9,7 @@ class Api::V1::PlanningsController < Api::V1::AuthenticatedController
     return unless check_expected_param(:type, available_types)
   
     @plannings = current_user.available_plannings(params[:type])
+    current_user.record_achievement('list_plannings_with_python') if python_used
   
     render json: @plannings.map { |planning| { id: planning.hashid, planning_type: planning.planning_type, state: planning.state, published_at: planning.published_at } }
   end

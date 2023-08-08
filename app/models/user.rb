@@ -32,6 +32,10 @@ class User < ApplicationRecord
     api_requests.where("created_at > ?", 10.minutes.ago).count
   end
 
+  def api_requests_within_last_10_seconds
+    api_requests.where("created_at > ?", 10.seconds.ago).count
+  end
+
   def api_limit_exceeded?
     api_requests_within_last_10_minutes >= MAX_API_REQUESTS_PER_10_MINUTE
   end

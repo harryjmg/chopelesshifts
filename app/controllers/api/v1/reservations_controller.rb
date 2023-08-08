@@ -37,8 +37,9 @@ class Api::V1::ReservationsController < Api::V1::AuthenticatedController
 
   def check_and_record_achievements
     current_user.record_achievement('first_api_booking')
+    current_user.record_achievement('book_shift_with_python') if python_used
 
-    if @planning.planning_type != 'permanent' && !curl_used
+    if @planning.planning_type != 'permanent' && python_used
       current_user.record_achievement('first_api_weekly_booking')
       reservations_count = current_user.reservations.joins(:shift).where(shifts: { planning: @planning }).count
       if reservations_count >= 14
@@ -49,7 +50,7 @@ class Api::V1::ReservationsController < Api::V1::AuthenticatedController
       end
     end
 
-    if @planning.planning_type != 'permanent' && !curl_used
+    if @planning.planning_type != 'permanent' && python_used
       current_user.record_achievement('fast_booking_without_curl') if Time.now - @planning.published_at < 5.seconds
     end
   end
