@@ -40,7 +40,7 @@ class Api::V1::ReservationsController < Api::V1::AuthenticatedController
 
     if @planning.planning_type != 'permanent' && !curl_used
       current_user.record_achievement('first_api_weekly_booking')
-      reservations_count = current_user.reservations.where(planning: @planning).count
+      reservations_count = current_user.reservations.joins(:shift).where(shifts: { planning: @planning }).count
       if reservations_count >= 14
         current_user.record_achievement('booked_14_slots_via_api')
         current_user.record_achievement('booked_7_slots_via_api')
