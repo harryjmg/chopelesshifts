@@ -1,4 +1,6 @@
 class Api::V1::ReservationsController < Api::V1::AuthenticatedController
+  skip_before_action :verify_authenticity_token
+  
   before_action :set_planning
   before_action :set_shift, only: [:create, :destroy]
   before_action :set_reservation, only: [:destroy]
