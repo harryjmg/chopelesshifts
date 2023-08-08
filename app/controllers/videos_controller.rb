@@ -57,7 +57,11 @@ class VideosController < ApplicationController
         if current_user.complete_video(@video)
             flash[:success] = "Vidéo marquée comme complétée !"
         else
-            flash[:error] = "Apparemment, ce n'est pas possible."
+            if @video.custom_id == "congratulations"
+                flash[:success] = "Bravo ! Tu as terminé Shift Heroes !"
+            else
+                flash[:error] = "Apparemment, ce n'est pas possible."
+            end
         end
 
         redirect_to videos_path
