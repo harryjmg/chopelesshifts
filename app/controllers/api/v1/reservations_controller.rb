@@ -13,7 +13,7 @@ class Api::V1::ReservationsController < Api::V1::AuthenticatedController
 
   # POST /plannings/:planning_id/shifts/:shift_id/reservations
   def create
-    @reservation = @shift.reservations.build(user: current_user, shift: @shift)
+    @reservation = @shift.reservations.build(user: current_user)
 
     if @reservation.save
       check_and_record_achievements
@@ -48,11 +48,6 @@ class Api::V1::ReservationsController < Api::V1::AuthenticatedController
         current_user.record_achievement('booked_7_slots_via_api')
       end
     end
-
-    puts "curl_used: #{curl_used}"
-    puts "Time.now: #{Time.now}"
-    puts "planning.published_at: #{@planning.published_at}"
-    puts "Time.now - planning.published_at: #{Time.now - @planning.published_at}"
 
     if @planning.planning_type != 'permanent' && !curl_used
       current_user.record_achievement('fast_booking_without_curl') if Time.now - @planning.published_at < 5.seconds
