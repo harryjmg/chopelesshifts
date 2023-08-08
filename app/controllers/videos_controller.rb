@@ -9,8 +9,8 @@ class VideosController < ApplicationController
 
         if params[:id]
             @video = Video.find(params[:id])
-            @user_video = UserVideo.find_by(video_id: params[:id], user: current_user)
-            if @user_video.nil?
+            @user_video = UserVideo.find_by(video_id: params[:id], user: current_user) if @video
+            if @user_video.nil? || @video.nil?
                 redirect_to videos_path, alert: "Vous n'avez pas accès à cette vidéo"
             else
                 @user_video.update(is_seen: true) if @user_video.is_seen == false
