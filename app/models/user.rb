@@ -42,6 +42,7 @@ class User < ApplicationRecord
   end
 
   def create_daily_planning
+    plannings.where(planning_type: "daily", state: "available").update_all(state: "closed")
     planning = Planning.create_planning("daily", self)
     planning.publish
   end
