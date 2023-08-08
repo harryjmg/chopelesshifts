@@ -38,41 +38,48 @@
             </h2>
             <div id="collapsePlannings" class="accordion-collapse collapse" aria-labelledby="headingPlannings" data-bs-parent="#apiAccordion">
                 <div class="accordion-body">
-                    <p>Les plannings sont la ressource centrale de l'API. Tu peux lister tous les plannings disponibles.</p>
-                    
+                    <p>Les plannings sont la ressource centrale de l'API. Tu peux lister tous les plannings disponibles et filtrer par type.</p>
 
                     <li class="mt-4 mb-3">Lister les plannings <code>(GET /api/v1/plannings)</code></li>
-                    <pre class="pre-scrollable">
-                    <b>Endpoint:</b> GET /api/v1/plannings
-                    <b>Requête:</b>
-                    curl -X GET "https://shiftheroes.fr/api/v1/plannings" -H "Authorization: Bearer YOUR_API_TOKEN"
+                    
+                    <strong>Endpoint:</strong> GET /api/v1/plannings
+                    
+                    <strong>Requête (sans filtre):</strong>
+                    <div class="small bg-light overflow-auto font-monospace p-3 rounded">curl -X GET "https://shiftheroes.fr/api/v1/plannings" -H "Authorization: Bearer YOUR_API_TOKEN"</div>
 
-                    <b>Réponse:</b>
+                    <strong>Requête (avec filtre de type):</strong>
+                    <div class="small bg-light overflow-auto font-monospace p-3 rounded">curl -X GET "https://shiftheroes.fr/api/v1/plannings?type=TYPE" -H "Authorization: Bearer YOUR_API_TOKEN"<!-- Remplacer TYPE par "permanent", "daily" ou "weekly" selon le type de planning souhaité. --></div>
+
+                    <strong>Réponse:</strong>
+                    <div class="small bg-light overflow-auto font-monospace p-3 rounded">
                     [
-                    {
-                        "id": "X05fNV",
-                        "planning_type": "daily",
-                        "state": "available",
-                        "published_at": "2023-07-07T08:46:45.215Z"
-                    },
-                    {
-                        "id": "e6bdK2",
-                        "planning_type": "permanent",
-                        "state": "available",
-                        "published_at": "2023-07-07T08:37:54.353Z"
-                    },
-                    {
-                        "id": "j9KDf4",
-                        "planning_type": "weekly",
-                        "state": "available",
-                        "published_at": "2023-07-07T08:47:58.611Z"
-                    }
+                        {
+                            "id": "X05fNV",
+                            "planning_type": "daily",
+                            "state": "available",
+                            "published_at": "2023-07-07T08:46:45.215Z"
+                        },
+                        {
+                            "id": "e6bdK2",
+                            "planning_type": "permanent",
+                            "state": "available",
+                            "published_at": "2023-07-07T08:37:54.353Z"
+                        },
+                        {
+                            "id": "j9KDf4",
+                            "planning_type": "weekly",
+                            "state": "available",
+                            "published_at": "2023-07-07T08:47:58.611Z"
+                        }
                     ]
-                    </pre>
+                    </div>
+
+                    <p class="mt-3">Astuce : Utilisez le paramètre <code>?type=TYPE</code> pour filtrer les plannings selon leur type (permanent, daily, weekly).</p>
                 </div>
             </div>
         </div>
         <!-- Fin Section Plannings -->
+
 
         <!-- Section Shifts -->
         <div class="accordion-item">
@@ -83,33 +90,33 @@
             </h2>
             <div id="collapseShifts" class="accordion-collapse collapse" aria-labelledby="headingShifts" data-bs-parent="#apiAccordion">
                 <div class="accordion-body">
-    <li class="mt-4 mb-3">Lister les créneaux d'un planning <code>(GET /api/v1/plannings/:planning_id/shifts)</code></li>
-    <pre class="pre-scrollable">
-    <b>Endpoint:</b> GET /api/v1/plannings/:planning_id/shifts
-    <b>Requête:</b>
-    curl -X GET "https://shiftheroes.fr/api/v1/plannings/:planning_id/shifts" -H "Authorization: Bearer YOUR_API_TOKEN"
+                    <li class="mt-4 mb-3">Lister les créneaux d'un planning <code>(GET /api/v1/plannings/:planning_id/shifts)</code></li>
+                    <strong>Endpoint:</strong> GET /api/v1/plannings/:planning_id/shifts
+                    <strong>Requête:</strong>
+                    <div class="small bg-light overflow-auto font-monospace p-3 rounded">curl -X GET "https://shiftheroes.fr/api/v1/plannings/:planning_id/shifts" -H "Authorization: Bearer YOUR_API_TOKEN"</div>
 
-    <b>Réponse:</b>
-    [
-    {
-        "id": "lqQFnY",
-        "day": "mardi",
-        "start_hour": "2000-01-01T08:00:00.000Z",
-        "end_hour": "2000-01-01T14:00:00.000Z",
-        "seats": 10,
-        "seats_taken": 1
-    },
-    {
-        "id": "x2OFW1",
-        "day": "lundi",
-        "start_hour": "2000-01-01T08:00:00.000Z",
-        "end_hour": "2000-01-01T14:00:00.000Z",
-        "seats": 12,
-        "seats_taken": 0
-    },
-    // autres shifts...
-    ]
-    </pre>
+                    <strong>Réponse:</strong>
+                    <div class="small bg-light overflow-auto font-monospace p-3 rounded">
+                    [
+                        {
+                            "id": "lqQFnY",
+                            "day": "mardi",
+                            "start_hour": "2000-01-01T08:00:00.000Z",
+                            "end_hour": "2000-01-01T14:00:00.000Z",
+                            "seats": 10,
+                            "seats_taken": 1
+                        },
+                        {
+                            "id": "x2OFW1",
+                            "day": "lundi",
+                            "start_hour": "2000-01-01T08:00:00.000Z",
+                            "end_hour": "2000-01-01T14:00:00.000Z",
+                            "seats": 12,
+                            "seats_taken": 0
+                        }
+                        // autres shifts...
+                    ]
+                    </div>
                 </div>
             </div>
         </div>
@@ -124,54 +131,48 @@
             </h2>
             <div id="collapseReservations" class="accordion-collapse collapse" aria-labelledby="headingReservations" data-bs-parent="#apiAccordion">
                 <div class="accordion-body">
-    <li class="mt-4 mb-3">Lister ses réservations sur un planning <code>(GET /api/v1/plannings/:planning_id/reservations)</code></li>
-    <pre class="pre-scrollable">
-    <b>Endpoint:</b> GET /api/v1/plannings/:planning_id/reservations
-    <b>Requête:</b>
-    curl -X GET "https://shiftheroes.fr/api/v1/plannings/:planning_id/reservations" \
-        -H "Authorization: Bearer YOUR_API_TOKEN"
 
-    <b>Réponse:</b>
-    [
-    {
-        "id": 103,
-        "user_id": 5,
-        "shift_id": "lqQFnY",
-        // autres attributs de la réservation...
-    },
-    {
-        "id": 104,
-        "user_id": 5,
-        "shift_id": "x2OFW1",
-        // autres attributs de la réservation...
-    },
-    // autres réservations...
-    ]
-    </pre>
+                    <li class="mt-4 mb-3">Lister ses réservations sur un planning <code>(GET /api/v1/plannings/:planning_id/reservations)</code></li>
+                    <strong>Endpoint:</strong> GET /api/v1/plannings/:planning_id/reservations
+                    <strong>Requête:</strong>
+                    <div class="small bg-light overflow-auto font-monospace p-3 rounded">curl -X GET "https://shiftheroes.fr/api/v1/plannings/:planning_id/reservations" -H "Authorization: Bearer YOUR_API_TOKEN"</div>
 
-    <li class="mt-4 mb-3">Créer une réservation sur un shift <code>(POST /api/v1/plannings/:planning_id/shifts/:shift_id/reservations)</code></li>
-    <pre class="pre-scrollable">
-        <b>Endpoint:</b> POST /api/v1/plannings/:planning_id/shifts/:shift_id/reservations
-        <b>Requête:</b>
-        curl -X POST "https://shiftheroes.fr/api/v1/plannings/:planning_id/shifts/:shift_id/reservations" \
-            -H "Authorization: Bearer YOUR_API_TOKEN"
+                    <strong>Réponse:</strong>
+                    <div class="small bg-light overflow-auto font-monospace p-3 rounded">
+                    [
+                        {
+                            "id": 103,
+                            "user_id": 5,
+                            "shift_id": "lqQFnY"
+                            // autres attributs de la réservation...
+                        },
+                        {
+                            "id": 104,
+                            "user_id": 5,
+                            "shift_id": "x2OFW1"
+                            // autres attributs de la réservation...
+                        }
+                        // autres réservations...
+                    ]
+                    </div>
 
-        <b>Réponse:</b> La réservation est créée avec succès.
-    </pre>
+                    <li class="mt-4 mb-3">Créer une réservation sur un shift <code>(POST /api/v1/plannings/:planning_id/shifts/:shift_id/reservations)</code></li>
+                    <strong>Endpoint:</strong> POST /api/v1/plannings/:planning_id/shifts/:shift_id/reservations
+                    <strong>Requête:</strong>
+                    <div class="small bg-light overflow-auto font-monospace p-3 rounded">curl -X POST "https://shiftheroes.fr/api/v1/plannings/:planning_id/shifts/:shift_id/reservations" -H "Authorization: Bearer YOUR_API_TOKEN"</div>
+                    <strong>Réponse:</strong> La réservation est créée avec succès.
 
-    <li class="mt-4 mb-3">Supprimer une réservation <code>(DELETE /api/v1/plannings/:planning_id/shifts/:shift_id/reservations/:reservation_id)</code></li>
-    <pre class="pre-scrollable">
-    <b>Endpoint:</b> DELETE /api/v1/plannings/:planning_id/shifts/:shift_id/reservations/:reservation_id
-    <b>Requête:</b>
-    curl -X DELETE "https://shiftheroes.fr/api/v1/plannings/:planning_id/shifts/:shift_id/reservations/:reservation_id" \
-        -H "Authorization: Bearer YOUR_API_TOKEN"
+                    <li class="mt-4 mb-3">Supprimer une réservation <code>(DELETE /api/v1/plannings/:planning_id/shifts/:shift_id/reservations/:reservation_id)</code></li>
+                    <strong>Endpoint:</strong> DELETE /api/v1/plannings/:planning_id/shifts/:shift_id/reservations/:reservation_id
+                    <strong>Requête:</strong>
+                    <div class="small bg-light overflow-auto font-monospace p-3 rounded">curl -X DELETE "https://shiftheroes.fr/api/v1/plannings/:planning_id/shifts/:shift_id/reservations/:reservation_id" -H "Authorization: Bearer YOUR_API_TOKEN"</div>
+                    <strong>Réponse:</strong> La réservation est supprimée avec succès.
 
-    <b>Réponse:</b> La réservation est supprimée avec succès.
-    </pre>
                 </div>
             </div>
         </div>
         <!-- Fin Section Reservations -->
+
     </div>
 </div>
 
