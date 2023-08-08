@@ -135,7 +135,7 @@ videos_data = [
         title: "Charmer le Python",
         description: "Dans cette vidéo, nous allons voir comment passer de Curl à un langage de programmation et utiliser les variables.",
         url: "https://www.loom.com/share/0e8cf2117869429e840dddef7d3d2bb8?sid=529511f3-25ad-41bd-86d8-1612dc65f736",
-        objectives: ["list_plannings_with_python", "list_shifts_with_python", "book_shift_with_python", "chained_api_calls_without_curl"],
+        objectives: ["chained_api_calls_without_curl"],
         custom_id: "curl_to_python"
     },
     {
