@@ -13,7 +13,7 @@ class Api::V1::ReservationsController < Api::V1::AuthenticatedController
 
   # POST /plannings/:planning_id/shifts/:shift_id/reservations
   def create
-    @reservation = @shift.reservations.build(user: current_user)
+    @reservation = @shift.reservations.build(user: current_user, shift: @shift)
 
     if @reservation.save
       check_and_record_achievements
