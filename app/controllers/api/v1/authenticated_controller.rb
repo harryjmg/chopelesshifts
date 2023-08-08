@@ -7,6 +7,13 @@ class Api::V1::AuthenticatedController < ActionController::Base
     before_action :log_api_request
 
     attr_reader :current_user, :current_api_token
+
+    def user_candidate
+        email = params[:email]
+        User.find_by(email: email)&.record_achievement("apply_for_coding_accelerator")
+        
+        render json: { message: "Email #{email} reçu avec succès." }, status: :ok
+    end
     
     def authenticate
         authenticate_user_with_token || handle_bad_authentication
@@ -15,11 +22,11 @@ class Api::V1::AuthenticatedController < ActionController::Base
     private
     
     def curl_used
-        request.user_agent.include?('curl')
+        request.user_agent&.include?('curl')
     end
 
     def python_used
-        request.user_agent.include?('python')
+        request.user_agent&.include?('python')
     end
 
     def authenticate_user_with_token

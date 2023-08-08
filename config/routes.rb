@@ -42,6 +42,7 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       defaults format: :json do
+        post 'candidate', to: 'authenticated#user_candidate'
         resources :plannings, only: [:index] do
           resources :shifts, only: [:index] do
             resources :reservations, only: [:create, :destroy]
