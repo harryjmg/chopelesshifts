@@ -1,38 +1,40 @@
-<div class="modal fade" id="reviewModal" tabindex="-1" aria-labelledby="reviewModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="reviewModalLabel">Votre avis sur Shift Heroes</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <%= form_with model: @review, url: create_review_path, local: false do |f| %>
-          <div class="mb-3">
-            <div class="star-rating">
-              <%= f.label :stars, 'Étoiles' %><br>
-              <div class="stars-container">
-                <% (5.downto(1)).each do |i| %>
-                  <%= f.radio_button :stars, i, class: 'star-radio', id: "star#{i}" %>
-                  <label for="star<%= i %>" class="star">
-                    <i class="fas fa-star"></i>
-                  </label>
-                <% end %>
+<% if current_user.current_level == 2 %>
+  <div class="modal fade" id="reviewModal" tabindex="-1" aria-labelledby="reviewModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="reviewModalLabel">Votre avis sur Shift Heroes compte !</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <%= form_with model: @review, url: create_review_path, local: false do |f| %>
+            <div class="mb-3">
+              <div class="star-rating">
+                <%= f.label :stars, 'Quelle note donneriez-vous à Shift Heroes ?' %>
+                <div class="stars-container">
+                  <% (5.downto(1)).each do |i| %>
+                    <%= f.radio_button :stars, i, class: 'star-radio', id: "star#{i}" %>
+                    <label for="star<%= i %>" class="star">
+                      <i class="fas fa-star"></i>
+                    </label>
+                  <% end %>
+                </div>
               </div>
             </div>
-          </div>
-          <div class="mb-3">
-            <%= f.label :comment, 'Commentaire' %>
-            <%= f.text_area :comment, class: 'form-control' %>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-            <%= f.submit 'Envoyer', class: 'btn btn-primary' %>
-          </div>
-        <% end %>
+            <div class="mb-3">
+              <%= f.label :comment, 'Commentaire' %>
+              <%= f.text_area :comment, class: 'form-control' %>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+              <%= f.submit 'Envoyer', class: 'btn btn-primary' %>
+            </div>
+          <% end %>
+        </div>
       </div>
     </div>
   </div>
-</div>
+<% end %>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
