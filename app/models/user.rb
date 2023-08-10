@@ -23,6 +23,8 @@ class User < ApplicationRecord
 
   has_many :plannings, class_name: "Planning", dependent: :destroy
 
+  has_many :reviews
+
   after_create :create_permanent_planning
   after_create :create_daily_planning
 
