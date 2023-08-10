@@ -270,3 +270,25 @@ body {
     100%{background-position:0% 82%}
 }
 
+.star-rating {
+    text-align: left;
+}
+.stars-container {
+    direction: rtl;
+}
+.star-radio {
+    display: none;
+}
+.star {
+    font-size: 24px;
+    color: grey;
+    cursor: pointer;
+    margin: 0 2px;
+}
+.star-radio:checked ~ .star {
+    color: gold;
+}
+.star:hover,
+.star:hover ~ .star {
+    color: gold;
+}
