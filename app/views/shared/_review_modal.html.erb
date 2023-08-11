@@ -39,12 +39,27 @@
 
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-  if (!<%= current_user.has_review? %>) {
-    var reviewModal = new bootstrap.Modal(document.getElementById('reviewModal'));
-    setTimeout(() => {
-      reviewModal.show();
-    }, 5000); // display modal after 5 seconds
+// On each Turbo page load, check if the user can submit a review.
+// If the user hasn't submitted a review and it's been over an hour since the last prompt,
+// display a modal to encourage user review after a 3-second delay.
+let modalTimeout;
+
+document.addEventListener('turbo:load', function() {
+  clearTimeout(modalTimeout); // Clear any existing timeout modal
+
+  if (!<%= current_user.has_review? %> && <%= current_user.can_review? %>) {
+    var lastShown = localStorage.getItem('reviewModalShown');
+    var currentTime = new Date().getTime();
+    var oneHour = 3600000; // milliseconds
+    
+    if (!lastShown || currentTime - lastShown > oneHour) {
+      console.log("Attempting to show modal");
+      var reviewModal = new bootstrap.Modal(document.getElementById('reviewModal'));
+      modalTimeout = setTimeout(() => {
+        reviewModal.show();
+        localStorage.setItem('reviewModalShown', currentTime);
+      }, 5000); // display modal after 5 seconds
+    }
   }
 });
 </script>
