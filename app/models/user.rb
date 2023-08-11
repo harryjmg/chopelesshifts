@@ -84,4 +84,12 @@ class User < ApplicationRecord
     plannings = plannings.where(planning_type: type) if type.present?
     plannings = plannings.order(planning_type: :asc)
   end
+
+  def has_review?
+    reviews.exists?
+  end
+
+  def can_review?
+    current_level >= 2
+  end
 end
