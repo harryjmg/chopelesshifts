@@ -23,7 +23,6 @@ class VideosController < ApplicationController
         end
 
         @is_completable = @user_video && !@user_video.is_complete && current_user.has_all_achievements_for(@video)
-        @review = current_user.reviews.build
     end
 
     def ultimate_advice
