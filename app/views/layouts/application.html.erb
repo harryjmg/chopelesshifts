@@ -16,7 +16,7 @@
   </head>
 
   <body>
-    <%= render "shared/review_modal" if !current_user.has_review? && current_user.can_review? %>
+    <%= render "shared/review_modal" if current_user && !current_user.has_review? && current_user.can_review? %>
     <%= yield %>
     <%= render "shared/footer" %>
     <% if current_user %>
