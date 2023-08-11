@@ -4,7 +4,10 @@ class ReviewsController < ApplicationController
     if @review.save
       redirect_to root_path, notice: 'Merci pour votre avis!'
     else
-      flash[:alert] = 'Il y a eu un problème lors de la sauvegarde de votre avis'
+      respond_to do |format|
+        format.turbo_stream { render template: 'shared/create_review' }
+        format.html { render :new }
+      end
     end
   end
 

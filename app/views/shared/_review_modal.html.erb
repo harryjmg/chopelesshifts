@@ -6,6 +6,9 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
+        <div id="error_messages_container">
+          <div id="error_messages"></div>
+        </div>
         <%= form_with model: @review, url: create_review_path, local: false do |f| %>
           <div class="mb-3">
             <div class="star-rating">
