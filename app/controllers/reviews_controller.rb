@@ -1,7 +1,11 @@
 class ReviewsController < ApplicationController
-  before_action :require_login, only: [:create_review]
+  before_action :require_login, only: [:create]
 
-  def create_review
+  def new
+    @review = current_user.reviews.build if current_user
+  end
+
+  def create
     @review = current_user.reviews.build(review_params)
     if @review.save
       redirect_to root_path, notice: 'Merci pour votre avis!'

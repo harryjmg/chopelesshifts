@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-    before_action :set_notifications, :initialize_review
+    before_action :set_notifications
 
     private
 
@@ -18,9 +18,5 @@ class ApplicationController < ActionController::Base
             @new_achievements_count = current_user.user_achievements.where(seen: false).count
             @new_videos_count = current_user.user_videos.where(is_seen: false).count
         end
-    end
-
-    def initialize_review
-        @review = current_user.reviews.build if current_user
     end
 end
