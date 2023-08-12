@@ -1,4 +1,6 @@
 class ReviewsController < ApplicationController
+  before_action :require_login, only: [:create_review]
+
   def create_review
     @review = current_user.reviews.build(review_params)
     if @review.save
