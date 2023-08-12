@@ -30,7 +30,7 @@ Rails.application.routes.draw do
   put '/videos/:id/complete', to: 'videos#complete', as: 'video_complete'
   get 'ultimate_advice' => 'videos#ultimate_advice', :as => :ultimate_advice
 
-  post '/reviews', to: 'reviews#create_review', as: 'create_review'
+  post '/reviews', to: 'reviews#create', as: 'create_review'
 
   get 'profil' => 'users#show', :as => :profil
 
