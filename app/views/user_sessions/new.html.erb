@@ -1,29 +1,29 @@
 <div class="container-md" style="max-width: 1140px;">
-    <div class="row justify-content-center">
-        <div class="col-md-5 mt-5">
-            <%= link_to root_path do %>
-                <%= image_tag "yt_mini_sh.jpg", class: "my-5 img-fluid" %>
-            <% end %>
+    <div class="row justify-content-center mb-3 mt-5 py-5">
+        <div class="col-sm-8 text-center">
+            <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-2">Reprise de l'aventure !</h1>
+            <div class="progress mt-4" role="progressbar" aria-label="Example 20px high" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100">
+                <div class="progress-bar progress-bar-striped progress-bar-animated" style="width: 90%">
+                </div>
+            </div>
         </div>
     </div>
-    <div class="row justify-content-center my-5">
-        <div class="col-lg-8">
-            <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3">Se connecter à Shift Heroes</h1>
-            <p style="color: green"><%= notice %></p>
-            <p style="color: red"><%= alert %></p>
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-5">
+            <h2 class="h5 mb-3 fw-bold">Connecte-toi pour continuer ton aventure sur Shift Heroes.</h2>
             <%= form_with(url: login_path, method: :post, html: {class: "needs-validation", novalidate: ""}) do |f| %>
                 <div class="mb-3">
-                    <%= f.label :email, class: "form-label" %>
-                    <%= f.text_field :email, class: "form-control form-control-lg", required: true %>
-                    <div class="invalid-feedback">Please provide an email.</div>
+                    <%= f.label :email, class: "form-label fw-bold" %>
+                    <%= f.email_field :email, class: "form-control form-control", required: true, placeholder: "Ton email" %>
+                    <div class="invalid-feedback">Veuillez fournir une adresse e-mail valide.</div>
                 </div>
                 <div class="mb-3">
-                    <%= f.label :password, class: "form-label" %>
-                    <%= f.password_field :password, class: "form-control form-control-lg", required: true %>
-                    <div class="invalid-feedback">Please provide a password.</div>
+                    <%= f.label :password, class: "form-label fw-bold" %>
+                    <%= f.password_field :password, class: "form-control form-control", required: true, placeholder: "Ton mot de passe" %>
+                    <div class="invalid-feedback">Veuillez fournir un mot de passe.</div>
                 </div>
                 <div class="mb-3">
-                    <%= link_to "Mot de passe oublié ?", forgot_password_path, class: "link-secondary text-decoration-none" %>
+                    <%= link_to "Mot de passe oublié ?", forgot_password_path, class: "link" %>
                 </div>
                 <div class="form-check mb-3">
                     <%= f.check_box :remember_me, class: "form-check-input" %>
@@ -32,14 +32,19 @@
                     <% end %>
                 </div>
                 <div class="actions">
-                    <%= f.submit "Se connecter", class: "btn border btn-lg px-4 me-md-2 bg-rainbow", style: "color: #0c5175; " %>
+                    <%= f.submit "Se connecter", class: "btn border btn-lg px-4 me-md-2 bg-rainbow ms-0", style: "color: #0c5175; " %>
                 </div>
             <% end %>
-        </div>
-    </div>
-    <div class="row justify-content-center my-5">
-        <div class="col-auto">
-            <%= button_to "... ou s'inscrire", new_user_path, method: :get, class: "btn btn-outline-secondary btn-lg px-4" %>
+            <div class="row justify-content-center my-5">
+                <div class="col-auto text-center">
+                    <%= link_to new_user_path, method: :get, class: "px-4 mt-3 d-block" do %>
+                        Je n'ai pas encore de compte
+                    <% end %>
+                    <%= link_to root_path, method: :get, class: "px-4 mt-3 d-block" do %>
+                        Retour à l'accueil
+                    <% end %>
+                </div>
+            </div>
         </div>
     </div>
 </div>
