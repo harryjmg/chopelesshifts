@@ -1,0 +1,14 @@
+<% if session[:trigger_confetti] %>
+  <audio src="/celebrate.mp3" type="audio/mpeg" id="celebrateSound"></audio>
+  <script>
+    confetti({
+      particleCount: 400,
+      spread: 150,
+      origin: { y: 0.6 }
+    });
+
+    var sound = document.getElementById("celebrateSound");
+    sound.play();
+  </script>
+  <% session.delete(:trigger_confetti) %>
+<% end %>
