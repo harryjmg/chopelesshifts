@@ -23,6 +23,8 @@ class User < ApplicationRecord
 
   has_many :plannings, class_name: "Planning", dependent: :destroy
 
+  has_many :reviews, dependent: :destroy
+
   after_create :create_permanent_planning
   after_create :create_daily_planning
 
@@ -81,5 +83,13 @@ class User < ApplicationRecord
     plannings = Planning.available.where("user_id = ? OR planning_type = ?", self.id, 'weekly')
     plannings = plannings.where(planning_type: type) if type.present?
     plannings = plannings.order(planning_type: :asc)
+  end
+
+  def has_review?
+    reviews.exists?
+  end
+
+  def can_review?
+    current_level >= 2
   end
 end

@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
     before_action :set_notifications
-    
+
     private
 
     def check_onboarding

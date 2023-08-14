@@ -1,0 +1,10 @@
+<% if @review.errors.any? %>
+  <%= turbo_stream.append "error_messages_container" do %>
+    <div id="error_messages">
+      <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        Hop hop hop, pas trop vite, n'oublie pas de répondre en remplissant tous les champs !
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    </div>
+  <% end %>
+<% end %>
