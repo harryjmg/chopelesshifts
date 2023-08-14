@@ -10,7 +10,7 @@
     </div>
     <div class="row justify-content-center mt-5">
         <div class="col-md-5">
-            <h2 class="h5 mb-3 fw-bold">Tu n'es plus qu'à un clic de démarrer Shift Heroes.</h2>
+            <h2 class="h5 mb-3 fw-bold">Tu es à un clic de commencer Shift Heroes !</h2>
             <%= form_with(model: User.new, url: users_path, method: :post, html: {class: "needs-validation", novalidate: ""}) do |f| %>
                 <% if params[:email] && params[:email].present? %>
                     <%= f.label :email, value: "Ton email :", class: "form-label fw-bold" %>

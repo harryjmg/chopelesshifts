@@ -9,7 +9,9 @@
     </div>
     <div class="row justify-content-center text-center mt-4">
         <div class="col-md-8">
-            <p class="lead">Shift Heroes te plonge dans un univers qui a vraiment existé, dans lequel tu es incité à apprendre le code dans le but de décrocher des créneaux de travail, donc de gagner plus et de surpasser tes concurrents.</p>
+            <p class="lead">
+                Shift Heroes te plonge dans un univers fictif qui a vraiment existé, dans lequel tu es incité à apprendre le code dans le but de décrocher des créneaux qui te permettront  de gagner plus d'argent que tes concurrents 💸.
+            </p>
         </div>
     </div>
     <div class="row justify-content-center mt-5">
@@ -20,17 +22,15 @@
     <div class="row justify-content-center mt-4 text-center">
         <%= form_with(url: new_user_path, method: :get, html: {class: "needs-validation row justify-content-center mt-4 text-center", novalidate: ""}) do |f| %>
             <div class="mb-3 col-md-4 col-10" style="margin-top: 5px">
-                <%= text_field_tag :email, nil, class: "form-control form-control-lg", style: "padding:12px", required: true, placeholder: "Entrez votre adresse e-mail" %>
+                <%= text_field_tag :email, nil, class: "form-control form-control-lg", style: "padding:12px", required: true, placeholder: "Ton adresse e-mail" %>
                 <div class="invalid-feedback">Veuillez fournir une adresse e-mail valide.</div>
             </div>
-
             <div class="col-auto">
-                <%= f.submit "Démarrer maintenant", class: "btn border btn-sm px-4 mx-0 bg-rainbow bordered", style: "color: #0c5175; font-size: 1.25rem;" %>            </div>
-                <%= link_to login_path, method: :get, class: "px-4 mt-3" do %>
-                    J'ai déjà un compte
-                <% end %>
+                <%= f.submit "Démarrer maintenant", class: "btn border btn-sm px-4 mx-0 bg-rainbow bordered", style: "color: #0c5175; font-size: 1.25rem;" %>
             </div>
+            <%= link_to login_path, method: :get, class: "px-4 mt-3" do %>
+                J'ai déjà un compte
+            <% end %>
         <% end %>
     </div>
-    
 </div>
