@@ -56,6 +56,7 @@ class VideosController < ApplicationController
 
         if current_user.complete_video(@video)
             flash[:success] = "Vidéo marquée comme complétée !"
+            session[:trigger_confetti] = true
         else
             if @video.custom_id == "congratulations"
                 flash[:success] = "Bravo ! Tu as terminé Shift Heroes !"
