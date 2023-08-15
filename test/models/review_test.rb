@@ -7,9 +7,9 @@ class ReviewTest < ActiveSupport::TestCase
     assert_includes review.errors.full_messages, 'User doit exister'
   end
 
-  test 'review should have stars between 1 and 5' do
+  test 'review should have stars between 1 and 10' do
     review = reviews(:one)
-    review.stars = 6
+    review.stars = 12
     assert_not review.valid?
     assert_includes review.errors.full_messages, "Stars n'est pas inclus(e) dans la liste"
   end

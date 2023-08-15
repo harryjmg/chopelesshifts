@@ -51,6 +51,7 @@ Rails.application.routes.draw do
           end
           resources :reservations, only: [:index]
         end
+        match '*path', to: 'authenticated#not_found_route', via: :all
       end
     end
   end

@@ -1,5 +1,8 @@
 class Api::V1::AuthenticatedController < ActionController::Base
-    rescue_from ActiveRecord::RecordNotFound, with: :handle_not_found
+    rescue_from StandardError, with: :internal_server_error
+    rescue_from ActiveRecord::RecordNotFound, with: :not_found
+    rescue_from ActionController::RoutingError, with: :not_found_route
+
     protect_from_forgery with: :null_session
 
     before_action :authenticate
@@ -17,6 +20,18 @@ class Api::V1::AuthenticatedController < ActionController::Base
     
     def authenticate
         authenticate_user_with_token || handle_bad_authentication
+    end
+
+    def not_found
+        render json: { error: "Resource not found, please check ids" }, status: :not_found
+    end
+    
+    def not_found_route
+        render json: { error: "Url not found, please check url" }, status: :not_found
+    end
+
+    def internal_server_error(exception)
+        render json: { error: "Internal Server Error", message: exception.message }, status: :internal_server_error
     end
 
     private
@@ -52,6 +67,8 @@ class Api::V1::AuthenticatedController < ActionController::Base
     def handle_not_found
         render json: { message: "Not found" }, status: :not_found
     end
+
+    
 
     def log_api_request
         current_user.api_requests&.create!(path: request.path, method: request.method, user_agent: request.user_agent)
