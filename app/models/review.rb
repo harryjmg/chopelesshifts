@@ -3,6 +3,6 @@ class Review < ApplicationRecord
 
   validates :user, presence: true
   validates :user_id, uniqueness: true
-  validates :stars, presence: true, inclusion: { in: 1..5 }
-  validates :comment, presence: true
+  validates :stars, presence: true, inclusion: { in: 1..10 }
+  validates :comment, presence: true, length: { minimum: 3 }
 end

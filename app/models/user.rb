@@ -90,6 +90,6 @@ class User < ApplicationRecord
   end
 
   def can_review?
-    current_level >= 2
+    current_level >= 6 && !has_review?
   end
 end

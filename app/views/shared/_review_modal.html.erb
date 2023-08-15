@@ -1,35 +1,37 @@
 <div class="modal fade" id="reviewModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="reviewModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="reviewModalLabel">Votre avis sur Shift Heroes compte !</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
+      <div class="modal-body p-4">
         <div id="error_messages_container">
           <div id="error_messages"></div>
         </div>
         <%= form_with model: Review.new, url: create_review_path, local: false do |f| %>
-          <div class="mb-3">
+          <div class="mb-4" style="height: 5em;">
             <div class="star-rating">
-              <%= f.label :stars, 'Quelle note donneriez-vous à Shift Heroes ?' %>
-              <div class="stars-container">
-                <% (5.downto(1)).each do |i| %>
-                  <%= f.radio_button :stars, i, class: 'star-radio', id: "star#{i}" %>
-                  <label for="star<%= i %>" class="star">
-                    <i class="fas fa-star"></i>
-                  </label>
-                <% end %>
-              </div>
+              <h5>À quel point as-tu aimé Shift Heroes ?</h5>
+              
+              <fieldset class="rating mt-2">
+                  <%= f.radio_button :stars, 10, id: "star5" %><label class="full" for="star5" title="Parfait - 5 étoiles"></label>
+                  <%= f.radio_button :stars, 9, id: "star4half" %><label class="half" for="star4half" title="Quasi parfait - 4,5 étoiles"></label>
+                  <%= f.radio_button :stars, 8, id: "star4" %><label class="full" for="star4" title="Super - 4 étoiles"></label>
+                  <%= f.radio_button :stars, 7, id: "star3half" %><label class="half" for="star3half" title="Pas mal - 3,5 étoiles"></label>
+                  <%= f.radio_button :stars, 6, id: "star3" %><label class="full" for="star3" title="Ça passe - 3 étoiles"></label>
+                  <%= f.radio_button :stars, 5, id: "star2half" %><label class="half" for="star2half" title="Moyen - 2,5 étoiles"></label>
+                  <%= f.radio_button :stars, 4, id: "star2" %><label class="full" for="star2" title="Assez bof - 2 étoiles"></label>
+                  <%= f.radio_button :stars, 3, id: "star1half" %><label class="half" for="star1half" title="Mauvais - 1,5 étoiles"></label>
+                  <%= f.radio_button :stars, 2, id: "star1" %><label class="full" for="star1" title="Je reste poli - 1 étoile"></label>
+                  <%= f.radio_button :stars, 1, id: "starhalf" %><label class="half" for="starhalf" title="Claqué au sol - 0,5 étoile"></label>
+              </fieldset>
+
             </div>
           </div>
-          <div class="mb-3">
-            <%= f.label :comment, 'Commentaire' %>
-            <%= f.text_area :comment, class: 'form-control' %>
+          <div class="mb-2">
+            <h5>Dépose ton avis public ici</h5>
+            <%= f.text_area :comment, class: 'form-control mt-3', rows: 3, placeholder: "Shift Heroes est entrain de changer ma vie, merci Harry ! (ou un truc du genre)" %>
           </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-            <%= f.submit 'Envoyer', class: 'btn btn-primary' %>
+          <div class="modal-footer border-0">
+            <button type="button" class="btn link-secondary" data-bs-dismiss="modal">Plus tard</button>
+            <%= f.submit "Je donne mon avis", class: 'btn bg-rainbow' %>
           </div>
         <% end %>
       </div>
@@ -38,28 +40,13 @@
 </div>
 
 
+
 <script>
-// On each Turbo page load, check if the user can submit a review.
-// If the user hasn't submitted a review and it's been over an hour since the last prompt,
-// display a modal to encourage user review after a 3-second delay.
-let modalTimeout;
+  document.addEventListener('turbo:load', function() {
 
-document.addEventListener('turbo:load', function() {
-  clearTimeout(modalTimeout); // Clear any existing timeout modal
-
-  if (!<%= current_user.has_review? %> && <%= current_user.can_review? %>) {
-    var lastShown = localStorage.getItem('reviewModalShown');
-    var currentTime = new Date().getTime();
-    var oneHour = 3600000; // milliseconds
-
-    if (!lastShown || currentTime - lastShown > oneHour) {
-      console.log("Attempting to show modal");
-      var reviewModal = new bootstrap.Modal(document.getElementById('reviewModal'));
-      modalTimeout = setTimeout(() => {
-        reviewModal.show();
-        localStorage.setItem('reviewModalShown', currentTime);
-      }, 5000); // display modal after 5 seconds
-    }
-  }
+    var reviewModal = new bootstrap.Modal(document.getElementById('reviewModal'));
+    setTimeout(() => {
+      reviewModal.show();
+    }, 500);
 });
 </script>

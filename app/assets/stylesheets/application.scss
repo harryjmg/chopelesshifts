@@ -7,6 +7,7 @@ $success: #7FD823;
 @import "font-awesome";
 
 @import url('https://fonts.googleapis.com/css2?family=Allison&display=swap');
+@import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css); // For the rating stars
 
 .text-light-gray {
     color: #B2C0CB;
@@ -270,25 +271,42 @@ body {
     100%{background-position:0% 82%}
 }
 
-.star-rating {
-    text-align: left;
-}
-.stars-container {
-    direction: rtl;
-}
-.star-radio {
-    display: none;
-}
-.star {
-    font-size: 24px;
-    color: grey;
-    cursor: pointer;
-    margin: 0 2px;
-}
-.star-radio:checked ~ .star {
-    color: gold;
-}
-.star:hover,
-.star:hover ~ .star {
-    color: gold;
+#reviewModal {
+    fieldset, label { margin: 0; padding: 0; }
+    h1 { font-size: 1.5em; margin: 10px; }
+
+    /* Style Star Rating Widget */
+    .rating { 
+        border: none;
+        float: left;
+        font-family: FontAwesome;
+    }
+
+    .rating > input { display: none; } 
+    .rating > label:before { 
+        margin: 5px;
+        font-size: 2em;
+        display: inline-block;
+        content: "\f005";
+    }
+
+    .rating > .half:before { 
+        content: "\f089";
+        position: absolute;
+    }
+
+    .rating > label { 
+        color: #ddd; 
+        float: right; 
+    }
+
+    /* CSS Magic to Highlight Stars on Hover */
+    .rating > input:checked ~ label, 
+    .rating:not(:checked) > label:hover, 
+    .rating:not(:checked) > label:hover ~ label { color: #FFD700;  }
+
+    .rating > input:checked + label:hover, 
+    .rating > input:checked ~ label:hover,
+    .rating > label:hover ~ input:checked ~ label, 
+    .rating > input:checked ~ label:hover ~ label { color: #FFED85;  }
 }
