@@ -12,7 +12,7 @@ class PlanningsController < ApplicationController
   end
 
   def old_plannings
-    @plannings = current_user.plannings.closed_plannings.where(planning_type: 'weekly').sort_by(&:published_at).reverse
+    @plannings = Planning.where(planning_type: 'weekly').sort_by(&:published_at).reverse
   end
 
   # GET /plannings/1 or /plannings/1.json
