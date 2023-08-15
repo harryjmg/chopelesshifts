@@ -27,6 +27,7 @@ class UsersController < ApplicationController
       auto_login(@user)
       @user.record_achievement('account_activation')
       @user.user_videos.find_or_create_by(video: Video.first)
+      @user.track_action("Shift Heroes - Account activated")
 
       redirect_to(videos_path, :notice => 'Ton compte est activé.')
     else

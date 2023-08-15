@@ -72,6 +72,7 @@ class User < ApplicationRecord
     user_videos.find_by(video: video).update(is_complete: true)
     user_videos.find_or_create_by(video: video.next_video) 
     update_level
+    track_action("Shift Heroes - Complete video", { video: video.title, level: current_level })
   end
 
   def update_level
@@ -91,5 +92,10 @@ class User < ApplicationRecord
 
   def can_review?
     current_level >= 6 && !has_review?
+  end
+
+  def track_action(event, properties = {})
+    properties.merge!({ email: self.email })
+    MixpanelTrackUserJob.perform_later(event, properties)
   end
 end
