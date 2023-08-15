@@ -29,7 +29,7 @@
         <div class="dropdown" style="padding-top: 0.8em">
           <a href="#" class="d-flex align-items-center text-secondary text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
             <%= image_tag "https://seccdn.libravatar.org/avatar/#{Digest::MD5.hexdigest(current_user.email.downcase)}?s=32", class: "rounded-circle me-2" %>
-            <strong><%= current_user.first_name %></strong>
+            <strong><%= current_user.first_name %> (lv.<%= current_user.current_level %>)</strong>
           </a>
           <ul class="dropdown-menu dropdown-menu-light text-small shadow" style="">
             <li><%= link_to "Mon profil", profil_path, class: "dropdown-item" %></li>
