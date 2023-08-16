@@ -13,17 +13,14 @@
 <div class="container-md">
     <div class="row justify-content-center">
         <div class="col-lg-8">
-            <div class="card" style="box-shadow: 0 0 1rem 0 rgba(0, 0, 0, .2);">
-                <div style="position: relative; padding-bottom: 64.90384615384616%; height: 0;">
-                    <iframe src="https://www.youtube.com/embed/5-sfG8BV8wU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe>
-                </div>
-                <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                        <%= button_to videos_path, method: :get, class: "bg-rainbow border btn" do %>
-                            Je suis prêt
-                        <% end %>
-                    </div>
-                </div>
+            <div style="position: relative; padding-bottom: 64.90384615384616%; height: 0;">
+                <iframe src="https://www.youtube.com/embed/5-sfG8BV8wU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe>
+            </div>
+            <div class="d-grid gap-2 col-6 mx-auto my-3">
+                <%= link_to videos_path, method: :get, class: "bg-rainbow border btn text-dark text-decoration-none" do %>
+                    <i class="fa-solid fa-gun"></i>
+                    Je suis prêt à tout péter
+                <% end %>
             </div>
         </div>
     </div>
@@ -31,4 +28,21 @@
 
 <script>
     document.body.classList.add('dark-theme');
+    let allElements = document.querySelectorAll('*');
+
+    allElements.forEach(function(element) {
+        let classes = Array.from(element.classList);
+        classes.forEach(function(cls) {
+            if (cls.includes('secondary')) {
+                let newClass = cls.replace('secondary', 'light');
+                element.classList.remove(cls);
+                element.classList.add(newClass);
+            }
+        });
+    });
+
+    let logo = document.getElementById('logo-shiftheroes');
+    logo.style.filter = 'brightness(6.5)';
+    logo.style.opacity = '1';
+
 </script>
