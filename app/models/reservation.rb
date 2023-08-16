@@ -43,7 +43,7 @@ class Reservation < ApplicationRecord
   end
 
   def duration_in_hours
-    (shift.end_time - shift.start_time) / 3600
+    (shift.end_hour - shift.start_hour) / 3600
   end
 
   def to_api_json
