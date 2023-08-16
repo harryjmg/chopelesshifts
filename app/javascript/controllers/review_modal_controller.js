@@ -11,9 +11,8 @@ export default class extends Controller {
       this.modal = new bootstrap.Modal(this.element);
       this.modal.show();
 
-      // Listen to the modal hidden event
+      // Listen to the modal hidden event & remove the modal
       this.element.addEventListener('hidden.bs.modal', () => {
-        // Remove the modal
         this.element.remove();
       });
     }, 500);
