@@ -28,7 +28,7 @@ class User < ApplicationRecord
   after_create :create_permanent_planning
   after_create :create_daily_planning
 
-  MAX_API_REQUESTS_PER_10_MINUTE = 300
+  MAX_API_REQUESTS_PER_10_MINUTE = 500
 
   def api_requests_within_last_10_minutes
     api_requests.where("created_at > ?", 10.minutes.ago).count

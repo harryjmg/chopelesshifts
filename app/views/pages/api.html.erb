@@ -29,6 +29,33 @@
         </div>
         <!-- Fin Section Authentification -->
 
+        <!-- Section Limitation des requêtes -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingLimit">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseLimit" aria-expanded="false" aria-controls="collapseLimit">
+                    Limitation des requêtes
+                </button>
+            </h2>
+            <div id="collapseLimit" class="accordion-collapse collapse" aria-labelledby="headingLimit" data-bs-parent="#apiAccordion">
+                <div class="accordion-body">
+                    <p>Afin de garantir une performance optimale pour tous les utilisateurs de notre API, nous avons instauré une limitation sur le nombre de requêtes qu'un client peut effectuer en l'espace de 10 minutes. Cette limitation est définie comme suit:</p>
+
+                    <strong>NOMBRE DE REQUÊTES MAXIMUM PAR 10 MINUTES = 500</strong>
+
+                    <br><br>
+
+                    <p>Cela veut dire qu'un utilisateur ne peut pas effectuer plus de 500 requêtes à l'API dans une fenêtre glissante de 10 minutes.</p>
+                    
+                    <p>Nous suivons le nombre de requêtes effectuées par chaque client en temps réel. Chaque requête est enregistrée avec une horodatage (<code>created_at</code>). Pour déterminer si un utilisateur a dépassé la limite, nous comptons le nombre de requêtes effectuées dans les 10 dernières minutes.</p>
+
+                    <p>Si vous dépassez cette limite de requêtes, votre requête sera rejetée et vous recevrez un code d'erreur HTTP approprié, généralement <code>429 Too Many Requests</code>. Vous devrez alors attendre que certaines de vos requêtes précédentes sortent de la fenêtre de 10 minutes avant de pouvoir effectuer de nouvelles requêtes.</p>
+        
+                    <p><strong>Conseil:</strong> Pensez à prendre en compte ces limites dans la création de vos programmes pour ne pas atteindre les limites trop rapidement. Une bonne pratique est d'ajouter un délai de 1 ou 2 secondes entre chaque requête si elles sont effectuées en boucle.</p>
+                </div>
+            </div>
+        </div>
+        <!-- Fin Section Limitation des requêtes -->
+
         <!-- Section Plannings -->
         <div class="accordion-item">
             <h2 class="accordion-header" id="headingPlannings">
