@@ -5,24 +5,21 @@
     <div class="row justify-content-center text-center mt-5 mb-3">
         <div class="col-lg-8">
             <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3">Just do it.</h1>
-            <p class="lead">Si t'as un petit coup de mou, regarde cette vidéo.</p>
+            <p class="lead">Si t'as un petit coup de mou, regarde ça.</p>
         </div>
     </div>
 </div>
 
-<div class="container-md">
-    <div class="row justify-content-center">
-        <div class="col-lg-8">
-            <div style="position: relative; padding-bottom: 64.90384615384616%; height: 0;">
-                <iframe src="https://www.youtube.com/embed/5-sfG8BV8wU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe>
-            </div>
-            <div class="d-grid gap-2 col-6 mx-auto my-3">
-                <%= link_to videos_path, method: :get, class: "bg-rainbow border btn text-dark text-decoration-none" do %>
-                    <i class="fa-solid fa-gun"></i>
-                    Je suis prêt à tout péter
-                <% end %>
-            </div>
-        </div>
+<div class="container row justify-content-center">
+    <div class="col-lg-10 col-12 bg-black shadow-sm rounded-3" id="video-and-details">
+        <div style="position: relative; padding-bottom: 56.25%; height: 0;"><iframe src="https://www.loom.com/embed/dd3283c7833a4e17860b2c013621734c?sid=5b6e74d2-ede9-484f-87ff-a903fc247cd8?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe></div>
+    </div>
+
+    <div class="d-grid gap-2 col-12 col-md-6 col-lg-4 mx-auto my-3">
+        <%= link_to videos_path, method: :get, class: "bg-rainbow border btn text-dark text-decoration-none" do %>
+            <i class="fa-solid fa-gun"></i>
+            Je suis prêt à tout péter
+        <% end %>
     </div>
 </div>
 
