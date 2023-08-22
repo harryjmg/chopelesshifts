@@ -98,4 +98,8 @@ class User < ApplicationRecord
     properties.merge!({ email: self.email })
     MixpanelTrackUserJob.perform_later(event, properties)
   end
+
+  def add_to_mailing_list
+    AddUserToMailingListJob.perform_later(self)
+  end
 end

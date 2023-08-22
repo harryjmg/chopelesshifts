@@ -28,6 +28,7 @@ class UsersController < ApplicationController
       @user.record_achievement('account_activation')
       @user.user_videos.find_or_create_by(video: Video.first)
       @user.track_action("Shift Heroes - Account activated")
+      @user.add_to_mailing_list
 
       redirect_to(videos_path, :notice => 'Ton compte est activé.')
     else
@@ -38,7 +39,7 @@ class UsersController < ApplicationController
   def toggle_subscription
     current_user.update(subscribed_to_daily_planning: !current_user.subscribed_to_daily_planning)
     @subscribed_to_daily_planning = current_user.subscribed_to_daily_planning
-    
+
     respond_to do |format|
       format.turbo_stream
     end
