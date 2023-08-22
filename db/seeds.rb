@@ -215,7 +215,6 @@ User.all.each do |user|
     Video.all.each do |video|
         if user.has_all_achievements_for(video)
             user_video = UserVideo.find_or_initialize_by(user: user, video: video)
-            user_video.update(is_complete: true)
         end
     end
 
