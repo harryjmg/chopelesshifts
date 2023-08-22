@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :require_login, only: [:index, :show, :edit, :update, :destroy, :achievements]
+  before_action :require_login, only: [:index, :show, :toggle_daily_planning_subscription]
   before_action :check_onboarding, only: [:show]
 
   def show
@@ -34,6 +34,15 @@ class UsersController < ApplicationController
       not_authenticated
     end
   end
+
+  def toggle_subscription
+    current_user.update(subscribed_to_daily_planning: !current_user.subscribed_to_daily_planning)
+    @subscribed_to_daily_planning = current_user.subscribed_to_daily_planning
+    
+    respond_to do |format|
+      format.turbo_stream
+    end
+  end  
 
   private
     def user_params

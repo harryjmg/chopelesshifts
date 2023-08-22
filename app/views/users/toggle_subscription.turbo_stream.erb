@@ -1,0 +1,6 @@
+<%= turbo_stream.replace :toggle_subscription_switch do %>
+    <%= link_to toggle_subscription_user_path(current_user), data: { turbo_method: :patch }, remote: true, class: "form-check form-switch", id: "toggle_subscription_switch" do %>
+        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" <%= current_user.subscribed_to_daily_planning ? 'checked disabled' : '' %>>
+        <label class="form-check-label text-secondary text-muted" for="flexSwitchCheckChecked"><%= current_user.subscribed_to_daily_planning ? "Inscrit pour le prochain" : "S'inscrire pour le prochain" %></label>
+    <% end %>
+<% end %>

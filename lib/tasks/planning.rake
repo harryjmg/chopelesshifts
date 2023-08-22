@@ -2,7 +2,12 @@ namespace :planning do
     desc "Create, publish and simulate human users by progressively filling up planning slots"
 
     task daily: :environment do
-        User.all.each { |user| create_daily_planning(user) }
+        puts "Creating daily planning for all users subscribed to daily planning..."
+        User.where(subscribed_to_daily_planning: true).each do |user|
+            puts "Creating daily planning for user #{user.email}..."
+            user.create_daily_planning
+            user.update(subscribed_to_daily_planning: false)
+        end
     end
 
     task weekly_force: :environment do
@@ -11,7 +16,7 @@ namespace :planning do
 
     task weekly: :environment do
         if Time.now.wday == 6 # Saturday
-            create_and_fill_planning("weekly", 60, 2, 1, 0.20)
+            create_and_fill_planning("weekly", 60, 2, 5, 0.20)
         else
             puts "Today is not Saturday. Aborting."
         end
@@ -22,15 +27,6 @@ namespace :planning do
         puts "Archiving plannings older than 3 month..."
         Planning.where("published_at < ?", 3.month.ago).where(planning_type: 'weekly').update_all(state: 'archived')
         puts "Done."
-    end
-
-    def create_daily_planning(user)
-        puts "Starting task to create daily planning for user #{user.id}."
-        
-        user.plannings.where(planning_type: 'daily', state: 'available').update_all(state: 'closed')
-
-        planning = Planning.create_planning('daily', user)
-        planning.publish
     end
 
     def create_and_fill_planning(type, times_to_fill, sleep_before_fill, sleep_between_fill, percent_to_fill)

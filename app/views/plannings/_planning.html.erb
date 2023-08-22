@@ -1,17 +1,58 @@
-<div id="<%= dom_id planning %>">
-  <p>
-    <strong>Name:</strong>
-    <%= planning.name %>
-  </p>
+<% if this_planning.planning_type == "weekly" %>
+  <div class="col-lg-4 border rounded-4 me-4 mb-4 py-4 bg-rainbow">
+    <div class="training_planning">
+      <%= link_to planning_path(this_planning), style: "text-decoration:none" do %>
+        <div class="icon my-5 text-center">
+          <span class="text">n°<%= this_planning.published_at.strftime('%U') %></span>
+        </div>
+        <div class="details">
+          <p class="text-muted text-center">
+            <strong><%= this_planning.seats_left %>/14</strong> créneaux disponibles
+          </p>
+          <p class="text-muted text-center">
+            Publié il y a <%= time_ago_in_words(this_planning.published_at) %><br>
+            Prochain : <span id="weeklyCountdown" data-controller="countdown"></span>
+          </p>
+          <p class="text-muted text-center">
+            <strong><%= user_slots = this_planning.reservations.where(user_id: current_user.id).count %></strong> créneaux obtenus <%= evaluate_performance(user_slots) %>
+          </p>
+        </div>
+      <% end %>
+    </div>
+  </div>
+<% else %>
 
-  <p>
-    <strong>Type:</strong>
-    <%= planning.planning_type %>
-  </p>
+  <div class="col-lg-4 border rounded-4 me-4 mb-4 py-4">
+    <div class="training_planning">
+      <%= link_to planning_path(this_planning), style: "text-decoration:none" do %>
+        <div class="icon my-5">
+          <% if this_planning.planning_type == "permanent" %>
+            <i class="fa-solid fa-infinity"></i>
+          <% else %>
+            <i class="fa-solid fa-calendar-day"></i>
+          <% end %>
+        </div>
+      <% end %>
+      <div class="details">
+        <p class="text-muted text-center">
+          <% if this_planning.planning_type == "daily" %>
+            Planning journalier du <%= this_planning.published_at.strftime('%d/%m') %><br>
+            Prochain dans : <span id="dailyCountdown" data-controller="countdown"></span>
+          <% else %>
+            Planning permanent<br>
+            Toujours disponible
+          <% end %>
+        </p>
+      </div>
+      <% if this_planning.planning_type == "daily" %>
+        <div class="d-flex justify-content-center">
+          <%= link_to toggle_subscription_user_path(current_user), data: { turbo_method: :patch }, remote: true, class: "form-check form-switch", id: "toggle_subscription_switch" do %>
+            <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" <%= current_user.subscribed_to_daily_planning ? 'checked disabled' : '' %>>
+            <label class="form-check-label text-secondary text-muted" for="flexSwitchCheckChecked"><%= current_user.subscribed_to_daily_planning ? "Inscrit pour le prochain" : "Cliquer pour le recevoir" %></label>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
 
-  <p>
-    <strong>State:</strong>
-    <%= planning.state %>
-  </p>
-
-</div>
+<% end %>

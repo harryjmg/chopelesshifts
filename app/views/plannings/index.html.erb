@@ -11,24 +11,10 @@
 </div>
 
 <% if @weekly_planning %>
-  <div class="product-boxes">
-      <span class="product-box bg-rainbow" style="margin: 0 auto; margin: 0 auto;">
-        <%= link_to planning_path(@weekly_planning), style: "text-decoration:none" do %> 
-          <div class="icon weekly">
-            <span class="text">n°<%= @weekly_planning.published_at.strftime('%U') %></span>
-          </div>
-          <div class="details">
-            <span class="title"><%= @weekly_planning.seats_left %> places restantes</span>
-            <p class="text-muted">
-              Publié il y a <%= time_ago_in_words(@weekly_planning.published_at) %><br>
-              Prochain : <span id="weeklyCountdown" data-controller="countdown"></span>
-            </p>
-            <p class="text-muted">
-              Créneaux obtenus : <%= user_slots = @weekly_planning.reservations.where(user_id: current_user.id).count %> / 14 <%= evaluate_performance(user_slots) %>        </p>
-            </p>
-          </div>
-        <% end %>
-      </span>
+  <div class="container row justify-content-center" id="real_plannings">
+    <div class="col-10 row justify-content-center">
+      <%= render "plannings/planning", this_planning: @weekly_planning %>
+    </div>
   </div>
 <% end %>
 
@@ -43,53 +29,7 @@
 
 <div class="container row justify-content-center" id="training_plannings">
   <div class="col-10 row justify-content-center">
-    <div class="col-md-4 border rounded-4 me-4 mb-4 py-4">
-      <div class="training_planning">
-        <%= link_to planning_path(@permanent_planning), style: "text-decoration:none" do %>
-          <div class="icon my-5">
-            <% if @permanent_planning.planning_type == "permanent" %>
-              <i class="fa-solid fa-infinity"></i>
-            <% else %>
-              <i class="fa-solid fa-calendar-day"></i>
-            <% end %>
-          </div>
-          <div class="details">
-            <p class="text-muted text-center">
-              <% if @permanent_planning.planning_type == "daily" %>
-                Planning journalier du <%= @permanent_planning.published_at.strftime('%d/%m') %><br>
-                Prochain dans : <span id="dailyCountdown" data-controller="countdown"></span>
-              <% else %>
-                Planning permanent<br>
-                Toujours disponible
-              <% end %>
-            </p>
-          </div>
-        <% end %>
-      </div>
-    </div>
-    <div class="col-md-4 border rounded-4 me-4 mb-4 py-4">
-      <div class="training_planning">
-        <%= link_to planning_path(@daily_planning), style: "text-decoration:none" do %>
-          <div class="icon my-5">
-            <% if @daily_planning.planning_type == "permanent" %>
-              <i class="fa-solid fa-infinity"></i>
-            <% else %>
-              <i class="fa-solid fa-calendar-day"></i>
-            <% end %>
-          </div>
-          <div class="details">
-            <p class="text-muted text-center">
-              <% if @daily_planning.planning_type == "daily" %>
-                Planning journalier du <%= @daily_planning.published_at.strftime('%d/%m') %><br>
-                Prochain dans : <span id="dailyCountdown" data-controller="countdown"></span>
-              <% else %>
-                Planning permanent<br>
-                Toujours disponible
-              <% end %>
-            </p>
-          </div>
-        <% end %>
-      </div>
-    </div>
+    <%= render "plannings/planning", this_planning: @permanent_planning %>
+    <%= render "plannings/planning", this_planning: @daily_planning %>
   </div>
 </div>
