@@ -9,6 +9,25 @@ $success: #7FD823;
 @import url('https://fonts.googleapis.com/css2?family=Allison&display=swap');
 @import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css); // For the rating stars
 
+.training_planning:hover {
+    filter: brightness(0.9);
+    transition: all 0.5s ease;
+}
+
+.training_planning > .details > .title {
+    color: #1f3950 !important;
+}
+
+.training_planning {
+    .icon {
+        text-align: center;
+        border-radius: 5px;
+        font-size: 40px;
+        font-weight: bold;
+        color: #7aa9d2 !important;
+    }
+}
+
 .text-light-gray {
     color: #B2C0CB;
 }

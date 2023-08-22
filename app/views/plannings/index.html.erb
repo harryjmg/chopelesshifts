@@ -41,14 +41,13 @@
   </div>
 </div>
 
-<div class="product-boxes">
-  <% ["permanent", "daily"].each do |planning_type| %>
-    <% planning = @available_plannings.find { |p| p.planning_type == planning_type } %>
-    <% if planning %>
-      <span class="product-box" style="max-width:300px">
-        <%= link_to planning_path(planning), style: "text-decoration:none" do %>
-          <div class="icon weekly">
-            <% if planning.planning_type == "permanent" %>
+<div class="container row justify-content-center" id="training_plannings">
+  <div class="col-10 row justify-content-center">
+    <div class="col-md-4 border rounded-4 me-4 mb-4 py-4">
+      <div class="training_planning">
+        <%= link_to planning_path(@permanent_planning), style: "text-decoration:none" do %>
+          <div class="icon my-5">
+            <% if @permanent_planning.planning_type == "permanent" %>
               <i class="fa-solid fa-infinity"></i>
             <% else %>
               <i class="fa-solid fa-calendar-day"></i>
@@ -56,8 +55,8 @@
           </div>
           <div class="details">
             <p class="text-muted text-center">
-              <% if planning.planning_type == "daily" %>
-                Planning journalier du <%= planning.published_at.strftime('%d/%m') %><br>
+              <% if @permanent_planning.planning_type == "daily" %>
+                Planning journalier du <%= @permanent_planning.published_at.strftime('%d/%m') %><br>
                 Prochain dans : <span id="dailyCountdown" data-controller="countdown"></span>
               <% else %>
                 Planning permanent<br>
@@ -66,9 +65,31 @@
             </p>
           </div>
         <% end %>
-      </span>
-    <% end %>
-  <% end %>
+      </div>
+    </div>
+    <div class="col-md-4 border rounded-4 me-4 mb-4 py-4">
+      <div class="training_planning">
+        <%= link_to planning_path(@daily_planning), style: "text-decoration:none" do %>
+          <div class="icon my-5">
+            <% if @daily_planning.planning_type == "permanent" %>
+              <i class="fa-solid fa-infinity"></i>
+            <% else %>
+              <i class="fa-solid fa-calendar-day"></i>
+            <% end %>
+          </div>
+          <div class="details">
+            <p class="text-muted text-center">
+              <% if @daily_planning.planning_type == "daily" %>
+                Planning journalier du <%= @daily_planning.published_at.strftime('%d/%m') %><br>
+                Prochain dans : <span id="dailyCountdown" data-controller="countdown"></span>
+              <% else %>
+                Planning permanent<br>
+                Toujours disponible
+              <% end %>
+            </p>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
 </div>
-
-
