@@ -5,11 +5,14 @@ class User < ApplicationRecord
     config.submodules = [:remember_me, :activation, :reset_password]
   end
 
+  before_validation :downcase_email
+
   validates :first_name, presence: true, on: :create
   validates :password, length: { minimum: 3 }, if: -> { new_record? || changes[:crypted_password] }
   validates :password, confirmation: true, on: :create
 
-  validates :email, uniqueness: true
+  validates :email, uniqueness: true, presence: true
+  validate :email_format
 
   has_many :reservations, dependent: :destroy
   has_many :shifts, through: :reservations
@@ -101,5 +104,17 @@ class User < ApplicationRecord
 
   def add_to_mailing_list
     AddUserToMailingListJob.perform_later(self)
+  end
+
+  private
+
+  def downcase_email
+    self.email = email.downcase if email.present?
+  end
+
+  def email_format
+    unless email =~ URI::MailTo::EMAIL_REGEXP
+      errors.add(:email, "n'est pas valide")
+    end
   end
 end
