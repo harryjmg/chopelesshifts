@@ -8,10 +8,26 @@ namespace :planning do
             user.create_daily_planning
             user.update(subscribed_to_daily_planning: false)
         end
+
+        Publication.create(planning_type: 'daily')
+    end
+
+    task daily_force: :environment do
+        puts "Creating daily planning for all users subscribed to daily planning..."
+        
+        User.where(subscribed_to_daily_planning: true).each do |user|
+            puts "Creating daily planning for user #{user.email}..."
+            user.create_daily_planning
+            user.update(subscribed_to_daily_planning: false)
+        end
+
+        Publication.create(planning_type: 'daily')
     end
 
     task weekly_force: :environment do
         create_and_fill_planning('weekly', 30, 1, 0.5, 1)
+
+        Publication.create(planning_type: 'daily')
     end
 
     task weekly: :environment do
@@ -20,6 +36,8 @@ namespace :planning do
         else
             puts "Today is not Saturday. Aborting."
         end
+
+        Publication.create(planning_type: 'daily')
     end
 
     task clean: :environment do

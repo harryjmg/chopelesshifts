@@ -29,7 +29,7 @@
           <% if this_planning.planning_type == "permanent" %>
             <i class="fa-solid fa-infinity"></i>
           <% else %>
-            <i class="fa-solid fa-calendar-day"></i>
+            <i class="fa-solid fa-calendar-day <%= "fa-beat" if this_planning.is_recent %>"></i>
           <% end %>
         </div>
       <% end %>

@@ -2,8 +2,6 @@ import { Controller } from "@hotwired/stimulus"
 
 
 export default class extends Controller {
-    isPublishing = { daily: false, weekly: false };
-
     startCountdown(id, type) {
         var now = new Date();
         var eventDate;
@@ -20,42 +18,57 @@ export default class extends Controller {
         var eventTime = eventDate.getTime();
         var remTime = eventTime - currentTime;
 
-        if (remTime <= 0) {
-            if (!this.isPublishing[type]) {
-                this.isPublishing[type] = true;
-                setTimeout(() => { this.isPublishing[type] = false; }, 60 * 1000);
-            }
+        if ((remTime / 1000) <= 1) {
+            document.getElementById(id).textContent = "Publication imminente";
+            document.getElementById(id).innerText = "Publication imminente";
+            this.checkPublication(id, type);
+            return;
         }
 
-        if (this.isPublishing[type]) {
-            document.getElementById(id).textContent = "maintenant !";
-            document.getElementById(id).innerText = "maintenant !";
+        var s = Math.floor(remTime / 1000);
+        var m = Math.floor(s / 60);
+        var h = Math.floor(m / 60);
+        var d = Math.floor(h / 24);
+
+        h %= 24;
+        m %= 60;
+        s %= 60;
+
+        var displayText = '';
+        if (d > 0) {
+            displayText = d + "j " + h + "h " + m + "m et " + s + "s";
+        } else if (h > 0) {
+            displayText = h + "h " + m + "m et " + s + "s";
+        } else if (m > 0) {
+            displayText = m + "m et " + s + "s";
         } else {
-            var s = Math.floor(remTime / 1000);
-            var m = Math.floor(s / 60);
-            var h = Math.floor(m / 60);
-            var d = Math.floor(h / 24);
-    
-            h %= 24;
-            m %= 60;
-            s %= 60;
-    
-            var displayText = '';
-            if (d > 0) {
-                displayText = d + "j " + h + "h " + m + "m et " + s + "s";
-            } else if (h > 0) {
-                displayText = h + "h " + m + "m et " + s + "s";
-            } else if (m > 0) {
-                displayText = m + "m et " + s + "s";
-            } else {
-                displayText = s + "s";
-            }
-    
-            document.getElementById(id).textContent = displayText;
-            document.getElementById(id).innerText = displayText;
+            displayText = s + "s";
         }
+
+        document.getElementById(id).textContent = displayText;
+        document.getElementById(id).innerText = displayText;
 
         setTimeout(() => { this.startCountdown(id, type); }, 1000);
+    }
+
+    checkPublication(id, type) {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', '/check_publications', true);
+
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                var data = JSON.parse(xhr.responseText);
+                if (data.published) {
+                    this.startCountdown(id, type);
+                } else {
+                    document.getElementById(id).textContent = "Publication imminente";
+                    document.getElementById(id).innerText = "Publication imminente";
+                    setTimeout(() => { this.checkPublication(id, type); }, 5000);
+                }
+            }
+        }.bind(this);
+
+        xhr.send();
     }
 
     connect() {

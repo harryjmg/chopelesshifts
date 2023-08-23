@@ -104,6 +104,10 @@ class Planning < ApplicationRecord
         ["permanent", "daily", "weekly"]
     end
 
+    def is_recent
+        published_at > 5.minutes.ago
+    end
+
     private
     
     def set_publication_date

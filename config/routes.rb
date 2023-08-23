@@ -42,6 +42,8 @@ Rails.application.routes.draw do
 
   get 'users/activate/:id', to: 'users#activate', as: :activate_user
 
+  get 'check_publications', to: 'publications#check', as: :check_publications
+
   namespace :api do
     namespace :v1 do
       defaults format: :json do
