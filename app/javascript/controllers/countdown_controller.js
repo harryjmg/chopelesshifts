@@ -19,8 +19,8 @@ export default class extends Controller {
         var remTime = eventTime - currentTime;
 
         if ((remTime / 1000) <= 1) {
-            document.getElementById(id).textContent = "Publication imminente";
-            document.getElementById(id).innerText = "Publication imminente";
+            document.getElementById(id).textContent = "Presque !";
+            document.getElementById(id).innerText = "Presque !";
             this.checkPublication(id, type);
             return;
         }
