@@ -12,4 +12,16 @@ namespace :clean do
         puts ""
         puts "Done."
     end
+
+    task unlock_blocked_users: :environment do
+        User.all.each do |u|
+            if u.user_videos.any? && u.last_video_accessible != Video.find_by(custom_id: "congratulations")
+                # Check if the user has completed the last_video_accessible
+                if u.user_videos.find_by(video: u.last_video_accessible).is_complete
+                    puts "Unlocking next video for #{u.email}"
+                    u.complete_video(u.last_video_accessible)
+                end
+            end
+        end
+    end
 end

@@ -97,6 +97,10 @@ class User < ApplicationRecord
     current_level >= 6 && !has_review?
   end
 
+  def last_video_accessible
+    user_videos.sort_by { |uv| Video::CUSTOM_IDS_IN_ORDER.index(uv.video.custom_id) }.last&.video || Video.find_by(custom_id: "environment_and_api")
+  end
+
   def track_action(event, properties = {})
     properties.merge!({ email: self.email })
     MixpanelTrackUserJob.perform_later(event, properties)
