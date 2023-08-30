@@ -36,7 +36,7 @@
       <div class="details">
         <p class="text-muted text-center">
           <% if this_planning.planning_type == "daily" %>
-            Planning journalier du <%= this_planning.published_at.strftime('%d/%m') %> à <%= this_planning.published_at.strftime('%H:%M') %><br>
+            Planning journalier du <%= this_planning.published_at.strftime('%d/%m') %> à <%= (this_planning.published_at + 2.hours).strftime('%H:%M') %><br>
             Prochain dans : <span id="dailyCountdown" data-controller="countdown"></span>
           <% else %>
             Planning permanent<br>

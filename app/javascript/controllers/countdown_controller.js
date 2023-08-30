@@ -1,6 +1,5 @@
 import { Controller } from "@hotwired/stimulus"
 
-
 export default class extends Controller {
     startCountdown(id, type) {
         var now = new Date();
@@ -19,8 +18,9 @@ export default class extends Controller {
         var remTime = eventTime - currentTime;
 
         if ((remTime / 1000) <= 1) {
-            document.getElementById(id).textContent = "Presque !";
-            document.getElementById(id).innerText = "Presque !";
+            localStorage.setItem("shiftheroes_publishing", "true");
+            document.getElementById(id).textContent = "Un instant...";
+            document.getElementById(id).innerText = "Un instant...";
             this.checkPublication(id, type);
             return;
         }
@@ -59,10 +59,11 @@ export default class extends Controller {
             if (xhr.readyState == 4 && xhr.status == 200) {
                 var data = JSON.parse(xhr.responseText);
                 if (data.published) {
+                    localStorage.removeItem("shiftheroes_publishing");
                     this.startCountdown(id, type);
                 } else {
-                    document.getElementById(id).textContent = "Publication imminente";
-                    document.getElementById(id).innerText = "Publication imminente";
+                    document.getElementById(id).textContent = "Un instant...";
+                    document.getElementById(id).innerText = "Un instant...";
                     setTimeout(() => { this.checkPublication(id, type); }, 5000);
                 }
             }
@@ -72,7 +73,14 @@ export default class extends Controller {
     }
 
     connect() {
-        this.startCountdown("dailyCountdown", "daily");
-        this.startCountdown("weeklyCountdown", "weekly");
+        if (localStorage.getItem("shiftheroes_publishing") === "true") {
+            document.getElementById("dailyCountdown").textContent = "Un instant...";
+            document.getElementById("weeklyCountdown").textContent = "Un instant...";
+            this.checkPublication("dailyCountdown", "daily");
+            this.checkPublication("weeklyCountdown", "weekly");
+        } else {
+            this.startCountdown("dailyCountdown", "daily");
+            this.startCountdown("weeklyCountdown", "weekly");
+        }
     }
 }
