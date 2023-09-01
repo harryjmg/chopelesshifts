@@ -1,4 +1,5 @@
 namespace :all_users do
+    include Sidekiq::worker
     
     task unlock_blocked_users: :environment do
         desc "Unlock the next video for all users who have completed the previous one but."
