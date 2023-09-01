@@ -113,7 +113,7 @@ class User < ApplicationRecord
 
   def not_left_behind
     delay = adjust_delay_for_work_hours(6.hour)
-    SendAdvicesToUserJob.perform_in(delay, self.id, current_level)
+    SendAdvicesToUserJob.set(wait: delay).perform_later(self.id, current_level)
   end
 
   def launch_account
