@@ -1,5 +1,5 @@
 namespace :all_users do
-    
+
     task unlock_blocked_users: :environment do
         desc "Unlock the next video for all users who have completed the previous one but."
         User.all.each do |u|
@@ -21,9 +21,13 @@ namespace :all_users do
     task initialize_advices: :environment do
         desc "Initialize advices for all users"
 
+        puts "Initializing advices for all users..."
         User.where(activation_state: "active").each do |u|
             u.not_left_behind
+            print "."
         end
+
+        puts "Number of users advice-initialized: #{User.where(activation_state: "active").count}"
     end
     
 end
