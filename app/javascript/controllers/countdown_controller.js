@@ -52,9 +52,17 @@ export default class extends Controller {
     }
 
     checkPublication(id, type) {
+        var now = new Date();
+        var lastHourDate = new Date(now.getFullYear(), now.getMonth(), now.getDate(), now.getHours(), 0, 0);
+    
+        if (now.getTime() >= lastHourDate.getTime() + 300000) { // 300000 ms == 5 minutes
+            this.startCountdown(id, type);
+            return;
+        }
+    
         var xhr = new XMLHttpRequest();
         xhr.open('GET', '/check_publications', true);
-
+    
         xhr.onreadystatechange = function() {
             if (xhr.readyState == 4 && xhr.status == 200) {
                 var data = JSON.parse(xhr.responseText);
@@ -68,7 +76,7 @@ export default class extends Controller {
                 }
             }
         }.bind(this);
-
+    
         xhr.send();
     }
 
