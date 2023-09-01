@@ -1,4 +1,6 @@
 class SendAdvicesToUserJob < ApplicationJob
+  include Sidekiq::Worker
+  
   queue_as :default
 
   def perform(user_id, last_known_level, reminder_count = 0)
