@@ -112,6 +112,7 @@ class User < ApplicationRecord
   end
 
   def not_left_behind
+    return if subscribed_to_advices == false
     delay = adjust_delay_for_work_hours(6.hour)
     SendAdvicesToUserJob.set(wait: delay).perform_later(self.id, current_level)
   end

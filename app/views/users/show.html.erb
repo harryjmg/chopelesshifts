@@ -10,20 +10,33 @@
 </div>
 
 <div class="container-md rounded bg-white p-3 border" style="max-width:800px">
-  <p>Ton prénom : <%= @user.first_name %></p>
-  <p>Ton email : <%= @user.email %></p>
+  <h5 class="mt-4">Tes informations de base :</h5>
+  <p>
+    Prénom : <%= @user.first_name %><br>
+    Email : <%= @user.email %>
+  </p>
 
-  <p>Ta photo de profil :</p>
+  <h5 class="mt-4">Ta photo de profil :</h5>
   <img src="https://seccdn.libravatar.org/avatar/<%= Digest::MD5.hexdigest(@user.email.downcase) %>?s=100" alt="Profile Picture">
   
   <p>
-    <%= link_to "Modifier ton image de profil sur Libravar", "https://libravatar.org/", target: "_blank", class: "link-secondary" %>
+    <%= link_to "Clique ici pour modifier ta photo de profil", "https://libravatar.org/", target: "_blank", class: "link-secondary" %>
   </p>
+
+  <h5 class="mt-4">Relances par mail :</h5>
+  
+  <%= link_to toggle_advices_user_path(current_user), data: { turbo_method: :patch }, remote: true, class: "form-check form-switch", id: "toggle_advices_switch" do %>
+    <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchAdvices" <%= current_user.subscribed_to_advices ? 'checked' : '' %>>
+    <label class="form-check-label text-secondary" for="flexSwitchAdvices"><%= current_user.subscribed_to_advices ? "Harry vous pousse à avancer par mail !" : "Harry ne vous pousse pas à avancer" %></label>
+  <% end %>
+
+
+  <h5 class="mt-4">Onboarding :</h5>
 
   <p>
     <%= link_to onboarding_path, class: "link-secondary" do %>
       <i class="fa-solid fa-video"></i>
-      Revoir la première vidéo d'accueil
+      Cliquer ici pour revoir la vidéo d'introduction
     <% end %>
   </p>
 

@@ -12,8 +12,9 @@ Rails.application.routes.draw do
   resources :plannings, only: [:index, :show] do
     resources :shifts, only: [:show]
   end
-  resources :users, only: [:new, :create, :show] do
+  resources :users, only: [:new, :create, :show, :patch] do
     patch :toggle_subscription, on: :member
+    patch :toggle_advices, on: :member
   end
 
   get 'forgot_password', to: 'passwords#forgot_password', as: :forgot_password

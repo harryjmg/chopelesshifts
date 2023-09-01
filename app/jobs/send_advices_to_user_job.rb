@@ -4,6 +4,8 @@ class SendAdvicesToUserJob < ApplicationJob
   def perform(user_id, last_known_level, reminder_count = 0)
     user = User.find(user_id)
 
+    return if user.subscribed_to_advices == false
+
     # Si son niveau n'a pas changé
     if last_known_level == user.current_level
       SendAdvicesToUserService.new(user_id).send_advice(last_known_level, reminder_count)

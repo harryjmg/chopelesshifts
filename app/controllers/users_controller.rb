@@ -1,9 +1,10 @@
 class UsersController < ApplicationController
-  before_action :require_login, only: [:index, :show, :toggle_daily_planning_subscription]
+  before_action :require_login, only: [:index, :show]
   before_action :check_onboarding, only: [:show]
 
   def show
     @user = current_user
+    @subscribed_to_advices = @user.subscribed_to_advices
   end
 
   def new
@@ -18,6 +19,15 @@ class UsersController < ApplicationController
     else
       flash.now[:alert] = "L'utilisateur n'a pas pu être créé : #{@user.errors.full_messages.join(', ')}"
       render :new, status: :unprocessable_entity
+    end
+  end
+
+  def toggle_advices
+    current_user.update(subscribed_to_advices: !current_user.subscribed_to_advices)
+    @subscribed_to_advices = current_user.subscribed_to_advices
+
+    respond_to do |format|
+      format.turbo_stream
     end
   end
 
