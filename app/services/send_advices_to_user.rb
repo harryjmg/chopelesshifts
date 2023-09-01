@@ -1,4 +1,4 @@
-require 'sendinblue'
+require 'sib-api-v3-sdk'
 
 class SendAdvicesToUserService
     def initialize(user_id)
