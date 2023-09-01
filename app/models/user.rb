@@ -81,6 +81,7 @@ class User < ApplicationRecord
   def update_level
     videos_completed_count = self.user_videos.where(is_complete: true).count
     self.update(current_level: videos_completed_count)
+    not_left_behind
   end
 
   def available_plannings(type = nil)
@@ -110,6 +111,19 @@ class User < ApplicationRecord
     AddUserToMailingListJob.perform_later(self)
   end
 
+  def not_left_behind
+    delay = adjust_delay_for_work_hours(6.hour)
+    SendAdvicesToUserJob.perform_in(delay, self.id, current_level)
+  end
+
+  def launch_account
+    record_achievement('account_activation')
+    user_videos.find_or_create_by(video: Video.first)
+    track_action("Shift Heroes - Account activated")
+    add_to_mailing_list
+    not_left_behind
+  end
+
   private
 
   def downcase_email
@@ -121,4 +135,23 @@ class User < ApplicationRecord
       errors.add(:email, "n'est pas valide")
     end
   end
+
+  def adjust_delay_for_work_hours(minimum_delay)
+    supposed_time = Time.now + minimum_delay
+    supposed_hour = supposed_time.hour
+
+    if supposed_hour < 8
+      adjustment = (8 - supposed_hour).hours
+    elsif supposed_hour > 20
+      adjustment = (32 - supposed_hour).hours
+    else
+      return minimum_delay
+    end
+
+    days = (minimum_delay / 1.day).floor
+    adjusted_delay = (days.days + adjustment) + (minimum_delay % 1.day)
+
+    adjusted_delay
+  end
+
 end

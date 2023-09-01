@@ -25,12 +25,9 @@ class UsersController < ApplicationController
     if (@user = User.load_from_activation_token(params[:id]))
       @user.activate!
       auto_login(@user)
-      @user.record_achievement('account_activation')
-      @user.user_videos.find_or_create_by(video: Video.first)
-      @user.track_action("Shift Heroes - Account activated")
-      @user.add_to_mailing_list
+      @user.launch_account
 
-      redirect_to(videos_path, :notice => 'Ton compte est activé.')
+      redirect_to(onboarding_path, :notice => 'Ton compte est activé.')
     else
       not_authenticated
     end

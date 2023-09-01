@@ -114,6 +114,7 @@ videos_data = [
         title: "Hello, API 👋",
         description: "Tranquilou. On fait juste connaissance avec la notion d'API dans le contexte de notre objectif. Et pourquoi utiliser l'API finalement ?",
         url: "https://www.loom.com/share/592b4639f79f450db93fab24d2926132",
+        helping_video_url: "https://www.loom.com/share/9a97d23492504a9099a4c4aa575dc2e9",
         objectives: ["first_api_token"],
         resources: [],
         custom_id: "environment_and_api"
@@ -122,6 +123,7 @@ videos_data = [
         title: "Rencontrer Curl",
         description: "Ça y est, vos premières requêtes API sont arrivées. On va voir comment vous pouver utiliser la commande Curl pour ça.",
         url: "https://www.loom.com/share/66abca1de10445b8a31e30c2cf1eca05",
+        helping_video_url: "https://www.loom.com/share/f90b5616ae754f9195fcdc75d59b47aa",
         objectives: ["first_successful_api_call"],
         resources: [
             {title: "Curl Converter", url: "https://curlconverter.com"}
@@ -132,6 +134,7 @@ videos_data = [
         title: "Passer par l'API",
         description: "Dans cette vidéo, nous allons voir comment réserver un créneau en passant uniquement par l’API.",
         url: "https://www.loom.com/share/03aec0f53e05471581a5da961bb5d17c",
+        helping_video_url: "https://www.loom.com/share/d10e3248f16a45faa389d5a565f9c644",
         objectives: ["first_api_booking"],
         resources: [
             {title: "JSON formatter", url: "https://jsonformatter.curiousconcept.com"}
@@ -142,6 +145,7 @@ videos_data = [
         title: "Charmer le Python",
         description: "Dans cette vidéo, on va voir comment passer de Curl à un langage de programmation et utiliser les variables.",
         url: "https://www.loom.com/share/72f70b7703614cb98538831faf86df23",
+        helping_video_url: "https://www.loom.com/share/882e15cacf7542278a62838330107686",
         objectives: ["chained_api_calls_without_curl"],
         resources: [],
         custom_id: "curl_to_python"
@@ -150,6 +154,7 @@ videos_data = [
         title: "Détecter les changements",
         description: "Dans cette vidéo, on va voir comment détecter la sortie d’un planning.",
         url: "https://www.loom.com/share/9e90305ae1144c29b4e2a452691bf8f5",
+        helping_video_url: "https://www.loom.com/share/eaf29a5fa69c455dab9a3f03013cd9bd",
         objectives: ["fast_listing_without_curl"],
         resources: [
             {title: "Cours complet sur Python", url: "https://www.youtube.com/watch?v=LamjAFnybo0"}
@@ -160,6 +165,7 @@ videos_data = [
         title: "800€ par semaine",
         description: "Dans cette vidéo, on va voir comment tout relier pour prendre tous les créneaux de la semaine.",
         url: "https://www.loom.com/share/5b728c749615422d9e988d618d3fc84d",
+        helping_video_url: "https://www.loom.com/share/848f0bb544d74aee92e1a1438c247b10",
         objectives: ["booked_14_slots_via_api"],
         resources: [],
         custom_id: "book_all_slots"
@@ -192,6 +198,7 @@ videos_data.each_with_index do |video_data, index|
     video.update(
         description: video_data[:description],
         url: video_data[:url],
+        helping_video_url: video_data[:helping_video_url],
         custom_id: video_data[:custom_id],
         title: video_data[:title],
         resources: video_data[:resources]
