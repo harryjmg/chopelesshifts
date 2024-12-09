@@ -13,7 +13,7 @@ gem "jbuilder"
 gem "tzinfo-data", platforms: %i[ mingw mswin x64_mingw jruby ]
 gem "bootsnap", require: false
 
-gem "bootstrap"
+gem "bootstrap", ">= 5.3.2"
 gem "sassc-rails"
 gem "hashid-rails", "~> 1.0"
 gem 'rack-attack'
