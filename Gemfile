@@ -19,7 +19,7 @@ gem "hashid-rails", "~> 1.0"
 gem 'rack-attack'
 gem 'font-awesome-sass'
 
-gem 'rails-i18n'
+gem 'rails-i18n', '>= 8.0.0'
 gem 'sidekiq'
 gem 'redis'
 gem 'dkim'
