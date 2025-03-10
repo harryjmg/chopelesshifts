@@ -7,20 +7,20 @@ gem "sprockets-rails"
 gem "pg", "~> 1.1"
 gem "puma", "~> 5.6", ">= 5.6.8"
 gem "importmap-rails"
-gem "turbo-rails"
+gem "turbo-rails", ">= 2.0.13"
 gem "stimulus-rails"
 gem "jbuilder"
 gem "tzinfo-data", platforms: %i[ mingw mswin x64_mingw jruby ]
 gem "bootsnap", require: false
 
-gem "bootstrap"
+gem "bootstrap", ">= 5.3.2"
 gem "sassc-rails"
 gem "hashid-rails", "~> 1.0"
 gem 'rack-attack'
 gem 'font-awesome-sass'
 
 gem 'rails-i18n'
-gem 'sidekiq'
+gem 'sidekiq', '>= 8.0.0'
 gem 'redis'
 gem 'dkim'
 gem 'httparty'
