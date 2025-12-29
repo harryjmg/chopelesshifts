@@ -23,7 +23,7 @@ gem 'rails-i18n'
 gem 'sidekiq'
 gem 'redis'
 gem 'dkim'
-gem 'httparty'
+gem 'httparty', '>= 0.24.0'
 gem 'mixpanel-ruby'
 gem 'sib-api-v3-sdk'
 
