@@ -47,4 +47,4 @@ group :test do
   gem "simplecov", require: false
 end
 
-gem "sorcery", "~> 0.16.5"
+gem "sorcery", "~> 0.17.0"
